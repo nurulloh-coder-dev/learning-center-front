@@ -11,7 +11,8 @@ interface DataTableProps<T> {
     emptyText: string
     getRowKey: (row: T) => string
     actionsHeader?: ReactNode
-    renderActions?: (row: T) => ReactNode
+    /** `index` — ro'yxatdagi o'rni; tartib siljitish tugmalarini chetda o'chirish uchun kerak. */
+    renderActions?: (row: T, index: number) => ReactNode
 }
 
 export function DataTable<T>({
@@ -63,7 +64,7 @@ export function DataTable<T>({
                     )}
 
                     {!isLoading &&
-                        rows.map((row) => (
+                        rows.map((row, index) => (
                             <tr key={getRowKey(row)} className={dataTableClasses.row}>
                                 {columns.map((column) => (
                                     <td
@@ -79,7 +80,7 @@ export function DataTable<T>({
                                 ))}
                                 {renderActions && (
                                     <td className={cn(dataTableClasses.cell, 'text-right')}>
-                                        <div className={dataTableClasses.actions}>{renderActions(row)}</div>
+                                        <div className={dataTableClasses.actions}>{renderActions(row, index)}</div>
                                     </td>
                                 )}
                             </tr>

@@ -7,7 +7,7 @@ const API_PREFIX = '/api/v1'
 interface RequestOptions extends Omit<RequestInit, 'body'> {
     /** JWT access token; berilsa `Authorization` sarlavhasi qo'shiladi. */
     token?: string
-    /** Obyekt sifatida beriladi — JSON.stringify o'zi bajariladi. */
+    /** Obyekt sifatida beriladi — JSON.stringify o'zi bajariladi. `FormData` bo'lsa o'zgarishsiz yuboriladi. */
     body?: unknown
     /** Query parametrlari; `undefined`/`''` qiymatlar tushirib qoldiriladi. */
     params?: Record<string, string | number | undefined | null>
@@ -43,18 +43,21 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
     const { token, body, params, headers, ...rest } = options
     const url = buildUrl(path, params)
 
+    const isFormData = body instanceof FormData
+
     function send(bearer?: string) {
         return fetch(url, {
             ...rest,
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
+                // FormData bo'lsa Content-Type qo'yilmaydi — brauzer boundary bilan o'zi qo'yadi.
+                ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
                 // Backend xato matnini shu sarlavhaga qarab tarjima qiladi.
                 'Accept-Language': getRequestLocale(),
                 ...(bearer ? { Authorization: `Bearer ${bearer}` } : {}),
                 ...headers,
             },
-            ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+            ...(body === undefined ? {} : { body: isFormData ? body : JSON.stringify(body) }),
         })
     }
 

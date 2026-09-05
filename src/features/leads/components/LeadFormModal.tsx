@@ -2,10 +2,9 @@ import { useState } from 'react'
 import type { LeadCreateDto, LeadDto, LeadSource, LeadUpdateDto } from '@/shared/types'
 import { LEAD_SOURCES } from '@/shared/types'
 import { useT } from '@/shared/i18n'
-import { Button, Field, Input, Modal, Select } from '@/shared/ui'
+import { Button, ErrorBox, Field, Input, Modal, Select } from '@/shared/ui'
 import { useLeadCourseOptions } from '../hooks/useLeads'
-
-const PHONE_RE = /^\+?[1-9]\d{1,14}$/
+import { isValidPhone, normalizePhone } from '../lib/phone'
 
 export interface LeadFormModalProps {
     token: string
@@ -25,14 +24,22 @@ export function LeadFormModal({ token, lead, isPending, onClose, onSubmit }: Lea
     const [source, setSource] = useState<LeadSource | ''>(lead?.source ?? '')
     const [preferredCourse, setPreferredCourse] = useState(lead?.preferredCourse?.id ?? '')
 
-    const isValid = fullName.trim() !== '' && PHONE_RE.test(phone.trim())
+    // Xato faqat yuborishga urinilgandan keyin ko'rsatiladi — yozayotgan
+    // paytda "noto'g'ri" deb turish bezovta qiladi.
+    const [showErrors, setShowErrors] = useState(false)
+
+    const nameError = fullName.trim() === ''
+    const phoneError = !isValidPhone(phone)
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
-        if (!isValid) return
+        if (nameError || phoneError) {
+            setShowErrors(true)
+            return
+        }
 
         const trimmedName = fullName.trim()
-        const trimmedPhone = phone.trim()
+        const trimmedPhone = normalizePhone(phone)
         const trimmedCourse = preferredCourse.trim() || undefined
 
         if (isEdit && lead) {
@@ -57,13 +64,13 @@ export function LeadFormModal({ token, lead, isPending, onClose, onSubmit }: Lea
 
     return (
         <Modal
-            eyebrow={isEdit ? 'EDIT LEAD' : 'NEW LEAD'}
+            eyebrow={isEdit ? t('lead.edit') : t('lead.newTitle')}
             title={isEdit ? t('lead.editTitle') : t('lead.newTitle')}
             onClose={onClose}
             footer={
                 <>
                     <Button onClick={onClose}>{t('common.cancel')}</Button>
-                    <Button variant="primary" onClick={handleSubmit} disabled={!isValid || isPending}>
+                    <Button variant="primary" onClick={handleSubmit} disabled={isPending}>
                         {t('common.save')}
                     </Button>
                 </>
@@ -71,7 +78,8 @@ export function LeadFormModal({ token, lead, isPending, onClose, onSubmit }: Lea
         >
             <form onSubmit={handleSubmit} className="space-y-4">
                 <Field label={t('lead.fullName')}>
-                    <Input value={fullName} onChange={(event) => setFullName(event.target.value)} required />
+                    <Input value={fullName} onChange={(event) => setFullName(event.target.value)} />
+                    {showErrors && nameError && <ErrorBox>{t('lead.nameRequired')}</ErrorBox>}
                 </Field>
                 <Field label={t('lead.phone')}>
                     <Input
@@ -79,13 +87,13 @@ export function LeadFormModal({ token, lead, isPending, onClose, onSubmit }: Lea
                         placeholder="+998901234567"
                         value={phone}
                         onChange={(event) => setPhone(event.target.value)}
-                        required
                     />
-                    <p className="mt-1 text-xs text-fg-muted">International format, e.g. +998901234567</p>
+                    <p className="mt-1 text-xs text-fg-muted">{t('lead.phoneHint')}</p>
+                    {showErrors && phoneError && <ErrorBox>{t('lead.phoneInvalid')}</ErrorBox>}
                 </Field>
                 <Field label={t('lead.source')}>
                     <Select
-                        placeholder="Select source"
+                        placeholder={t('lead.selectSource')}
                         value={source}
                         options={LEAD_SOURCES.map((src) => ({ value: src, label: t(`lead.source.${src}`) || src }))}
                         onChange={(event) => setSource(event.target.value as LeadSource | '')}
@@ -93,7 +101,7 @@ export function LeadFormModal({ token, lead, isPending, onClose, onSubmit }: Lea
                 </Field>
                 <Field label={t('lead.preferredCourse')}>
                     <Select
-                        placeholder="Select level"
+                        placeholder={t('lead.selectCourse')}
                         value={preferredCourse}
                         options={courseOptions.data ?? []}
                         onChange={(event) => setPreferredCourse(event.target.value)}

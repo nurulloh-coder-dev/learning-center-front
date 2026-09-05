@@ -7,6 +7,7 @@ import { AppShell, BackIcon, Button, ErrorBox, IconButton, Panel } from '@/share
 import { GroupLevelFormModal, type GroupLevelFormValues } from '../components/GroupLevelFormModal'
 import { GroupLevelTable } from '../components/GroupLevelTable'
 import { useGroupLevelMutations, useGroupLevels } from '../hooks/useGroupLevels'
+import { moveLevel, sortByOrder, toOrderPayload } from '../lib/groupLevelOrder'
 import { toCreateGroupLevelPayload, toUpdateGroupLevelPayload } from '../lib/groupLevelPayload'
 
 const emptyForm = (): GroupLevelFormValues => ({
@@ -26,6 +27,8 @@ export function GroupLevelsPage() {
     const [modal, setModal] = useState<{ mode: 'create' | 'edit'; row: GroupLevelDto | null } | null>(null)
     const list = useGroupLevels(session.token)
     const mutations = useGroupLevelMutations(session.token)
+
+    const rows = useMemo(() => sortByOrder(list.data ?? []), [list.data])
 
     const initialValues = useMemo(() => {
         if (!modal?.row) return emptyForm()
@@ -65,10 +68,25 @@ export function GroupLevelsPage() {
 
     function handleDelete(row: GroupLevelDto) {
         if (!confirm(t('groupLevel.deleteConfirm', { name: row.name }))) return
-        mutations.remove.mutate(row.id)
+        // O'chirilgandan keyin qolganlari 1..n qilib qayta raqamlanadi —
+        // aks holda tartibda bo'shliq qoladi va yangi daraja o'sha bo'shliqqa emas,
+        // oxirgi raqamdan keyin tushib, ro'yxat aralashib ketadi.
+        const remaining = rows.filter((item) => item.id !== row.id)
+        mutations.remove.mutate(row.id, {
+            onSuccess: () => {
+                if (remaining.length > 0) mutations.reorder.mutate(toOrderPayload(remaining))
+            },
+        })
     }
 
-    const mutationError = mutations.create.error ?? mutations.update.error ?? mutations.remove.error
+    function handleMove(row: GroupLevelDto, direction: -1 | 1) {
+        const next = moveLevel(rows, row.id, direction)
+        if (next === rows) return
+        mutations.reorder.mutate(toOrderPayload(next))
+    }
+
+    const mutationError =
+        mutations.create.error ?? mutations.update.error ?? mutations.remove.error ?? mutations.reorder.error
 
     return (
         <AppShell
@@ -109,7 +127,14 @@ export function GroupLevelsPage() {
                 )}
 
                 {!list.error && (
-                    <GroupLevelTable rows={list.data ?? []} isLoading={list.isLoading} onEdit={openEdit} onDelete={handleDelete} />
+                    <GroupLevelTable
+                        rows={rows}
+                        isLoading={list.isLoading}
+                        onEdit={openEdit}
+                        onDelete={handleDelete}
+                        onMove={handleMove}
+                        isReordering={mutations.reorder.isPending}
+                    />
                 )}
             </Panel>
 

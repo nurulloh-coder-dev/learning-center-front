@@ -35,7 +35,7 @@ export function AttendancePage() {
     // O'tgan darslardan biri qayta tahrirlanayotgan bo'lsa shu yerda turadi.
     const [editingColumn, setEditingColumn] = useState<PastLessonColumn | null>(null)
 
-    const studentsQuery = useGroupStudents(session.token, groupId)
+    const studentsQuery = useGroupStudents(session.token, groupId, session.role)
     const recordsQuery = useAttendanceRecords(session.token, groupId, Number(month))
     const students = studentsQuery.students
 

@@ -2,12 +2,14 @@ import { apiFetch } from './httpClient'
 import type {
     AttendanceDto,
     AttendanceStudentDto,
+    FullGroupDto,
     MonthlyAttendanceDto,
     StudentDto,
 } from '../types'
 
 const ENDPOINT = '/attendance'
 const STUDENT_ENDPOINT = '/student'
+const GROUP_ENDPOINT = '/group'
 
 /**
  * Guruhning oylik davomati.
@@ -31,6 +33,18 @@ export async function fetchMonthlyAttendance(
 export async function fetchStudentsByGroup(token: string, groupId: string): Promise<StudentDto[]> {
     const data = await apiFetch<StudentDto[]>(`${STUDENT_ENDPOINT}/${groupId}/students`, { token })
     return data ?? []
+}
+
+/**
+ * O'qituvchi uchun guruh o'quvchilari.
+ *
+ * `/student/{id}/students` ga `@PreAuthorize` faqat adminlarni qo'yadi —
+ * o'qituvchi davomat ekranini ochganda 403 olardi. `/group/groupInfo` esa
+ * o'qituvchining o'z guruhi uchun ochiq va o'sha ro'yxatni qaytaradi.
+ */
+export async function fetchGroupStudents(token: string, groupId: string): Promise<StudentDto[]> {
+    const data = await apiFetch<FullGroupDto>(`${GROUP_ENDPOINT}/groupInfo`, { token, params: { groupId } })
+    return data?.studentDto ?? []
 }
 
 export interface CreateAttendancePayload {

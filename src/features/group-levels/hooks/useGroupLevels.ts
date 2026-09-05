@@ -1,7 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { queryKeys } from '@/shared/api'
+import type { GroupLevelOrderPayload } from '../lib/groupLevelOrder'
 import type { GroupLevelUpdatePayload } from '../lib/groupLevelPayload'
-import { createGroupLevel, deleteGroupLevel, fetchGroupLevels, updateGroupLevel } from '../api/groupLevelsApi'
+import {
+    createGroupLevel,
+    deleteGroupLevel,
+    fetchGroupLevels,
+    reorderGroupLevels,
+    updateGroupLevel,
+} from '../api/groupLevelsApi'
 
 export function useGroupLevels(token: string) {
     return useQuery({
@@ -34,5 +41,10 @@ export function useGroupLevelMutations(token: string) {
         onSuccess: invalidate,
     })
 
-    return { create, update, remove }
+    const reorder = useMutation({
+        mutationFn: (body: GroupLevelOrderPayload) => reorderGroupLevels(token, body),
+        onSuccess: invalidate,
+    })
+
+    return { create, update, remove, reorder }
 }

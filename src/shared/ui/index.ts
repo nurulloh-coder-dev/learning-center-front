@@ -22,6 +22,8 @@ export { SegmentedControl } from './SegmentedControl'
 export { Select, type SelectOption } from './Select'
 export { ThemeToggle } from './ThemeToggle'
 export {
+    ArrowDownIcon,
+    ArrowUpIcon,
     BackIcon,
     EditIcon,
     MoonIcon,

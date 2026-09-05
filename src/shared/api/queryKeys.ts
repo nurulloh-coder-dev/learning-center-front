@@ -34,7 +34,9 @@ export const queryKeys = {
     attendanceMonthly: (groupId: string, previousMonths: number) =>
         ['attendance', 'list', groupId, previousMonths] as const,
 
-    studentsByGroup: (groupId: string) => ['student', 'byGroup', groupId] as const,
+    // `role` kalitga kiradi: o'qituvchi va admin bir xil guruhni turli
+    // endpointdan oladi, kesh aralashib ketmasligi kerak.
+    studentsByGroup: (groupId: string, role: string) => ['student', 'byGroup', groupId, role] as const,
 
     invoices: (params: Record<string, unknown>) => ['invoice', 'list', params] as const,
 

@@ -12,10 +12,12 @@ export interface GroupLevelCreatePayload {
     lessonCount: number
     orderNumber: number
     durationInMonths: number
+    monthlyFee: number
 }
 
-/** `PUT /group-level/{id}` tanasi — `name` va `orderNumber` bu yerda YO'Q. */
+/** `PUT /group-level/{id}` tanasi — `orderNumber` bu yerda YO'Q, `name` endi bor. */
 export interface GroupLevelUpdatePayload {
+    name: string
     lessonCount: number
     durationInMonths: number
     monthlyFee: number
@@ -34,11 +36,13 @@ export function toCreateGroupLevelPayload(values: GroupLevelFormInput): GroupLev
         lessonCount: parsePositiveNumber(values.lessonCount),
         orderNumber: parsePositiveNumber(values.orderNumber),
         durationInMonths: parsePositiveNumber(values.durationInMonths),
+        monthlyFee: parsePositiveNumber(values.monthlyFee),
     }
 }
 
 export function toUpdateGroupLevelPayload(values: GroupLevelFormInput): GroupLevelUpdatePayload {
     return {
+        name: values.name.trim(),
         lessonCount: parsePositiveNumber(values.lessonCount),
         durationInMonths: parsePositiveNumber(values.durationInMonths),
         monthlyFee: parsePositiveNumber(values.monthlyFee),

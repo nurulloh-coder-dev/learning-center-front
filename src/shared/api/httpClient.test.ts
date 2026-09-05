@@ -72,6 +72,16 @@ describe('apiFetch', () => {
         expect(fetchMock.mock.calls[0][1].body).toBe('{"groupId":"g1"}')
     })
 
+    // FormData bo'lsa brauzer boundary bilan Content-Type'ni o'zi qo'yadi.
+    it('FormData tanani o’zgarishsiz yuboradi va Content-Type qo’ymaydi', async () => {
+        const fetchMock = mockFetch({ text: '{}' })
+        const formData = new FormData()
+        formData.append('file', 'content')
+        await apiFetch('/upload', { method: 'POST', body: formData })
+        expect(fetchMock.mock.calls[0][1].body).toBe(formData)
+        expect(fetchMock.mock.calls[0][1].headers).not.toHaveProperty('Content-Type')
+    })
+
     // 200 + bo'sh tana — backendning haqiqiy xatti-harakati, res.json() bunda yiqiladi.
     it('bo’sh tanali 200 javobda null qaytaradi', async () => {
         mockFetch({ text: '' })

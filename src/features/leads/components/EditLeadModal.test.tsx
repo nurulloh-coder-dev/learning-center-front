@@ -79,21 +79,43 @@ describe('EditLeadModal', () => {
         })
     })
 
-    it('telefon yoki ism yaroqsiz bo’lsa saqlash tugmasi disabled bo’ladi', async () => {
+    it('telefon yaroqsiz bo’lsa xato matnini ko’rsatadi va yubormaydi', async () => {
+        const onSubmit = vi.fn()
         renderWithProviders(
             <EditLeadModal
                 token="fake-token"
                 lead={mockLead}
                 onClose={vi.fn()}
-                onSubmit={vi.fn()}
+                onSubmit={onSubmit}
             />
         )
 
         const phoneInput = screen.getByLabelText(/Telefon/i) as HTMLInputElement
         await userEvent.clear(phoneInput)
         await userEvent.type(phoneInput, 'invalid-phone')
+        await userEvent.click(screen.getByRole('button', { name: /saqlash/i }))
 
-        const submitBtn = screen.getByRole('button', { name: /saqlash/i })
-        expect(submitBtn).toBeDisabled()
+        expect(onSubmit).not.toHaveBeenCalled()
+        expect(screen.getByText(/noto‘g‘ri/i)).toBeInTheDocument()
+    })
+
+    // Bo'shliqli yozuv ilgari jimgina rad etilardi — tugma o'chib qolardi.
+    it('bo’shliqli telefon raqamini qabul qiladi', async () => {
+        const onSubmit = vi.fn()
+        renderWithProviders(
+            <EditLeadModal
+                token="fake-token"
+                lead={mockLead}
+                onClose={vi.fn()}
+                onSubmit={onSubmit}
+            />
+        )
+
+        const phoneInput = screen.getByLabelText(/Telefon/i) as HTMLInputElement
+        await userEvent.clear(phoneInput)
+        await userEvent.type(phoneInput, '+998 90 123 45 67')
+        await userEvent.click(screen.getByRole('button', { name: /saqlash/i }))
+
+        expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({ phone: '+998901234567' }))
     })
 })

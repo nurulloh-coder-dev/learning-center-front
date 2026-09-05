@@ -1,6 +1,6 @@
 import { useT } from '@/shared/i18n'
 import { formatAmount } from '@/shared/lib'
-import { DataTable, EditIcon, IconButton, TrashIcon } from '@/shared/ui'
+import { ArrowDownIcon, ArrowUpIcon, DataTable, EditIcon, IconButton, TrashIcon } from '@/shared/ui'
 import type { DataTableColumn } from '@/shared/ui'
 import type { GroupLevelDto } from '@/shared/types'
 
@@ -9,9 +9,18 @@ interface GroupLevelTableProps {
     isLoading: boolean
     onEdit: (row: GroupLevelDto) => void
     onDelete: (row: GroupLevelDto) => void
+    onMove?: (row: GroupLevelDto, direction: -1 | 1) => void
+    isReordering?: boolean
 }
 
-export function GroupLevelTable({ rows, isLoading, onEdit, onDelete }: GroupLevelTableProps) {
+export function GroupLevelTable({
+    rows,
+    isLoading,
+    onEdit,
+    onDelete,
+    onMove,
+    isReordering = false,
+}: GroupLevelTableProps) {
     const { t } = useT()
 
     const columns: DataTableColumn<GroupLevelDto>[] = [
@@ -44,8 +53,26 @@ export function GroupLevelTable({ rows, isLoading, onEdit, onDelete }: GroupLeve
             emptyText={t('groupLevel.empty')}
             getRowKey={(row) => row.id}
             actionsHeader={t('admin.actions')}
-            renderActions={(row) => (
+            renderActions={(row, index) => (
                 <>
+                    {onMove && (
+                        <>
+                            <IconButton
+                                label={t('groupLevel.moveUp')}
+                                onClick={() => onMove(row, -1)}
+                                disabled={isReordering || index === 0}
+                            >
+                                <ArrowUpIcon />
+                            </IconButton>
+                            <IconButton
+                                label={t('groupLevel.moveDown')}
+                                onClick={() => onMove(row, 1)}
+                                disabled={isReordering || index === rows.length - 1}
+                            >
+                                <ArrowDownIcon />
+                            </IconButton>
+                        </>
+                    )}
                     <IconButton label={t('common.edit')} onClick={() => onEdit(row)}>
                         <EditIcon />
                     </IconButton>

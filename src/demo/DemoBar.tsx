@@ -58,7 +58,7 @@ export function DemoBar({ role, onRoleChange }: DemoBarProps) {
                 type="button"
                 aria-expanded={isOpen}
                 onClick={() => setIsOpen((open) => !open)}
-                className="flex cursor-pointer items-center gap-1.5 rounded-full border border-border-base bg-surface-card/95 px-3 py-2 shadow-[0_8px_20px_-6px_rgba(0,0,0,0.4)] backdrop-blur"
+                className="flex cursor-pointer items-center gap-1.5 rounded-full border border-border-base bg-surface-card/95 px-3.5 py-2.5 min-h-[38px] shadow-[0_8px_20px_-6px_rgba(0,0,0,0.4)] backdrop-blur"
             >
                 <span className="rounded-full bg-brand px-1.5 py-0.5 font-mono text-[0.55rem] tracking-[0.08em] text-brand-fg uppercase">
                     Demo

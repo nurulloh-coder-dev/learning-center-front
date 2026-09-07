@@ -75,7 +75,7 @@ export function PasswordSection() {
                 )}
 
                 <div className="flex justify-end">
-                    <Button type="submit" variant="primary" disabled={change.isPending}>
+                    <Button type="submit" variant="primary" className="w-full sm:w-auto" disabled={change.isPending}>
                         {change.isPending ? t('common.saving') : t('common.save')}
                     </Button>
                 </div>

@@ -65,7 +65,7 @@ export function AttendanceTable({
             <table className="min-w-full border-collapse text-sm">
                 <thead>
                     <tr>
-                        <th className="sticky left-0 z-20 border-b border-border-base bg-surface px-4 py-3 text-left font-mono text-[0.66rem] tracking-[0.05em] whitespace-nowrap text-fg-faint uppercase">
+                        <th className="sticky left-0 z-20 border-r border-b border-border-base bg-surface px-4 py-3 text-left font-mono text-[0.66rem] tracking-[0.05em] whitespace-nowrap text-fg-faint uppercase shadow-[4px_0_8px_-4px_rgba(0,0,0,0.08)] dark:shadow-[4px_0_8px_-4px_rgba(0,0,0,0.4)]">
                             {t('attendance.student')}
                         </th>
                         {pastColumns.map((column) => {
@@ -122,7 +122,7 @@ export function AttendanceTable({
                 <tbody>
                     {students.map((student, index) => (
                         <tr key={student.id} className="group hover:bg-surface-hover">
-                            <td className="sticky left-0 z-10 border-b border-border-base bg-surface-card px-4 py-2.5 whitespace-nowrap group-hover:bg-surface-hover">
+                            <td className="sticky left-0 z-10 border-r border-b border-border-base bg-surface-card px-4 py-2.5 whitespace-nowrap group-hover:bg-surface-hover shadow-[4px_0_8px_-4px_rgba(0,0,0,0.08)] dark:shadow-[4px_0_8px_-4px_rgba(0,0,0,0.4)]">
                                 <span className="mr-2.5 inline-block w-5 font-mono text-xs font-bold tabular-nums text-accent-fg">
                                     {index + 1}
                                 </span>

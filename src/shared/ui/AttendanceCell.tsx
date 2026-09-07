@@ -47,7 +47,7 @@ export function AttendanceCell({ studentName, status, reason, onChange }: Attend
                 onClick={toggle}
                 aria-label={`${studentName}: ${t(`attendance.${status}`)}`}
                 className={cn(
-                    'size-9 cursor-pointer rounded-md font-mono text-sm font-bold transition-colors',
+                    'size-10 sm:size-9 cursor-pointer rounded-md font-mono text-sm font-bold transition-colors',
                     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
                     STATUS_SQUARE[status]
                 )}
@@ -61,9 +61,10 @@ export function AttendanceCell({ studentName, status, reason, onChange }: Attend
                 onClick={() => setIsNoteOpen((open) => !open)}
                 aria-label={t('attendance.addExcuse', { name: studentName })}
                 className={cn(
-                    'absolute -top-1 -right-1 flex size-4 cursor-pointer items-center justify-center',
-                    'rounded-full border border-border-base bg-surface-card text-[0.6rem] leading-none text-fg-muted',
-                    'hover:bg-surface-hover'
+                    'absolute -top-1 -right-1 flex size-5 cursor-pointer items-center justify-center',
+                    'after:absolute after:-inset-2 after:content-[""]',
+                    'rounded-full border border-border-base bg-surface-card text-[0.65rem] font-bold leading-none text-fg-muted',
+                    'hover:bg-surface-hover shadow-xs'
                 )}
             >
                 {reason ? '!' : '·'}
@@ -81,7 +82,7 @@ export function AttendanceCell({ studentName, status, reason, onChange }: Attend
                     />
                     <form
                         onSubmit={submitExcuse}
-                        className="absolute top-full right-0 z-50 mt-1 w-60 rounded-lg border border-border-base bg-surface-card p-3 text-left shadow-[0_12px_30px_-8px_rgba(0,0,0,0.4)]"
+                        className="absolute top-full right-0 z-50 mt-1.5 w-60 max-w-[calc(100vw-2rem)] rounded-lg border border-border-base bg-surface-card p-3 text-left shadow-[0_12px_30px_-8px_rgba(0,0,0,0.4)]"
                     >
                         <label className="mb-1.5 block font-mono text-[0.62rem] tracking-[0.06em] text-fg-faint uppercase">
                             {t('attendance.excuseReason')}

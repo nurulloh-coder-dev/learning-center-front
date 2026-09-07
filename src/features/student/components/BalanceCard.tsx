@@ -40,7 +40,7 @@ export function BalanceCard({ student, hasGroup }: BalanceCardProps) {
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <span
                         className={cn(
-                            'font-display text-3xl font-semibold tabular-nums',
+                            'font-display text-2xl sm:text-3xl font-semibold tabular-nums min-w-0 break-words',
                             student.balance < 0 ? 'text-danger-fg' : 'text-fg'
                         )}
                     >

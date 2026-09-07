@@ -18,7 +18,7 @@ export function LoginPage({ onLoggedIn }: { onLoggedIn: (session: Session) => vo
 
     return (
         <div className="grid min-h-screen lg:grid-cols-[minmax(360px,460px)_1fr]">
-            <div className="flex flex-col justify-center bg-surface px-6 py-10 sm:px-14">
+            <div className="flex flex-col justify-center bg-surface px-6 pt-8 pb-12 sm:px-14 sm:py-10">
                 <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
                     <Brand subtitle={t('auth.brand')} className="min-w-0" />
                     <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
@@ -31,7 +31,7 @@ export function LoginPage({ onLoggedIn }: { onLoggedIn: (session: Session) => vo
 
                 <LoginForm onLoggedIn={onLoggedIn} />
 
-                <div className="mt-7">
+                <div className="mt-7 pb-2">
                     <SegmentedControl<Locale>
                         label={t('settings.language')}
                         value={locale}

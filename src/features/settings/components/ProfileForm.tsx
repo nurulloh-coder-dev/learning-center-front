@@ -49,7 +49,7 @@ export function ProfileForm({ user }: { user: UserDto }) {
             {save.isSuccess && <p className="text-sm text-success-fg">{t('settings.profileSaved')}</p>}
 
             <div className="flex justify-end">
-                <Button type="submit" variant="primary" disabled={save.isPending || !user.id}>
+                <Button type="submit" variant="primary" className="w-full sm:w-auto" disabled={save.isPending || !user.id}>
                     {save.isPending ? t('common.saving') : t('common.save')}
                 </Button>
             </div>

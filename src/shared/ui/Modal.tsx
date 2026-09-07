@@ -29,13 +29,13 @@ export function Modal({ eyebrow, title, onClose, children, footer }: ModalProps)
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-5 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-3 sm:p-5 backdrop-blur-sm"
             onClick={onClose}
         >
             <div
                 role="dialog"
                 aria-modal="true"
-                className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-xl border border-border-base bg-surface-card/88 p-7 shadow-[0_28px_80px_-32px_var(--fg)] backdrop-blur-xl"
+                className="max-h-[90vh] sm:max-h-[85vh] w-full max-w-md overflow-y-auto rounded-xl border border-border-base bg-surface-card/95 p-5 sm:p-7 shadow-[0_28px_80px_-32px_var(--fg)] backdrop-blur-xl"
                 onClick={(event) => event.stopPropagation()}
             >
                 {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}

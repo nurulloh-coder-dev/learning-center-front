@@ -11,6 +11,7 @@ export const common = {
     'common.close': 'Yopish',
     'common.edit': 'Tahrirlash',
     'common.delete': "O'chirish",
+    'common.downloadCsv': 'Yuklab olish',
     'common.signOut': 'Chiqish',
     'common.loading': 'Yuklanmoqda…',
     'common.empty': '—',

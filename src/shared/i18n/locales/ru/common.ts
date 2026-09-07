@@ -8,6 +8,7 @@ export const common: Record<CommonKeys, string> = {
     'common.close': 'Закрыть',
     'common.edit': 'Изменить',
     'common.delete': 'Удалить',
+    'common.downloadCsv': 'Скачать',
     'common.signOut': 'Выйти',
     'common.loading': 'Загрузка…',
     'common.empty': '—',

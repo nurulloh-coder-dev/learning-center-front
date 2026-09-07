@@ -5,6 +5,7 @@ import { useTheme } from '@/app/providers/useTheme'
 import { errorMessage } from '@/shared/api'
 import { useAttendanceRecords } from '@/shared/hooks'
 import { useT } from '@/shared/i18n'
+import { downloadCsv, formatDate, generateCsvContent, sanitizeFilename } from '@/shared/lib'
 import { AppShell, AttendanceTable, Button, EmptyState, ErrorBox, SegmentedControl, type PastLessonColumn } from '@/shared/ui'
 import { DraftBar } from '../components/DraftBar'
 import { useAttendanceDraft, type AttendanceDraftInitial } from '../hooks/useAttendanceDraft'
@@ -95,6 +96,76 @@ export function AttendancePage() {
         }
     }
 
+    const groupName = activeLesson?.group?.name || (groupId ? `group_${groupId}` : 'group')
+    const today = new Date().toISOString().slice(0, 10)
+
+    function getStatusLabel(status: AttendanceStatus): string {
+        if (status === 'PRESENT') return t('attendance.PRESENT')
+        if (status === 'ABSENT') return t('attendance.ABSENT')
+        if (status === 'EXCUSED') return t('attendance.EXCUSED')
+        return status
+    }
+
+    function handleDownloadCsv() {
+        if (students.length === 0) return
+
+        const activeDraft = draft.draft
+
+        // 1. Sarlavhalar qatori: "Student", keyin har bir o'tgan dars sanasi va sarlavhasi
+        const headers: string[] = [t('attendance.student')]
+        pastColumns.forEach((col) => {
+            const dateStr = formatDate(col.date)
+            const titleStr = col.lessonTitle ? ` (${col.lessonTitle})` : ''
+            headers.push(`${dateStr}${titleStr}`)
+        })
+
+        if (activeDraft && activeDraft.lesson) {
+            const draftDate = formatDate(activeDraft.lesson.lessonDate)
+            const draftTitle = activeDraft.lesson.title ? ` (${t('attendance.lessonNumber', { number: activeDraft.lesson.title })})` : ''
+            headers.push(`${draftDate}${draftTitle}`)
+        }
+
+        // 2. Har bir o'quvchi uchun qatorlar
+        const editingPastLessonId =
+            activeDraft && pastColumns.some((column) => column.lessonId === activeDraft.lesson.id)
+                ? activeDraft.lesson.id
+                : null
+
+        const rows: (string | null | undefined)[][] = students.map((student) => {
+            const studentRow: (string | null | undefined)[] = [student.userDto?.fullName || '—']
+
+            pastColumns.forEach((col) => {
+                if (col.lessonId === editingPastLessonId && activeDraft) {
+                    const st = activeDraft.statuses[student.id] ?? 'PRESENT'
+                    const re = activeDraft.reasons[student.id]
+                    const label = getStatusLabel(st)
+                    studentRow.push(re ? `${label} (${re})` : label)
+                } else {
+                    const entry = col.attendanceMap[student.id]
+                    if (!entry) {
+                        studentRow.push('—')
+                    } else {
+                        const label = getStatusLabel(entry.status)
+                        studentRow.push(entry.reason ? `${label} (${entry.reason})` : label)
+                    }
+                }
+            })
+
+            if (activeDraft && !editingPastLessonId) {
+                const st = activeDraft.statuses[student.id] ?? 'PRESENT'
+                const re = activeDraft.reasons[student.id]
+                const label = getStatusLabel(st)
+                studentRow.push(re ? `${label} (${re})` : label)
+            }
+
+            return studentRow
+        })
+
+        const csvString = generateCsvContent([headers, ...rows])
+        const filename = sanitizeFilename(`attendance_${groupName}_${today}.csv`)
+        downloadCsv(filename, csvString)
+    }
+
     const isLoading = studentsQuery.isLoading || recordsQuery.isLoading
     const failure = submit.error ?? studentsQuery.error ?? recordsQuery.error
 
@@ -117,6 +188,9 @@ export function AttendancePage() {
                             { value: '3', label: t('attendance.monthTwoAgo') },
                         ]}
                     />
+                    <Button size="sm" onClick={handleDownloadCsv} disabled={isLoading || students.length === 0}>
+                        {t('common.downloadCsv')}
+                    </Button>
                     <Button size="sm" onClick={() => navigate('/')}>
                         ← {t('attendance.backToDashboard')}
                     </Button>

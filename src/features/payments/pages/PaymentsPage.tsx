@@ -4,7 +4,7 @@ import { useAuth, useSession } from '@/app/providers/useAuth'
 import { useTheme } from '@/app/providers/useTheme'
 import { errorMessage } from '@/shared/api'
 import { useT } from '@/shared/i18n'
-import { formatAmount } from '@/shared/lib'
+import { downloadCsv, formatAmount, formatDate, generateCsvContent, sanitizeFilename } from '@/shared/lib'
 import { INVOICE_STATUSES } from '@/shared/types'
 import {
     AppShell,
@@ -85,6 +85,33 @@ export function PaymentsPage() {
         refund.mutate(refundStudentId, { onSuccess: () => setRefundStudentId('') })
     }
 
+    function handleDownloadCsv() {
+        if (list.invoices.length === 0) return
+
+        const headers = [
+            t('invoice.number'),
+            t('invoice.student'),
+            t('invoice.amount'),
+            t('invoice.issuedAt'),
+            t('invoice.type'),
+            t('field.status'),
+        ]
+
+        const rows = list.invoices.map((invoice) => [
+            invoice.invoiceNumber ?? '—',
+            invoice.student?.userDto?.fullName ?? '—',
+            formatAmount(invoice.amount),
+            formatDate(invoice.issuedAt) || '—',
+            invoice.type || '—',
+            invoice.status ? t(`invoice.status.${invoice.status}`) : '—',
+        ])
+
+        const csvString = generateCsvContent([headers, ...rows])
+        const today = new Date().toISOString().slice(0, 10)
+        const filename = sanitizeFilename(`payments_${today}.csv`)
+        downloadCsv(filename, csvString)
+    }
+
     const mutationError = changeStatus.error ?? remove.error ?? refund.error
 
     return (
@@ -99,6 +126,13 @@ export function PaymentsPage() {
                     <IconButton label={t('common.back')} onClick={() => navigate('/')}>
                         <BackIcon />
                     </IconButton>
+                    <Button
+                        size="sm"
+                        onClick={handleDownloadCsv}
+                        disabled={list.isLoading || list.invoices.length === 0}
+                    >
+                        {t('common.downloadCsv')}
+                    </Button>
                     <Button variant="primary" size="sm" onClick={() => setIsModalOpen(true)}>
                         {t('invoice.new')}
                     </Button>

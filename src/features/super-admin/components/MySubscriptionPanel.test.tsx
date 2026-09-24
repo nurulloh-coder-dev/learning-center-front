@@ -24,25 +24,17 @@ afterEach(() => {
 })
 
 describe('MySubscriptionPanel', () => {
-    it('tarif nomi va qolgan kunni ko’rsatadi', () => {
-        renderWithProviders(
-            <MySubscriptionPanel subscription={subscription('2026-10-17T00:00:00Z')} isLoading={false} />
-        )
-
-        expect(screen.getByText('Standard')).toBeInTheDocument()
-        expect(screen.getByText('30')).toBeInTheDocument()
-    })
-
     /*
-     * Ogohlantirish doim tursa, odam uni bir haftada ko'rmay qo'yadi.
-     * Shuning uchun u faqat muddat yaqinlashganda paydo bo'ladi.
+     * Hammasi joyida bo'lsa blok UMUMAN chizilmaydi: u ekranning eng
+     * tepasida turib, kerakli ma'lumotni pastga surib yuborardi. Tarif
+     * haqidagi to'liq ma'lumot "Tashkilot" bo'limida.
      */
-    it('muddat uzoq bo’lsa ogohlantirmaydi', () => {
-        renderWithProviders(
+    it('muddat uzoq bo’lsa hech nima ko’rsatmaydi', () => {
+        const { container } = renderWithProviders(
             <MySubscriptionPanel subscription={subscription('2026-10-17T00:00:00Z')} isLoading={false} />
         )
 
-        expect(screen.queryByText(/tugayapti|tugadi/i)).not.toBeInTheDocument()
+        expect(container).toBeEmptyDOMElement()
     })
 
     it('muddat yaqinlashganda ogohlantiradi', () => {

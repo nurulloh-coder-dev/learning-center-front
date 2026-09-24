@@ -5,6 +5,9 @@
  * keyin `ru/` va `en/` dagi shu nomli faylga.
  */
 export const superAdmin = {
+    'superAdmin.branchRequired': 'Avval filial qo‘shing: o‘quvchi, o‘qituvchi va administrator — hammasi filialga biriktiriladi.',
+    'superAdmin.editDetails': 'Ma’lumotlarni o‘zgartirish',
+    'superAdmin.needsAttention': 'Diqqat talab qiladi',
     'superAdmin.group.people': 'Odamlar',
     'superAdmin.group.settings': 'Sozlamalar',
     'superAdmin.section.students': 'O‘quvchilar',

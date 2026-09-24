@@ -2,6 +2,9 @@ import type { SuperAdminKeys } from '../uz/superAdmin'
 
 /** Super-admin: tashkilotlar va filiallar. (inglizcha) */
 export const superAdmin: Record<SuperAdminKeys, string> = {
+    'superAdmin.branchRequired': 'Add a branch first - students, teachers and administrators are all attached to one.',
+    'superAdmin.editDetails': 'Edit details',
+    'superAdmin.needsAttention': 'Needs attention',
     'superAdmin.group.people': 'People',
     'superAdmin.group.settings': 'Settings',
     'superAdmin.section.students': 'Students',

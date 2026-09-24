@@ -2,6 +2,9 @@ import type { SuperAdminKeys } from '../uz/superAdmin'
 
 /** Super-admin: tashkilotlar va filiallar. (ruscha) */
 export const superAdmin: Record<SuperAdminKeys, string> = {
+    'superAdmin.branchRequired': 'Сначала добавьте филиал: ученики, учителя и администраторы привязываются к филиалу.',
+    'superAdmin.editDetails': 'Изменить данные',
+    'superAdmin.needsAttention': 'Требует внимания',
     'superAdmin.group.people': 'Люди',
     'superAdmin.group.settings': 'Настройки',
     'superAdmin.section.students': 'Ученики',

@@ -30,6 +30,7 @@ export const settings: Record<SettingsKeys, string> = {
     'settings.passwordTooShort': 'The new password must be at least 8 characters.',
     'settings.myImages': 'My images',
     'settings.myImagesHint': 'List of uploaded images for your profile.',
+    'settings.enlargeImage': 'View larger',
     'settings.mainImage': 'Main',
     'settings.setAsMain': 'Set as main',
     'settings.deleteImage': 'Delete',

@@ -31,6 +31,7 @@ export {
     MoonIcon,
     SettingsIcon,
     SignOutIcon,
+    StarIcon,
     SunIcon,
     TrashIcon,
     UserPlusIcon,

@@ -157,7 +157,7 @@ export function GroupSidebar({
                         aria-current={isActive ? 'true' : undefined}
                         onClick={() => onSelect(group.id)}
                         className={cn(
-                            'min-h-11 w-full rounded-lg px-3 text-left transition-colors',
+                            'min-h-11 w-full cursor-pointer rounded-lg px-3 text-left transition-colors',
                             isActive ? 'bg-purple-soft' : 'hover:bg-surface-hover'
                         )}
                     >

@@ -33,6 +33,7 @@ export const settings = {
     'settings.passwordTooShort': 'Yangi parol kamida 8 belgidan iborat bo‘lsin.',
     'settings.myImages': 'Mening rasmlarim',
     'settings.myImagesHint': 'Profillaringiz uchun yuklangan rasmlar ro‘yxati.',
+    'settings.enlargeImage': 'Kattalashtirib ko‘rish',
     'settings.mainImage': 'Asosiy',
     'settings.setAsMain': 'Asosiy qilish',
     'settings.deleteImage': 'O‘chirish',

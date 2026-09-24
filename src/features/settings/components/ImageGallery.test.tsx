@@ -92,9 +92,10 @@ describe('ImageGallery', () => {
 
         renderWithProviders(<ImageGallery />)
 
-        // Rasmlar va tugmalar yuklanishini kutamiz
+        // "Asosiy" endi matn emas, yulduz ikonkasi — uning nomi bo'yicha
+        // topamiz. Tugmalar rol va nom bo'yicha izlanadi, ko'rinish emas.
         await waitFor(() => {
-            expect(screen.getByText('Asosiy')).toBeInTheDocument()
+            expect(screen.getByRole('button', { name: /^asosiy$/i })).toBeInTheDocument()
         })
 
         // Faqat bitta o'chirish tugmasi va bitta "Asosiy qilish" tugmasi bo'lishi kerak (chunki ikkinchi rasm asosiy emas)

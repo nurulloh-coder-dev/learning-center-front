@@ -9,7 +9,6 @@ import { BranchesPanel } from '../components/BranchesPanel'
 import { MySubscriptionPanel } from '../components/MySubscriptionPanel'
 import { OrganizationPanel } from '../components/OrganizationPanel'
 import { PeoplePanel } from '../components/PeoplePanel'
-import { SuperAdminOnboardingSteps } from '../components/SuperAdminOnboardingSteps'
 import { SuperAdminSidebar, type SuperAdminSection } from '../components/SuperAdminSidebar'
 import { useAnalytics } from '../hooks/useAnalytics'
 import { useAdminCount, useBranches } from '../hooks/useSuperAdminData'
@@ -39,6 +38,22 @@ export function SuperAdminDashboardPage() {
     const branches = useBranches(session.token, 0, '')
     const adminCount = useAdminCount(session.token)
 
+    /*
+     * Filial yo'q bo'lsa boshqa hech narsa qilib bo'lmaydi: o'quvchi ham,
+     * o'qituvchi ham, administrator ham filialga biriktiriladi. Shuning
+     * uchun ekran o'zi filiallarga qulflanadi — bo'sh ro'yxatlarni ochib,
+     * keyin "nega qo'sha olmayapman" degan savolga qolgandan ko'ra shu
+     * tushunarli.
+     */
+    const needsBranch = !branches.isLoading && branches.totalElements === 0
+    const activeSection = needsBranch ? 'branches' : section
+
+    /** Qizil nuqta: bajarilishi kerak, lekin hali bajarilmagan ishlar. */
+    const needsAttention: SuperAdminSection[] = [
+        ...(needsBranch ? (['branches'] as const) : []),
+        ...(!needsBranch && adminCount === 0 ? (['administrators'] as const) : []),
+    ]
+
     function changeSection(next: SuperAdminSection) {
         // Qidiruv va sahifa bo'limga tegishli — almashganda tozalanadi,
         // aks holda yangi ro'yxat eski qidiruv bilan bo'sh chiqadi.
@@ -62,17 +77,22 @@ export function SuperAdminDashboardPage() {
 
             <AnalyticsStatsRow items={analytics.items} />
 
-            <SuperAdminOnboardingSteps
-                branchCount={branches.totalElements}
-                adminCount={adminCount}
-                onOpenBranches={() => changeSection('branches')}
-            />
-
             <div className="flex gap-6">
-                <SuperAdminSidebar active={section} onChange={changeSection} />
+                <SuperAdminSidebar
+                    active={activeSection}
+                    onChange={changeSection}
+                    needsAttention={needsAttention}
+                    lockedTo={needsBranch ? 'branches' : undefined}
+                />
 
                 <div className="min-w-0 flex-1">
-                    {section === 'branches' && (
+                    {needsBranch && (
+                        <p className="mb-3 rounded-lg border border-amber/20 bg-amber-soft px-4 py-3 text-sm text-amber-fg">
+                            {t('superAdmin.branchRequired')}
+                        </p>
+                    )}
+
+                    {activeSection === 'branches' && (
                         <BranchesPanel
                             token={session.token}
                             page={page}
@@ -87,14 +107,14 @@ export function SuperAdminDashboardPage() {
                         />
                     )}
 
-                    {section === 'organization' && (
+                    {activeSection === 'organization' && (
                         <OrganizationPanel token={session.token} organizationId={organizationId} />
                     )}
 
-                    {section !== 'branches' && section !== 'organization' && (
+                    {activeSection !== 'branches' && activeSection !== 'organization' && (
                         <PeoplePanel
                             token={session.token}
-                            kind={section}
+                            kind={activeSection}
                             page={page}
                             search={search}
                             onPageChange={setPage}

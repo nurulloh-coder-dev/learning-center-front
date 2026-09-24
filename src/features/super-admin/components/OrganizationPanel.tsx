@@ -4,7 +4,7 @@ import { errorMessage, queryKeys } from '@/shared/api'
 import { useMyOrganization } from '@/shared/hooks'
 import { useT } from '@/shared/i18n'
 import { formatPhone, normalizePhone } from '@/shared/lib'
-import { Button, ErrorBox, Eyebrow, Field, Input, Panel } from '@/shared/ui'
+import { Avatar, Button, ErrorBox, Eyebrow, Field, Input, Panel } from '@/shared/ui'
 import { updateOwnOrganization } from '../api/superAdminApi'
 import type { OrganizationDto } from '@/shared/types'
 
@@ -80,9 +80,42 @@ function OrganizationForm({
         save.mutate()
     }
 
+    /*
+     * Havola to'g'riligini tekshiramiz, lekin YOZISHGA TO'SQINLIK
+     * QILMAYMIZ: odam "alia.uz" deb yozishi mumkin va uni xato deb
+     * rad etsak, u nima kutilayotganini tushunmaydi. Shuning uchun
+     * shunchaki yonida ochiladigan havola ko'rsatiladi.
+     */
+    const websiteHref = website.trim()
+        ? /^https?:\/\//i.test(website.trim())
+            ? website.trim()
+            : `https://${website.trim()}`
+        : null
+
     return (
         <Panel>
-            <Eyebrow>{t('superAdmin.section.organization')}</Eyebrow>
+            {/* Markaz nomi — sahifaning asosiy narsasi, shuning uchun
+                kattaroq va markazda. Qolgani uning ostida ikkinchi
+                darajada turadi. */}
+            <div className="mb-6 flex flex-col items-center gap-2 border-b border-border-base pb-6 text-center">
+                <Avatar name={name} size="lg" fallback="initials" />
+                <h1 className="font-display text-2xl font-semibold text-fg">
+                    {name || t('superAdmin.section.organization')}
+                </h1>
+                {email && <p className="text-sm text-fg-muted">{email}</p>}
+                {websiteHref && (
+                    <a
+                        href={websiteHref}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="text-sm text-accent-fg underline-offset-2 hover:underline"
+                    >
+                        {website.trim()}
+                    </a>
+                )}
+            </div>
+
+            <Eyebrow>{t('superAdmin.editDetails')}</Eyebrow>
 
             <form onSubmit={handleSubmit} className="mt-4 flex max-w-lg flex-col gap-3.5">
                 <Field label={t('field.organizationName')}>

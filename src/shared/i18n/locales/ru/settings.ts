@@ -30,6 +30,7 @@ export const settings: Record<SettingsKeys, string> = {
     'settings.passwordTooShort': 'Новый пароль должен быть не короче 8 символов.',
     'settings.myImages': 'Мои изображения',
     'settings.myImagesHint': 'Список загруженных изображений для вашего профиля.',
+    'settings.enlargeImage': 'Открыть крупнее',
     'settings.mainImage': 'Основное',
     'settings.setAsMain': 'Сделать основным',
     'settings.deleteImage': 'Удалить',

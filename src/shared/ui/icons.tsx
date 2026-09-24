@@ -23,6 +23,15 @@ export function EditIcon() {
     )
 }
 
+/** Asosiy rasm belgisi — to'ldirilgan yulduz. */
+export function StarIcon({ filled = false }: { filled?: boolean }) {
+    return (
+        <svg {...BASE_PROPS} fill={filled ? 'currentColor' : 'none'} aria-hidden="true">
+            <polygon points="12 2 15.1 8.6 22 9.5 17 14.4 18.2 21.3 12 18 5.8 21.3 7 14.4 2 9.5 8.9 8.6" />
+        </svg>
+    )
+}
+
 export function TrashIcon() {
     return (
         <svg {...BASE_PROPS} aria-hidden="true">

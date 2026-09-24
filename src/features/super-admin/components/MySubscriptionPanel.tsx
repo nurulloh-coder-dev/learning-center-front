@@ -1,6 +1,5 @@
 import { useT } from '@/shared/i18n'
-import { formatAmount, formatDate } from '@/shared/lib'
-import { Eyebrow, Panel, SubscriptionStatusBadge } from '@/shared/ui'
+import { formatDate } from '@/shared/lib'
 import { daysLeft } from '../lib/daysLeft'
 import type { SubscriptionDto } from '@/shared/types'
 
@@ -19,60 +18,31 @@ export function MySubscriptionPanel({
     if (isLoading) return null
 
     // Obuna umuman yo'q — yangi markazda shunday bo'ladi va bu xato emas.
-    // Bo'sh panel chizishdan ko'ra hech nima ko'rsatmagan ma'qul: markaz
-    // egasi buni dasturchi bilan hal qiladi, ekrandan emas.
     if (!subscription) return null
 
     const remaining = daysLeft(subscription.expiresAt)
     const isExpired = remaining !== null && remaining < 0
     const isEnding = remaining !== null && remaining >= 0 && remaining <= WARN_DAYS
 
+    /*
+     * Hammasi joyida bo'lsa BU BLOK UMUMAN CHIZILMAYDI.
+     *
+     * Ilgari u har safar ekranning tepasida turardi va eng kerakli
+     * ma'lumotni pastga surib yuborardi. Tarif haqidagi to'liq ma'lumot
+     * "Tashkilot" bo'limida turadi; bu yerda faqat muddat tugayotgani
+     * haqida ogohlantirish chiqadi.
+     */
+    if (!isExpired && !isEnding) return null
+
     return (
-        <Panel className="mb-5">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                    <Eyebrow>{t('subscription.mine')}</Eyebrow>
-                    <p className="mt-1 font-display text-lg font-semibold text-fg">
-                        {subscription.plan?.name ?? '—'}
-                    </p>
-                </div>
-                <SubscriptionStatusBadge status={subscription.status} />
-            </div>
-
-            <dl className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                <div>
-                    <dt className="text-xs text-fg-muted">{t('subscription.expiresAt')}</dt>
-                    <dd className="mt-0.5 font-medium text-fg">
-                        {formatDate(subscription.expiresAt) || '—'}
-                    </dd>
-                </div>
-                <div>
-                    <dt className="text-xs text-fg-muted">{t('subscription.daysLeft')}</dt>
-                    <dd
-                        className={
-                            isExpired || isEnding
-                                ? 'mt-0.5 font-semibold tabular-nums text-danger-fg'
-                                : 'mt-0.5 font-medium tabular-nums text-fg'
-                        }
-                    >
-                        {remaining === null ? '—' : Math.max(remaining, 0)}
-                    </dd>
-                </div>
-                <div>
-                    <dt className="text-xs text-fg-muted">{t('subscription.paidAmount')}</dt>
-                    <dd className="mt-0.5 font-medium tabular-nums text-fg">
-                        {formatAmount(subscription.paidAmount)}
-                    </dd>
-                </div>
-            </dl>
-
-            {/* Ogohlantirish faqat haqiqatan kerak bo'lganda chiqadi: doim
-                turgan xabarni odam bir haftada ko'rmay qo'yadi. */}
-            {(isExpired || isEnding) && (
-                <p className="mt-3 rounded-lg border border-danger/15 bg-danger-soft px-3 py-2 text-sm text-danger-fg">
-                    {isExpired ? t('subscription.expiredWarning') : t('subscription.endingWarning')}
-                </p>
-            )}
-        </Panel>
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-danger/15 bg-danger-soft px-4 py-3">
+            <p className="text-sm text-danger-fg">
+                {isExpired ? t('subscription.expiredWarning') : t('subscription.endingWarning')}
+            </p>
+            <p className="font-mono text-xs text-danger-fg/80">
+                {subscription.plan?.name} · {t('subscription.expiresAt')}:{' '}
+                {formatDate(subscription.expiresAt) || '—'}
+            </p>
+        </div>
     )
 }

@@ -1,7 +1,7 @@
 import { useMemo, useState, type FormEvent } from 'react'
 import { errorMessage } from '@/shared/api'
 import { useT } from '@/shared/i18n'
-import { Button, ErrorBox, Field, Input, Modal, Select, type SelectOption } from '@/shared/ui'
+import { Button, ErrorBox, Field, Input, Modal, type SelectOption } from '@/shared/ui'
 import type { BranchPayload } from '../api/superAdminApi'
 import { isShortGoogleMapsUrl, parseGoogleMapsUrl } from '../lib/googleMapsUrl'
 import type { BranchDto } from '@/shared/types'
@@ -25,7 +25,16 @@ export function BranchFormModal({
 }: Props) {
     const { t } = useT()
     const isEdit = branch !== null
-    const [organizationId, setOrganizationId] = useState('')
+
+    /*
+     * Tashkilot TANLANMAYDI.
+     *
+     * Super-admin bitta markazning egasi — filial baribir shunga ochiladi.
+     * Tanlagich qo'ysak, bitta variantli ro'yxatdan o'sha bittasini tanlab
+     * o'tirishga to'g'ri keladi va tanlamay qolsa "Saqlash" jimgina
+     * ishlamaydi. Shuning uchun u avtomatik olinadi.
+     */
+    const organizationId = organizationOptions[0]?.value ?? ''
     const [name, setName] = useState(branch?.name ?? '')
     const [address, setAddress] = useState(branch?.address ?? '')
     const [mapsUrl, setMapsUrl] = useState(branch?.googleMapsUrl ?? '')
@@ -58,17 +67,6 @@ export function BranchFormModal({
             onClose={onClose}
         >
             <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
-                {!isEdit && (
-                    <Field label={t('branch.organization')}>
-                        <Select
-                            placeholder={t('field.select')}
-                            options={organizationOptions}
-                            value={organizationId}
-                            onChange={(e) => setOrganizationId(e.target.value)}
-                        />
-                    </Field>
-                )}
-
                 <Field label={t('branch.name')}>
                     <Input value={name} onChange={(e) => setName(e.target.value)} required />
                 </Field>

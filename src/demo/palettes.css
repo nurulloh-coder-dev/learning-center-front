@@ -1,0 +1,107 @@
+/*
+ * UI yangilash uchun palitra variantlari — FAQAT demo uchun, tanlash
+ * maqsadida. Production'ga tushmaydi: `?palette=ocean` yoki
+ * `?palette=mono` bilan ochilganda <html data-palette> qo'yiladi va
+ * tokenlar ustidan yoziladi. Tanlangan variant keyin `styles/index.css`
+ * ga ko'chiriladi, bu fayl esa o'chiriladi.
+ */
+
+/* ---- A: "Okean" — to'q ko'k, yorqin ko'k asosiy, to'q sariq urg'u ---- */
+html[data-palette='ocean'] {
+    --surface: #f4f7fc;
+    --surface-card: #ffffff;
+    --surface-muted: #e9eef8;
+    --surface-hover: #eef3fb;
+    --border: #dfe6f2;
+    --border-strong: #c3cfe4;
+    --fg: #0b1530;
+    --fg-muted: #4f5d7a;
+    --fg-faint: #8592ab;
+    --fg-inverted: #ffffff;
+    --brand: #1d4ed8;
+    --brand-fg: #ffffff;
+    --accent: #2563eb;
+    --accent-fg: #1d4ed8;
+    --accent-soft: #e0eafe;
+    --purple: #1e40af;
+    --purple-fg: #1d4ed8;
+    --purple-soft: #e0eafe;
+    --magenta: #0ea5e9;
+    --amber: #f59e0b;
+    --amber-fg: #b45309;
+    --amber-soft: #fef3c7;
+    --sidebar: #0a1330;
+    --sidebar-fg: #e8eefc;
+}
+html[data-palette='ocean'].dark {
+    --surface: #070d1f;
+    --surface-card: #0e1730;
+    --surface-muted: #14203d;
+    --surface-hover: #172446;
+    --border: #1e2b4d;
+    --border-strong: #2d3d66;
+    --fg: #eef3ff;
+    --fg-muted: #9fb0d1;
+    --fg-faint: #6f80a3;
+    --fg-inverted: #070d1f;
+    --brand: #3b82f6;
+    --accent: #60a5fa;
+    --accent-fg: #93c5fd;
+    --accent-soft: #12254a;
+    --purple: #2563eb;
+    --purple-fg: #93c5fd;
+    --purple-soft: #12254a;
+    --magenta: #22d3ee;
+    --amber: #fbbf24;
+    --amber-fg: #fcd34d;
+    --amber-soft: #2a2110;
+    --sidebar: #050a18;
+    --sidebar-fg: #e8eefc;
+}
+
+/* ---- B: "Monoxrom" — neytral qora/kulrang, elektr ko'k urg'u ---- */
+html[data-palette='mono'] {
+    --surface: #f5f5f6;
+    --surface-card: #ffffff;
+    --surface-muted: #ececee;
+    --surface-hover: #f0f0f2;
+    --border: #e4e4e7;
+    --border-strong: #c9c9cf;
+    --fg: #0a0a0b;
+    --fg-muted: #55555c;
+    --fg-faint: #8b8b93;
+    --fg-inverted: #ffffff;
+    --brand: #2563eb;
+    --brand-fg: #ffffff;
+    --accent: #2563eb;
+    --accent-fg: #1d4ed8;
+    --accent-soft: #e6edfd;
+    --purple: #1f2937;
+    --purple-fg: #1d4ed8;
+    --purple-soft: #e6edfd;
+    --magenta: #3b82f6;
+    --sidebar: #0a0a0b;
+    --sidebar-fg: #f4f4f5;
+}
+html[data-palette='mono'].dark {
+    --surface: #000000;
+    --surface-card: #121214;
+    --surface-muted: #19191c;
+    --surface-hover: #1c1c20;
+    --border: #26262b;
+    --border-strong: #38383f;
+    --fg: #f4f4f5;
+    --fg-muted: #a1a1aa;
+    --fg-faint: #71717a;
+    --fg-inverted: #000000;
+    --brand: #3b82f6;
+    --accent: #3b82f6;
+    --accent-fg: #60a5fa;
+    --accent-soft: #0f1d3a;
+    --purple: #1d4ed8;
+    --purple-fg: #93c5fd;
+    --purple-soft: #0f1d3a;
+    --magenta: #60a5fa;
+    --sidebar: #000000;
+    --sidebar-fg: #f4f4f5;
+}

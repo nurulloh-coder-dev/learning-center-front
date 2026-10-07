@@ -4,6 +4,7 @@ import { Demo } from './Demo'
 import { installMockApi } from './mockApi'
 import './fonts.inline.css'
 import '@/styles/index.css'
+import './palettes.css'
 
 /**
  * Demo kirish nuqtasi.
@@ -18,6 +19,13 @@ import '@/styles/index.css'
  * o'z temasini `data-theme` bilan e'lon qilgan bo'lsa, undan boshlaymiz —
  * aks holda to'q fon ustida yorug' ilova chiqib qolishi mumkin.
  */
+/** UI tanlovi uchun: `?palette=ocean|mono` — palitra variantini yoqadi. */
+function applyPaletteFromUrl() {
+    const palette = new URLSearchParams(window.location.search).get('palette')
+    if (palette === 'ocean' || palette === 'mono') document.documentElement.dataset.palette = palette
+}
+applyPaletteFromUrl()
+
 function seedThemeFromHost() {
     const hostTheme = document.documentElement.dataset.theme
     if (hostTheme !== 'dark' && hostTheme !== 'light') return

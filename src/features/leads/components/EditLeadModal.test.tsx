@@ -28,7 +28,8 @@ describe('NewLeadModal', () => {
         const phoneInput = screen.getByLabelText(/Telefon/i)
 
         await userEvent.type(nameInput, 'Jasur Bek')
-        await userEvent.type(phoneInput, '+998911112233')
+        // +998 maydon yonida turadi — odam faqat mahalliy qismni yozadi
+        await userEvent.type(phoneInput, '911112233')
 
         const submitBtn = screen.getByRole('button', { name: /saqlash/i })
         expect(submitBtn).not.toBeDisabled()
@@ -62,7 +63,7 @@ describe('EditLeadModal', () => {
         const phoneInput = screen.getByLabelText(/Telefon/i) as HTMLInputElement
 
         expect(nameInput.value).toBe('Ali Valiyev')
-        expect(phoneInput.value).toBe('+998 90 123 45 67')
+        expect(phoneInput.value).toBe('90 123 45 67')
 
         await userEvent.clear(nameInput)
         await userEvent.type(nameInput, 'Ali Karimov')
@@ -113,7 +114,7 @@ describe('EditLeadModal', () => {
 
         const phoneInput = screen.getByLabelText(/Telefon/i) as HTMLInputElement
         await userEvent.clear(phoneInput)
-        await userEvent.type(phoneInput, '+998 90 123 45 67')
+        await userEvent.type(phoneInput, '90 123 45 67')
         await userEvent.click(screen.getByRole('button', { name: /saqlash/i }))
 
         expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({ phone: '+998901234567' }))

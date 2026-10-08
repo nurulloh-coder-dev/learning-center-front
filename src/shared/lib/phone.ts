@@ -64,14 +64,17 @@ const UZ_LOCAL_DIGITS = 9
  * `901234567` yoki `998901234567` ni joylashtirsa ham to'g'ri chiqadi.
  */
 export function formatUzPhone(raw: string): string {
-    let digits = raw.replace(/\D/g, '')
+    const digits = raw.replace(/\D/g, '')
     // Prefiksdan raqam o'chirilsa ("+99") — bu raqam emas, bo'sh maydon.
-    // Aks holda o'chirilgan "99" mahalliy raqam bo'lib qo'shilib ketardi.
-    if ('998'.startsWith(digits)) return formatPhone('+998')
-    // Mavjud "+998 " ustiga to'liq raqam joylansa "998998…" bo'ladi —
-    // ortiqcha prefikslarni olib tashlaymiz, mahalliy qism 9 ta raqam.
-    while (digits.startsWith('998') && digits.length > UZ_LOCAL_DIGITS) digits = digits.slice(3)
-    return formatPhone(`+998${digits.slice(0, UZ_LOCAL_DIGITS)}`)
+    if (raw.trim().startsWith('+') && '998'.startsWith(digits)) return UZ_PHONE_PREFIX
+    // Prefiks bor-yo'qligini MATNGA qarab aniqlaymiz, raqamlar soniga emas:
+    // ilgari "+998 9" (4 raqam) prefiksli deb tanilmay, "998" mahalliy
+    // raqamga qo'shilib ketardi — "+998 99 89" bo'lib qolardi.
+    const hasPrefix = raw.trim().startsWith('+998') || (digits.length >= 12 && digits.startsWith('998'))
+    let local = hasPrefix ? digits.slice(3) : digits
+    // "+998 " ustiga to'liq raqam joylansa "+998 +998 90 …" — ikkinchi prefiks ham ketadi.
+    if (local.length >= 12 && local.startsWith('998')) local = local.slice(3)
+    return formatPhone(`+998${local.slice(0, UZ_LOCAL_DIGITS)}`)
 }
 
 /** To'liq kiritilgan O'zbekiston raqami: +998 va 9 ta raqam. */
@@ -79,3 +82,26 @@ export function isCompleteUzPhone(raw: string): boolean {
     return /^\+998\d{9}$/.test(normalizePhone(raw))
 }
 
+
+/**
+ * `PhoneInput` dagi matndan mahalliy 9 ta raqamni oladi.
+ *
+ * `+998` maydon ichida emas, yonida turadi — ilgari u matnning bir qismi
+ * edi va telefonda kursor prefiks ichiga tushib qolsa, uning raqamlari
+ * mahalliy raqamga qo'shilib ketardi ("998" ikki marta), o'chirib ham
+ * bo'lmasdi. Endi maydonda faqat mahalliy qism.
+ *
+ * To'liq raqam joylansa yoki avtoto'ldirilsa (`+998 90 123 45 67`,
+ * `998901234567`) — 12 ta raqam, prefiks tashlanadi. Faqat 12 tadan:
+ * Uzmobile raqami o'zi `99 8…` bilan boshlanishi mumkin.
+ */
+export function toUzLocalDigits(raw: string): string {
+    const digits = raw.replace(/\D/g, '')
+    const local = digits.length >= 12 && digits.startsWith('998') ? digits.slice(3) : digits
+    return local.slice(0, UZ_LOCAL_DIGITS)
+}
+
+/** Saqlangan qiymatdan (`+998 90 123 45 67`) maydonda ko'rinadigan qism: `90 123 45 67`. */
+export function uzLocalPart(value: string): string {
+    return formatUzPhone(value).slice(UZ_PHONE_PREFIX.length)
+}

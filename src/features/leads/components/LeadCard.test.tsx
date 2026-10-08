@@ -1,4 +1,4 @@
-// LeadCard komponentining testlari — ma'lumotlar to'g'ri ko'rinishi hamda tugmalar bosilganda hodisalar chaqirilishini tekshiradi
+// LeadCard komponentining testlari — ma'lumotlar to'g'ri ko'rinishi hamda tugmalar bosilganda va status o'zgarganda hodisalar chaqirilishini tekshiradi
 import { describe, expect, it, vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -76,9 +76,30 @@ describe('LeadCard', () => {
             />
         )
 
-        const deleteBtn = screen.getByRole('button', { name: /o['‘']chirish/i })
+        const deleteBtn = screen.getByRole('button', { name: /o.chirish/i })
         await userEvent.click(deleteBtn)
 
         expect(onDelete).toHaveBeenCalledWith(mockLead)
+    })
+
+    it('status o’zgartirilganda onStatusChange chaqiriladi', async () => {
+        const onStatusChange = vi.fn()
+
+        renderWithProviders(
+            <LeadCard
+                lead={mockLead}
+                status="NEW"
+                onEdit={vi.fn()}
+                onStatusChange={onStatusChange}
+                onDelete={vi.fn()}
+                onDragStart={vi.fn()}
+                onDragEnd={vi.fn()}
+            />
+        )
+
+        const statusSelect = screen.getByRole('combobox', { name: /holatni o.zgartirish/i })
+        await userEvent.selectOptions(statusSelect, 'ENROLLED')
+
+        expect(onStatusChange).toHaveBeenCalledWith(mockLead, 'ENROLLED')
     })
 })

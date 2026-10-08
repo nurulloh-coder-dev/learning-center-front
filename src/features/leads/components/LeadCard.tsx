@@ -3,7 +3,7 @@ import type { LeadDto, LeadStatus } from '@/shared/types'
 import { LEAD_STATUSES } from '@/shared/types'
 import { useT } from '@/shared/i18n'
 import { formatCallAt } from '../lib/schedule'
-import { Badge, Button, Select } from '@/shared/ui'
+import { Badge, EditIcon, IconButton, Select, TrashIcon } from '@/shared/ui'
 
 export interface LeadCardProps {
     lead: LeadDto
@@ -46,48 +46,40 @@ export function LeadCard({
                         {lead.phone || t('lead.noPhone')}
                     </a>
                 </div>
-                <Button size="sm" onClick={() => onEdit(lead)}>
-                    {t('common.edit')}
-                </Button>
+                <div className="flex items-center gap-1">
+                    <IconButton label={t('common.edit')} onClick={() => onEdit(lead)}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton label={t('common.delete')} tone="danger" onClick={() => onDelete(lead)}>
+                        <TrashIcon />
+                    </IconButton>
+                </div>
             </div>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-                {lead.source && (
-                    <Badge tone="slate">
-                        {t(`lead.source.${lead.source}`)}
-                    </Badge>
-                )}
-                {lead.preferredCourse?.name && (
-                    <Badge tone="purple">
-                        {lead.preferredCourse.name}
-                    </Badge>
-                )}
+            {/* Manba va kurs chapda, status o'ngda — alohida pastki qator kerak emas */}
+            <div className="mt-3 flex items-center gap-1.5">
+                <div className="flex min-w-0 flex-wrap gap-1.5">
+                    {lead.source && <Badge tone="slate">{t(`lead.source.${lead.source}`)}</Badge>}
+                    {lead.preferredCourse?.name && <Badge tone="purple">{lead.preferredCourse.name}</Badge>}
+                </div>
+                {/* `Select` doim `w-full` — kenglikni o'rovchi beradi, ustiga `w-auto` qo'yilmaydi */}
+                <div className="ml-auto w-32 shrink-0">
+                    <Select
+                        aria-label={t('lead.changeStatus')}
+                        className="text-xs"
+                        value={status}
+                        options={LEAD_STATUSES.map((value) => ({
+                            value,
+                            label: t(`lead.status.${value}`),
+                        }))}
+                        onChange={(event) => onStatusChange(lead, event.target.value as LeadStatus)}
+                    />
+                </div>
             </div>
             {lead.callAt && (
                 <p className="mt-3 rounded-lg bg-warning-soft px-2.5 py-2 text-xs font-medium text-warning-fg">
                     {t('lead.callAt')}: {formatCallAt(lead.callAt, new Date(), locale, { today: t('lead.today'), tomorrow: t('lead.tomorrow') })}
                 </p>
             )}
-            <div className="mt-3 flex items-center gap-2 border-t border-border-base pt-3">
-                <Select
-                    aria-label={t('lead.changeStatus')}
-                    className="text-xs"
-                    value={status}
-                    options={LEAD_STATUSES.map((value) => ({
-                        value,
-                        label: t(`lead.status.${value}`),
-                    }))}
-                    onChange={(event) =>
-                        onStatusChange(lead, event.target.value as LeadStatus)
-                    }
-                />
-                <button
-                    type="button"
-                    className="ml-auto text-xs font-medium text-danger-fg hover:underline"
-                    onClick={() => onDelete(lead)}
-                >
-                    {t('common.delete')}
-                </button>
-            </div>
         </article>
     )
 }

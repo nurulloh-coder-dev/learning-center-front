@@ -1,4 +1,13 @@
-export { formatPhone, formatUzPhone, isCompleteUzPhone, isValidPhone, normalizePhone, UZ_PHONE_PREFIX } from './phone'
+export {
+    formatPhone,
+    formatUzPhone,
+    isCompleteUzPhone,
+    isValidPhone,
+    normalizePhone,
+    toUzLocalDigits,
+    UZ_PHONE_PREFIX,
+    uzLocalPart,
+} from './phone'
 export { cn } from './cn'
 export { decodeJwt } from './jwt'
 export {
@@ -14,3 +23,4 @@ export {
 } from './format'
 export { downloadCsv, escapeCsvCell, generateCsv, type CsvColumn } from './csv'
 export { clearAllDrafts, readDraft, removeDraft, writeDraft } from './drafts'
+export { caretAfterDigits } from './caret'

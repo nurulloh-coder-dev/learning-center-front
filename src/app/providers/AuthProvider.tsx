@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { logout, refreshSession, toSession } from '@/features/auth/api/authApi'
 import { setTokenRefresher } from '@/shared/api'
@@ -22,6 +22,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [session, setSession] = useState<Session | null>(null)
     const [isRestoring, setIsRestoring] = useState(true)
     const queryClient = useQueryClient()
+    /*
+     * Chiqish boshlandi — token endi yangilanmaydi. Busiz chiqqan zahoti
+     * orqada qolgan so'rov 403 olsa (backend eskirgan token va ruxsatsiz
+     * so'rovga bir xil 403 beradi), `apiFetch` refresh cookie bilan jimgina
+     * yangi sessiya olib, odamni qaytadan kiritib yuborardi. Refresh javobi
+     * logout'dan keyin kelsa, cookie ham qayta yozilib qolardi.
+     */
+    const signedOut = useRef(false)
 
     useEffect(() => {
         let cancelled = false
@@ -41,12 +49,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
     }, [])
 
-    const signIn = useCallback((next: Session) => setSession(next), [])
+    const signIn = useCallback((next: Session) => {
+        signedOut.current = false
+        setSession(next)
+    }, [])
     const signOut = useCallback(() => {
+        signedOut.current = true
         // Javobni kutmaymiz: chiqish darhol bo'lsin. Endpoint xato bersa ham
         // (hali deploy qilinmagan bo'lsa) frontend baribir chiqadi.
         logout().catch(() => {})
         setSession(null)
+        void queryClient.cancelQueries()
         // Keshda oldingi foydalanuvchining ma'lumotlari qoladi — shu
         // brauzerda keyin kirgan boshqa odam ularni bir lahza ko'rardi.
         queryClient.clear()
@@ -56,8 +69,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         setTokenRefresher(async () => {
+            if (signedOut.current) return null
             try {
                 const next = toSession(await refreshSession())
+                // Yangilash chiqishdan oldin boshlangan bo'lsa ham natijasi kerak emas.
+                if (signedOut.current) return null
                 setSession(next)
                 return next?.token ?? null
             } catch {

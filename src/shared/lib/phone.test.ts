@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatPhone, formatUzPhone, isCompleteUzPhone, isValidPhone, normalizePhone } from './phone'
+import { formatPhone, formatUzPhone, isCompleteUzPhone, isValidPhone, normalizePhone, toUzLocalDigits, uzLocalPart } from './phone'
 
 describe('normalizePhone', () => {
     it('bo‘shliq, chiziqcha va qavslarni olib tashlaydi', () => {
@@ -87,3 +87,36 @@ describe('normalizePhone prefix only', () => {
     })
 })
 
+
+describe('toUzLocalDigits', () => {
+    it('keeps local numbers that start with 998 (Uzmobile 99 8…)', () => {
+        expect(toUzLocalDigits('99 899 89 9')).toBe('99899899')
+        expect(toUzLocalDigits('99 899 89 99')).toBe('998998999')
+    })
+
+    it('strips the country code only from a full pasted or autofilled number', () => {
+        expect(toUzLocalDigits('+998 90 123 45 67')).toBe('901234567')
+        expect(toUzLocalDigits('998901234567')).toBe('901234567')
+    })
+
+    it('caps at nine digits', () => {
+        expect(toUzLocalDigits('99 899 89 999')).toBe('998998999')
+    })
+})
+
+describe('uzLocalPart', () => {
+    it('shows the part after +998', () => {
+        expect(uzLocalPart('+998901234567')).toBe('90 123 45 67')
+        expect(uzLocalPart('+998 ')).toBe('')
+        expect(uzLocalPart('')).toBe('')
+    })
+})
+
+// Telefonda yozish: har harfdan keyin qiymat qaytadan formatlanadi.
+describe('formatUzPhone while typing', () => {
+    it('does not add 998 again to a partial number', () => {
+        expect(formatUzPhone('+998 9')).toBe('+998 9')
+        expect(formatUzPhone('+998 90 1')).toBe('+998 90 1')
+        expect(formatUzPhone('+998 99 899 89 9')).toBe('+998 99 899 89 9')
+    })
+})

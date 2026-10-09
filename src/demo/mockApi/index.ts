@@ -6,6 +6,7 @@ import { handleEnrollments } from './enrollments'
 import { handleGroupLevels } from './groupLevels'
 import { handleImages } from './images'
 import { handleInvoices } from './invoices'
+import { handleLeadForm } from './leadForm'
 import { handleLeads } from './leads'
 import { isInstalled, resetMockApiInstalledFlag, setDemoRole, setInstalled } from './state'
 import { handleStudents } from './students'
@@ -67,6 +68,9 @@ export function installMockApi() {
 
         const attendanceRes = handleAttendance(path, method, body)
         if (attendanceRes) return attendanceRes
+
+        const leadFormRes = handleLeadForm(path, method, body)
+        if (leadFormRes) return leadFormRes
 
         const leadsRes = handleLeads(path, method, url, body)
         if (leadsRes) return leadsRes

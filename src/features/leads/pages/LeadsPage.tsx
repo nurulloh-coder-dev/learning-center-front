@@ -10,6 +10,7 @@ import { AppShell, Badge, Button, EmptyState, ErrorBox, Panel, SearchInput, Sele
 import { EditLeadModal } from '../components/EditLeadModal'
 import { LeadActionModal } from '../components/LeadActionModal'
 import { LeadCard } from '../components/LeadCard'
+import { LeadFormSettingsModal } from '../components/LeadFormSettingsModal'
 import { NewLeadModal } from '../components/NewLeadModal'
 import { useLeadGroupOptions, useLeadMutations, useLeads } from '../hooks/useLeads'
 
@@ -30,6 +31,7 @@ export function LeadsPage() {
     const [filter, setFilter] = useState<LeadStatus | ''>('')
     const [editing, setEditing] = useState<LeadDto | null>(null)
     const [isCreateOpen, setIsCreateOpen] = useState(false)
+    const [isFormLinkOpen, setIsFormLinkOpen] = useState(false)
     const [draggedId, setDraggedId] = useState<string | null>(null)
     const [action, setAction] = useState<{ lead: LeadDto; status: LeadStatus } | null>(null)
     const newLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'NEW' })
@@ -94,7 +96,7 @@ export function LeadsPage() {
     }
 
     return (
-        <AppShell subtitle={t('lead.title')} onSignOut={signOut} token={token} theme={theme} toggleTheme={toggleTheme} actions={<><Button size="sm" onClick={() => navigate('/')}>{t('common.back')}</Button><Button variant="primary" size="sm" onClick={openCreate}>{t('lead.new')}</Button></>}>
+        <AppShell subtitle={t('lead.title')} onSignOut={signOut} token={token} theme={theme} toggleTheme={toggleTheme} actions={<><Button size="sm" onClick={() => navigate('/')}>{t('common.back')}</Button><Button size="sm" onClick={() => setIsFormLinkOpen(true)}>{t('leadForm.open')}</Button><Button size="sm" onClick={() => setIsFormLinkOpen(true)}>{t('leadForm.open')}</Button><Button variant="primary" size="sm" onClick={openCreate}>{t('lead.new')}</Button></>}>
             <div className="mx-auto max-w-[1600px] space-y-5">
                 <Panel className="border-0 bg-linear-to-br from-accent-soft/60 via-surface-card to-surface-card p-5 sm:p-7">
                     <div className="flex flex-wrap items-end justify-between gap-4"><div><Badge tone="accent">{t('lead.eyebrow')}</Badge><h1 className="mt-3 font-display text-3xl font-semibold text-fg">{t('lead.title')}</h1><p className="mt-1 text-sm text-fg-muted">{t('lead.description')}</p></div><div className="rounded-xl border border-border-base bg-surface-card px-4 py-3 text-right"><p className="text-xs text-fg-muted">{t('lead.total')}</p><p className="font-display text-2xl font-semibold text-fg">{total}</p></div></div>
@@ -109,6 +111,7 @@ export function LeadsPage() {
                 </div></div>
                 {visibleStatuses.every((status) => !lists[status].isLoading) && leads.length === 0 && !apiError && <EmptyState title="No leads found" description="Try a different search, or add your first lead." />}
             </div>
+            {isFormLinkOpen && <LeadFormSettingsModal token={token} onClose={() => setIsFormLinkOpen(false)} />}
             {isCreateOpen && <NewLeadModal token={token} isPending={mutations.create.isPending} onClose={closeCreate} onSubmit={handleCreate} />}
             {editing && <EditLeadModal token={token} lead={editing} isPending={mutations.update.isPending} onClose={closeEdit} onSubmit={handleUpdate} />}
             {action && (

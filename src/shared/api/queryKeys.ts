@@ -69,6 +69,9 @@ export const queryKeys = {
     branch: (id: string) => ['branch', 'one', id] as const,
 
     leads: (params: Record<string, unknown>) => ['lead', 'list', params] as const,
+    /** `lead` prefiksi YO'Q: lid o'zgarganda forma sozlamasi qayta so'ralmasin. */
+    leadForm: () => ['lead-form', 'mine'] as const,
+    publicLeadForm: (key: string) => ['lead-form', 'public', key] as const,
 
     analytics: (category: string) => ['analytics', category] as const,
     analyticsInvoiceRange: (from: string, to: string) => ['analytics', 'invoice', 'range', { from, to }] as const,

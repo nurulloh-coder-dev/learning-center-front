@@ -14,6 +14,14 @@ frontend demo mock bilan ishlaydi (`src/demo/mockApi/leadForm.ts`).
   sarlavha/izoh, kurs majburiyligi, ko'rinadigan kurslar, kalitni yangilash.
 - Demo: `demo.html#f/demo-cornerstone`.
 
+## Ko'rinish
+
+Ataylab sodda (Nurulloh: "effektlar ko'payib ketgan"): nur, soya va
+gradientsiz. Tepada chapda ALIA logotipi, o'ngda til — `UZ · RU · EN`.
+Kurslar ochiq ro'yxat (radio), Google Forms'dagidek — telefonda ochiladigan
+ro'yxatdan qulayroq. Tugma oddiy to'liq rangli. Backend tayyor bo'lgach
+ko'rinish o'zgarmaydi, faqat ma'lumot (markaz nomi, kurslar) haqiqiysi bo'ladi.
+
 ## Qarorlar
 
 - **Darajalar har ochilganda serverdan olinadi**, formaga oldindan yozib

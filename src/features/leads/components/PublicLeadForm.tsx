@@ -3,7 +3,7 @@ import { errorMessage } from '@/shared/api'
 import { useT } from '@/shared/i18n'
 import { isCompleteUzPhone, normalizePhone, UZ_PHONE_PREFIX } from '@/shared/lib'
 import type { LeadSource, PublicLeadFormDto, PublicLeadSubmitDto } from '@/shared/types'
-import { Button, ErrorBox, Field, Input, PhoneInput, Select } from '@/shared/ui'
+import { ErrorBox, Field, Input, PhoneInput } from '@/shared/ui'
 
 interface PublicLeadFormProps {
     form: PublicLeadFormDto
@@ -58,16 +58,31 @@ export function PublicLeadForm({ form, source, isSending, error, onSubmit }: Pub
                 {showErrors && phoneError && <ErrorBox>{t('leadForm.phoneInvalid')}</ErrorBox>}
             </Field>
             {form.levels.length > 0 && (
-                <Field label={courseLabel}>
-                    <Select
-                        placeholder={t('leadForm.selectCourse')}
-                        value={courseId}
-                        // Kurs nomlari markaz kiritgan matn — tarjima qilinmaydi.
-                        options={form.levels.map((level) => ({ value: level.id, label: level.name }))}
-                        onChange={(event) => setCourseId(event.target.value)}
-                    />
+                // Google Forms'dagidek ochiq ro'yxat: telefonda ochiladigan
+                // ro'yxatdan ko'ra hamma variant birdan ko'rinib turgani qulay.
+                <fieldset className="flex flex-col gap-2">
+                    <legend className="mb-2 font-mono text-[0.68rem] font-semibold tracking-[0.08em] text-fg-muted uppercase">
+                        {courseLabel}
+                    </legend>
+                    {form.levels.map((level) => (
+                        <label
+                            key={level.id}
+                            className="flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border border-border-base px-3.5 text-sm text-fg has-checked:border-accent has-checked:bg-accent-soft"
+                        >
+                            <input
+                                type="radio"
+                                name="course"
+                                value={level.id}
+                                checked={courseId === level.id}
+                                onChange={() => setCourseId(level.id)}
+                                className="size-4 cursor-pointer accent-accent"
+                            />
+                            {/* Kurs nomi markaz kiritgan matn — tarjima qilinmaydi. */}
+                            {level.name}
+                        </label>
+                    ))}
                     {showErrors && courseError && <ErrorBox>{t('leadForm.courseRequired')}</ErrorBox>}
-                </Field>
+                </fieldset>
             )}
             <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
                 <label>
@@ -76,9 +91,14 @@ export function PublicLeadForm({ form, source, isSending, error, onSubmit }: Pub
                 </label>
             </div>
             {error != null && <ErrorBox>{t('leadForm.submitFailed', { message: errorMessage(error) })}</ErrorBox>}
-            <Button type="submit" variant="primary" disabled={isSending} className="mt-1 w-full">
+            {/* Oddiy to'liq rangli tugma — ilovadagi gradientli `primary` bu yerda ortiqcha. */}
+            <button
+                type="submit"
+                disabled={isSending}
+                className="mt-1 min-h-12 w-full cursor-pointer rounded-lg bg-accent text-sm font-semibold text-white hover:brightness-110 disabled:cursor-default disabled:opacity-60 dark:text-surface"
+            >
                 {isSending ? t('leadForm.sending') : t('leadForm.submit')}
-            </Button>
+            </button>
         </form>
     )
 }

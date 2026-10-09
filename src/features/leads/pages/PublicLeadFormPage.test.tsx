@@ -40,11 +40,12 @@ describe('PublicLeadFormPage', () => {
         await userEvent.click(screen.getByRole('button', { name: 'Yuborish' }))
         // Bo'sh forma yuborilmaydi
         expect(screen.getByText('Ismingizni yozing')).toBeInTheDocument()
+        expect(screen.getByText('Kursni tanlang')).toBeInTheDocument()
         expect(fetchMock).toHaveBeenCalledTimes(1)
 
         await userEvent.type(screen.getByLabelText(/^Ism va familiya/), 'Jasur Bek')
         await userEvent.type(screen.getByLabelText(/^Telefon raqami/), '901234567')
-        await userEvent.selectOptions(screen.getByLabelText(/Qaysi kurs/), 'lvl-1')
+        await userEvent.click(screen.getByRole('radio', { name: 'Elementary' }))
         await userEvent.click(screen.getByRole('button', { name: 'Yuborish' }))
 
         expect(await screen.findByText('Rahmat!')).toBeInTheDocument()
@@ -70,6 +71,15 @@ describe('PublicLeadFormPage', () => {
     it('marks the course optional when the center allows it', async () => {
         vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(response(200, { ...FORM, courseRequired: false }))))
         renderAt('/f/abc')
-        await waitFor(() => expect(screen.getByLabelText(/ixtiyoriy/)).toBeInTheDocument())
+        await waitFor(() => expect(screen.getByRole('group', { name: /ixtiyoriy/ })).toBeInTheDocument())
+    })
+})
+
+describe('PublicFormShell language switch', () => {
+    it('switches language with the short codes at the top', async () => {
+        vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(response(200, FORM))))
+        renderAt('/f/abc')
+        await userEvent.click(await screen.findByRole('button', { name: 'RU' }))
+        expect(await screen.findByRole('button', { name: 'Отправить' })).toBeInTheDocument()
     })
 })

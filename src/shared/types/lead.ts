@@ -5,7 +5,11 @@ export const REJECTION_REASONS = ['PRICE_TOO_HIGH', 'SCHEDULE_CONFLICT', 'LOCATI
 export type RejectionReason = (typeof REJECTION_REASONS)[number]
 
 export const LEAD_SOURCES = ['INSTAGRAM', 'FACEBOOK', 'TELEGRAM'] as const
-export type LeadSource = (typeof LEAD_SOURCES)[number]
+/**
+ * `WEBSITE` — ochiq lid formasidan kelgan lid. Qo'lda tanlanadigan
+ * ro'yxatda (`LEAD_SOURCES`) yo'q: uni faqat forma qo'yadi.
+ */
+export type LeadSource = (typeof LEAD_SOURCES)[number] | 'WEBSITE'
 
 /**
  * `LeadDto` — potentsial o'quvchi (lid).

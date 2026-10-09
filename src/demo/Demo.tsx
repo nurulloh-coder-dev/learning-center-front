@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '@/app/App'
 import { setDemoRole } from './mockApi'
@@ -17,6 +17,16 @@ function initialRole(): DemoRole {
     return match?.value ?? DEMO_ROLES[0].value
 }
 
+/**
+ * `…/demo.html#f/demo-cornerstone` — ochiq lid formasi (tizimga kirmasdan).
+ * Demo bitta fayl, haqiqiy `/f/<kalit>` manzili yo'q — shuning uchun hash.
+ */
+const publicPath = window.location.hash.startsWith('#f/') ? `/${window.location.hash.slice(1)}` : null
+
+function PublicRouter({ children }: { children: ReactNode }) {
+    return <MemoryRouter initialEntries={[publicPath ?? '/']}>{children}</MemoryRouter>
+}
+
 /** Demo ildizi: ilova + rol almashtirgich. */
 export function Demo() {
     const [role, setRole] = useState<DemoRole>(() => {
@@ -30,6 +40,8 @@ export function Demo() {
         setRole(next)
         window.location.hash = next
     }
+
+    if (publicPath) return <App router={PublicRouter} />
 
     return (
         <>

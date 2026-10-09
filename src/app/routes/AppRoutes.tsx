@@ -1,9 +1,10 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useMatch } from 'react-router-dom'
 import { useAuth } from '@/app/providers/useAuth'
 import { LoginPage } from '@/features/auth/pages/LoginPage'
 import { AttendancePage } from '@/features/attendance/pages/AttendancePage'
 import { GroupLevelsPage } from '@/features/group-levels/pages/GroupLevelsPage'
 import { LeadsPage } from '@/features/leads/pages/LeadsPage'
+import { PublicLeadFormPage } from '@/features/leads/pages/PublicLeadFormPage'
 import { PaymentsPage } from '@/features/payments/pages/PaymentsPage'
 import { SettingsPage } from '@/features/settings/pages/SettingsPage'
 import { NotFoundPage } from './NotFoundPage'
@@ -24,6 +25,17 @@ import { RoleDashboard } from './RoleDashboard'
  */
 export function AppRoutes() {
     const { session, signIn, isRestoring } = useAuth()
+    const publicForm = useMatch('/f/:key')
+
+    // Ochiq lid formasi — sessiyadan OLDIN: mijoz tizimga kirmaydi va
+    // refresh-token tekshiruvini kutib bo'sh ekran ko'rmasligi kerak.
+    if (publicForm) {
+        return (
+            <Routes>
+                <Route path="/f/:key" element={<PublicLeadFormPage />} />
+            </Routes>
+        )
+    }
 
     // Refresh-token tekshiruvi tugamaguncha bo'sh ekran: aks holda kirgan
     // foydalanuvchi bir lahza login sahifasini ko'rib qoladi.

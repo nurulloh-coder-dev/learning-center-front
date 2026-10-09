@@ -20,6 +20,8 @@ export function useLeads(token: string, params: Pick<LeadListParams, 'size' | 's
             const totalPages = lastPage?.totalPages ?? 0
             return pages.length < totalPages ? pages.length : undefined
         },
+        // Ochiq formadan lid o'zi tushadi — administrator sahifani yangilamasdan ko'rsin.
+        refetchInterval: 30_000,
     })
 }
 

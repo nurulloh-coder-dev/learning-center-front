@@ -129,5 +129,6 @@ Batafsil qoidalar: [`docs/architecture.md`](docs/architecture.md).
 | [docs/deployment.md](docs/deployment.md)               | Railway'ga deploy, `/api` proxysi, cookie masalasi |
 | [docs/backend-notes.md](docs/backend-notes.md)         | Backend jamoasiga: xavfsizlik va topilgan xatolar  |
 | [docs/backend-api-request.md](docs/backend-api-request.md) | Backend jamoasiga: kerakli API'lar, ustuvorlik bo'yicha |
+| [docs/lead-form.md](docs/lead-form.md)                 | Ochiq lid formasi (`/f/<kalit>`): qarorlar va endpointlar |
 | [docs/ARXITEKTURA-TARIXI.md](docs/ARXITEKTURA-TARIXI.md) | Nega shunday qilingan + loyihaning hozirgi holati |
 | [CLAUDE.md](CLAUDE.md)                                 | Buzilmasligi kerak bo'lgan qoidalar               |

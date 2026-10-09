@@ -210,6 +210,7 @@ Ildizda: `Dockerfile` + `Caddyfile` (production, `/api` proxysi),
 
 `/` → rolga qarab dashboard · `/attendance` · `/payments` · `/group-levels` ·
 `/leads` · `/settings` (`src/app/routes/AppRoutes.tsx`).
+`/f/:key` — ochiq lid formasi, tizimga kirmasdan ([docs/lead-form.md](docs/lead-form.md)).
 
 Rol tekshiruvi `RequireRole` orqali (`src/app/routes/RequireRole.tsx`).
 **Diqqat: bu himoya EMAS, faqat qulaylik.** Backendda `@PreAuthorize`
@@ -249,3 +250,4 @@ sessiya uni qayta "kashf qiladi".
 | [docs/deployment.md](docs/deployment.md) | Railway, `/api` proxysi, cookie masalasi |
 | [docs/backend-notes.md](docs/backend-notes.md) | Backend jamoasiga: topilgan xatolar |
 | [docs/backend-api-request.md](docs/backend-api-request.md) | Backend jamoasiga: kerakli API'lar |
+| [docs/lead-form.md](docs/lead-form.md) | Ochiq lid formasi: qarorlar va endpointlar |

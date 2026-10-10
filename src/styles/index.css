@@ -80,6 +80,8 @@
 
     /* Oq karta och fonda — juda yengil, keng soya */
     --shadow-card: 0 1px 2px rgb(15 23 42 / 0.03), 0 10px 30px -18px rgb(15 23 42 / 0.18);
+    /* Ochiladigan narsalar (menyu, oyna) — kartadan balandroq */
+    --shadow-pop: 0 24px 60px -24px rgb(15 23 42 / 0.3);
 }
 
 .dark {
@@ -140,6 +142,8 @@
     --slate-soft: #ffffff0d;
 
     --shadow-card: 0 1px 0 rgb(255 255 255 / 0.02) inset, 0 16px 40px -24px rgb(0 0 0 / 0.7);
+    /* Soya doim QORA: ilgari `--fg` dan olinardi va dark'da oq "nur" bo'lib chiqardi */
+    --shadow-pop: 0 24px 60px -20px rgb(0 0 0 / 0.85);
 }
 
 /*
@@ -206,7 +210,10 @@
        Ilgari sarlavha serif (Fraunces) edi — u "gazeta" hissini berardi. */
     --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
     --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    /* `font-mono` endi ham grotesk: yorliq va sarlavhalardagi monospace
+       "texnik/AI" taassurot berardi (Nurulloh izohi). Namunadagidek bosh
+       harfli qalin sans. Nomi qoldi — 57 joyni qayta yozmaslik uchun. */
+    --font-mono: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
     /* Burchak shkalasi bosib o'tiladi — shunda `rounded-lg` yozilgan
        o'nlab komponentga tegmasdan hammasi yumaloqroq bo'ladi. */

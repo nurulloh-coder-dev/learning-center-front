@@ -70,7 +70,7 @@ export function Modal({ eyebrow, title, onClose, children, footer, maxWidth = 'm
             <div
                 role="dialog"
                 aria-modal="true"
-                className={`max-h-[88vh] w-full ${maxWidth} overflow-y-auto rounded-xl border border-border-base bg-surface-card/88 p-5 sm:p-7 shadow-[0_28px_80px_-32px_var(--fg)] backdrop-blur-xl`}
+                className={`max-h-[88vh] w-full ${maxWidth} overflow-y-auto rounded-xl border border-border-base bg-surface-card/88 p-5 sm:p-7 shadow-[var(--shadow-pop)] backdrop-blur-xl`}
                 onClick={(event) => event.stopPropagation()}
             >
                 {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}

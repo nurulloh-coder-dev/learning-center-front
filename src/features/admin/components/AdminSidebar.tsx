@@ -135,7 +135,7 @@ export function AdminTabStrip({ entities, activeTab, onTabChange, links }: Admin
                     className={cn(
                         'shrink-0 cursor-pointer rounded-full px-3.5 py-1.5 max-sm:py-2.5 max-sm:min-h-11 text-xs whitespace-nowrap transition-colors',
                         activeTab === entity.key
-                            ? 'bg-fg font-semibold text-fg-inverted'
+                            ? 'bg-brand font-semibold text-brand-fg'
                             : 'border border-border-base text-fg-muted hover:bg-surface-hover'
                     )}
                 >

@@ -74,7 +74,7 @@ export function ProfileMenu({ token, theme, toggleTheme, onSignOut }: ProfileMen
             {open && (
                 <div
                     role="menu"
-                    className="absolute top-[calc(100%+0.5rem)] right-0 z-40 w-60 rounded-xl border border-border-base bg-surface-card/95 p-2 shadow-[0_28px_80px_-32px_var(--fg)] backdrop-blur-xl"
+                    className="absolute top-[calc(100%+0.5rem)] right-0 z-40 w-60 rounded-xl border border-border-base bg-surface-card/95 p-2 shadow-[var(--shadow-pop)] backdrop-blur-xl"
                 >
                     <div className="flex items-center gap-2.5 px-2 py-2">
                         <Avatar name={me?.fullName} src={me?.imageUrl} />

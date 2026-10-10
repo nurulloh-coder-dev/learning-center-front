@@ -13,7 +13,7 @@ export function EmptyState({
     clearLabel?: string
 }) {
     return (
-        <div className="rounded-xl border border-dashed border-border-strong bg-surface-card/90 px-6 py-10 text-center shadow-[0_22px_60px_-42px_var(--fg)] backdrop-blur-xl dark:border-border-strong dark:bg-surface-card">
+        <div className="rounded-xl border border-dashed border-border-strong bg-surface-card/90 px-6 py-10 text-center shadow-[var(--shadow-pop)] backdrop-blur-xl dark:border-border-strong dark:bg-surface-card">
             <p className="font-display text-lg font-semibold text-fg">{title}</p>
             {description && <p className="mt-1.5 text-sm text-fg-muted">{description}</p>}
             {onClear && (

@@ -67,6 +67,12 @@ Nurulloh ikki namuna tanladi: **light — "ERP" uslubi**, **dark — "PulseBoard
 - **Ikkinchi darajali rangli tugma** (`purple` varianti) — chegarali ko'k
   kapsula, gradient emas.
 - **Kanban ustunlari** (lidlar) — neytral fon, holat rangi faqat nuqtada.
+- **Shrift — bitta, Plus Jakarta Sans.** `font-mono` tokeni ham shunga
+  ulangan: monospace yorliqlar "texnik/AI" ko'rinardi. Yangi joyda
+  monospace kerak bo'lsa, avval kelishing.
+- **Ochiladigan narsalar soyasi** — `shadow-[var(--shadow-pop)]` (doim qora).
+  Soyaga `--fg` ishlatilmaydi: dark'da u oq bo'lib, menyu atrofida "nur" chiqardi.
+- **Tanlangan segment/tab** — `bg-brand text-brand-fg` (oq/qora emas).
 
 ## Dark rejim
 

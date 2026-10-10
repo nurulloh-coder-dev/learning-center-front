@@ -162,7 +162,7 @@ export function ImageGallery({ token: propToken }: ImageGalleryProps) {
                         type="file"
                         accept="image/jpeg,image/png"
                         onChange={handleFileChange}
-                        className="block w-full text-sm text-fg-muted file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-surface-elevated file:text-fg hover:file:bg-surface-hover cursor-pointer"
+                        className="block w-full text-sm text-fg-muted file:mr-4 file:py-2 file:px-4 file:rounded-full file:border file:border-border-base file:text-sm file:font-semibold file:bg-surface-muted file:text-fg hover:file:bg-surface-hover cursor-pointer"
                     />
                     <Button
                         onClick={handleUpload}
@@ -206,7 +206,7 @@ export function ImageGallery({ token: propToken }: ImageGalleryProps) {
                                         onClick={() => setZoomed(img)}
                                         aria-label={t('settings.enlargeImage')}
                                         className={cn(
-                                            'relative size-28 cursor-pointer overflow-hidden rounded-full bg-surface-elevated',
+                                            'relative size-28 cursor-pointer overflow-hidden rounded-full bg-surface-muted',
                                             'transition-transform hover:scale-105',
                                             isMain ? 'ring-3 ring-success' : 'ring-1 ring-border-base'
                                         )}

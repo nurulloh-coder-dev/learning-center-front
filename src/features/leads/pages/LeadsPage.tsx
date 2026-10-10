@@ -17,7 +17,9 @@ import { useLeadGroupOptions, useLeadMutations, useLeads } from '../hooks/useLea
 const PAGE_SIZE = 50
 const EMPTY_LEADS: LeadDto[] = []
 const STATUS_TONE: Record<LeadStatus, 'accent' | 'success' | 'warning' | 'danger'> = { NEW: 'accent', ENROLLED: 'success', CALL_LATER: 'warning', REJECTED: 'danger' }
-const COLUMN_TONE: Record<LeadStatus, string> = { NEW: 'border-accent/30 bg-accent-soft', ENROLLED: 'border-success/30 bg-success-soft', CALL_LATER: 'border-warning/30 bg-warning-soft', REJECTED: 'border-danger/30 bg-danger-soft' }
+// Ustun foni neytral, holat rangi faqat sarlavhadagi nuqtada — to'rtta yorqin
+// rangli maydon yonma-yon ko'zni charchatardi.
+const COLUMN_DOT: Record<LeadStatus, string> = { NEW: 'bg-accent', ENROLLED: 'bg-success', CALL_LATER: 'bg-warning', REJECTED: 'bg-danger' }
 
 function asStatus(value?: LeadStatus): LeadStatus { return LEAD_STATUSES.includes(value as LeadStatus) ? value as LeadStatus : 'NEW' }
 
@@ -96,16 +98,16 @@ export function LeadsPage() {
     }
 
     return (
-        <AppShell subtitle={t('lead.title')} onSignOut={signOut} token={token} theme={theme} toggleTheme={toggleTheme} actions={<><Button size="sm" onClick={() => navigate('/')}>{t('common.back')}</Button><Button size="sm" onClick={() => setIsFormLinkOpen(true)}>{t('leadForm.open')}</Button><Button size="sm" onClick={() => setIsFormLinkOpen(true)}>{t('leadForm.open')}</Button><Button variant="primary" size="sm" onClick={openCreate}>{t('lead.new')}</Button></>}>
+        <AppShell subtitle={t('lead.title')} onSignOut={signOut} token={token} theme={theme} toggleTheme={toggleTheme} actions={<><Button size="sm" onClick={() => navigate('/')}>{t('common.back')}</Button><Button size="sm" onClick={() => setIsFormLinkOpen(true)}>{t('leadForm.open')}</Button><Button variant="primary" size="sm" onClick={openCreate}>{t('lead.new')}</Button></>}>
             <div className="mx-auto max-w-[1600px] space-y-5">
-                <Panel className="border-0 bg-linear-to-br from-accent-soft/60 via-surface-card to-surface-card p-5 sm:p-7">
+                <Panel>
                     <div className="flex flex-wrap items-end justify-between gap-4"><div><Badge tone="accent">{t('lead.eyebrow')}</Badge><h1 className="mt-3 font-display text-3xl font-semibold text-fg">{t('lead.title')}</h1><p className="mt-1 text-sm text-fg-muted">{t('lead.description')}</p></div><div className="rounded-xl border border-border-base bg-surface-card px-4 py-3 text-right"><p className="text-xs text-fg-muted">{t('lead.total')}</p><p className="font-display text-2xl font-semibold text-fg">{total}</p></div></div>
                     <div className="mt-6 flex flex-col gap-2 md:flex-row"><SearchInput aria-label={t('lead.search')} placeholder={t('lead.search')} value={search} onChange={(event) => setSearch(event.target.value)} /><Select aria-label={t('lead.allStatuses')} className="md:w-52" placeholder={t('lead.allStatuses')} value={filter} options={LEAD_STATUSES.map((status) => ({ value: status, label: t(`lead.status.${status}`) }))} onChange={(event) => setFilter(event.target.value as LeadStatus | '')} /></div>
                 </Panel>
                 {apiError && <ErrorBox>{t('lead.loadFailed', { message: errorMessage(apiError, t('common.somethingWrong')) })}</ErrorBox>}
                 <div className="overflow-x-auto pb-2"><div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:min-w-[1040px]">
-                    {visibleStatuses.map((status) => { const list = lists[status]; const grouped = leadsByStatus[status]; return <section key={status} className={`flex min-h-110 flex-col rounded-2xl border p-3.5 ${COLUMN_TONE[status]}`} onDragOver={(event) => event.preventDefault()} onDrop={() => drop(status)}>
-                        <header className="mb-3 flex flex-wrap items-center justify-between gap-2 px-1"><div><h2 className="font-display text-base font-semibold text-fg">{t(`lead.status.${status}`)}</h2><p className="text-xs text-fg-muted">{t('lead.count', { count: grouped.length })}</p></div><Badge tone={STATUS_TONE[status]}>{grouped.length}</Badge></header>
+                    {visibleStatuses.map((status) => { const list = lists[status]; const grouped = leadsByStatus[status]; return <section key={status} className="flex min-h-110 flex-col rounded-2xl border border-border-base bg-surface-muted/70 p-3.5" onDragOver={(event) => event.preventDefault()} onDrop={() => drop(status)}>
+                        <header className="mb-3 flex flex-wrap items-center justify-between gap-2 px-1"><div><h2 className="flex items-center gap-2 font-display text-base font-semibold text-fg"><span aria-hidden="true" className={`size-2.5 rounded-full ${COLUMN_DOT[status]}`} />{t(`lead.status.${status}`)}</h2><p className="text-xs text-fg-muted">{t('lead.count', { count: grouped.length })}</p></div><Badge tone={STATUS_TONE[status]}>{grouped.length}</Badge></header>
                         <div className="flex flex-1 flex-col gap-3">{list.isLoading ? <div className="rounded-xl border border-dashed border-border-base bg-surface-card p-5 text-center text-sm text-fg-muted">{t('common.loading')}</div> : grouped.length === 0 ? <div className="flex min-h-32 flex-1 items-center justify-center rounded-xl border border-dashed border-border-base bg-surface-card/60 px-4 text-center text-xs text-fg-muted">{t('lead.dropHere')}</div> : grouped.map((lead) => <LeadCard key={lead.id} lead={lead} status={status} onEdit={openEdit} onStatusChange={changeStatus} onDelete={deleteLead} onDragStart={(id) => setDraggedId(id)} onDragEnd={() => setDraggedId(null)} />)}{list.hasNextPage && <div ref={(element) => { if (element) loadMoreRefs.current[status] = element; else delete loadMoreRefs.current[status] }} data-status={status} className="h-8 text-center text-xs text-fg-muted">{list.isFetchingNextPage ? t('common.loading') : ''}</div>}</div>
                     </section> })}
                 </div></div>

@@ -123,7 +123,7 @@ export function SuperAdminSidebar({
             </nav>
 
             {/* Telefonda gorizontal tasma — chap ustun ekranning yarmini yeydi */}
-            <nav className="-mx-1 mb-4 flex gap-1 overflow-x-auto px-1 pb-1 lg:hidden">
+            <nav className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:hidden">
                 {[...PEOPLE, ...SETTINGS].map((item) => renderItem(item, 'shrink-0 whitespace-nowrap'))}
             </nav>
         </>

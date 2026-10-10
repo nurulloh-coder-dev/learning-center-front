@@ -61,6 +61,12 @@ Nurulloh ikki namuna tanladi: **light — "ERP" uslubi**, **dark — "PulseBoard
 - **Asosiy tugma** (`primary`) — kapsula (`rounded-full`). Burchak klassi
   variantda turadi, `Button` asosida emas: bitta elementda ikki xil `rounded-*` bo'lmasin.
 - **Qidiruv** — `SearchInput`; **odamlar** — `Avatar colorful`.
+- **Tepa panel** (`AppShell`) — oq, ingichka chiziq, chapda ALIA + sahifa
+  nomi katta yozuvda; sahifa tugmalari kompyuterda o'ngda, telefonda pastki
+  tasmada (bir marta chiziladi, joyi `order` bilan o'zgaradi).
+- **Ikkinchi darajali rangli tugma** (`purple` varianti) — chegarali ko'k
+  kapsula, gradient emas.
+- **Kanban ustunlari** (lidlar) — neytral fon, holat rangi faqat nuqtada.
 
 ## Dark rejim
 

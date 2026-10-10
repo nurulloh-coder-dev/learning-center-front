@@ -41,20 +41,29 @@ export function AppShell({
 }: AppShellProps) {
     return (
         <div className="flex min-h-screen flex-col bg-surface">
-            <header className="sticky top-0 z-30 border-b border-border-base bg-surface-card/82 shadow-[0_18px_55px_-45px_var(--fg)] backdrop-blur-xl">
-                <div className="flex items-center gap-2 px-4 py-2.5 sm:px-8">
-                    <Brand subtitle={subtitle} className="min-w-0 [&>span:last-child]:truncate" />
+            {/* Namunadagidek: oq panel, ingichka chiziq, katta soya yo'q. Kompyuterda
+                sahifa tugmalari sarlavha bilan bir qatorda (o'ngda), telefonda —
+                pastki qatorda gorizontal tasma. Tugmalar BIR marta chiziladi —
+                faqat joyi `order` bilan o'zgaradi. */}
+            <header className="sticky top-0 z-30 border-b border-border-base bg-surface-card">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 px-4 py-3 sm:px-8">
+                    <div className="flex min-w-0 items-center gap-3">
+                        <Brand />
+                        <span aria-hidden="true" className="h-5 w-px bg-border-base" />
+                        <span className="truncate font-display text-lg font-semibold text-fg">{subtitle}</span>
+                    </div>
 
-                    <div className="ml-auto flex shrink-0 items-center gap-1.5">
+                    {actions && (
+                        <div className="order-last -mx-px flex w-full gap-2 overflow-x-auto [scrollbar-width:none] lg:order-none lg:ml-auto lg:w-auto [&::-webkit-scrollbar]:hidden">
+                            {actions}
+                        </div>
+                    )}
+
+                    {/* Tugmalar bo'lsa kompyuterda o'ngga ular suriladi, profil yonida turadi */}
+                    <div className={cn('ml-auto flex shrink-0 items-center gap-1.5', actions != null && 'lg:ml-0')}>
                         <ProfileMenu token={token} theme={theme} toggleTheme={toggleTheme} onSignOut={onSignOut} />
                     </div>
                 </div>
-
-                {actions && (
-                    <div className="-mx-px flex gap-2 overflow-x-auto px-4 pb-2.5 sm:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                        {actions}
-                    </div>
-                )}
 
                 {secondary && <div className="px-4 pb-2.5 sm:px-8">{secondary}</div>}
             </header>

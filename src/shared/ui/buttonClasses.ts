@@ -14,10 +14,10 @@ export const buttonVariantClasses: Record<ButtonVariant, string> = {
         'hover:brightness-110'
     ),
     success: 'rounded-lg border border-success/20 bg-success text-white font-semibold hover:brightness-105',
-    purple: cn(
-        'rounded-full bg-linear-to-r from-purple to-brand-2 text-white shadow-[0_6px_16px_-8px_var(--brand)]',
-        'hover:brightness-110'
-    ),
+    // Ikkinchi darajali rangli harakat — namunadagi ("Spiska", "Yuk keldi")
+    // chegarali kapsula. Ilgari binafsha gradient edi va asosiy tugma bilan
+    // yonma-yon turganda qaysi biri muhimligi bilinmasdi.
+    purple: 'rounded-full border border-accent/40 bg-surface-card text-accent-fg font-medium hover:bg-accent-soft',
     secondary: 'rounded-lg border border-border-base bg-surface-card text-fg shadow-[0_1px_2px_rgb(15_23_42/0.04)] hover:border-border-strong hover:bg-surface-hover',
     ghost: 'rounded-lg border border-transparent text-fg-muted hover:bg-surface-hover hover:text-fg',
     danger: 'rounded-lg border border-danger-soft bg-danger-soft text-danger-fg hover:bg-danger hover:text-white',

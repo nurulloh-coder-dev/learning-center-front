@@ -28,10 +28,17 @@ function mockItems(
     return base
 }
 
+const ALL: AnalyticsCategory[] = ['student', 'teacher', 'lead', 'invoice', 'enrollment', 'branch']
+
 describe('AnalyticsStatsRow', () => {
+    it('shows the four main cards by default', () => {
+        renderWithProviders(<AnalyticsStatsRow items={mockItems()} />)
+        expect(screen.getAllByText('100')).toHaveLength(4)
+    })
+
     it('renders total counts and "+12 bu oyda" correctly (except branch which has no monthly count)', () => {
         const items = mockItems()
-        renderWithProviders(<AnalyticsStatsRow items={items} />)
+        renderWithProviders(<AnalyticsStatsRow items={items} categories={ALL} />)
 
         // 6 cards rendered with total 100
         const totalElements = screen.getAllByText('100')
@@ -47,7 +54,7 @@ describe('AnalyticsStatsRow', () => {
             student: { total: undefined, thisMonth: undefined, isLoading: true },
         })
 
-        renderWithProviders(<AnalyticsStatsRow items={items} />)
+        renderWithProviders(<AnalyticsStatsRow items={items} categories={ALL} />)
 
         // Student total should be '···' and thisMonth should be '···'
         const loadingDots = screen.getAllByText('···')
@@ -59,7 +66,7 @@ describe('AnalyticsStatsRow', () => {
             lead: { total: null, thisMonth: null, isLoading: false },
         })
 
-        renderWithProviders(<AnalyticsStatsRow items={items} />)
+        renderWithProviders(<AnalyticsStatsRow items={items} categories={ALL} />)
 
         expect(screen.getByText('—')).toBeInTheDocument()
     })
@@ -69,7 +76,7 @@ describe('AnalyticsStatsRow', () => {
             student: { error: new Error('Failed to fetch') },
         })
 
-        renderWithProviders(<AnalyticsStatsRow items={items} />)
+        renderWithProviders(<AnalyticsStatsRow items={items} categories={ALL} />)
 
         expect(screen.getByText('Ma’lumotlarni yuklashda xatolik yuz berdi')).toBeInTheDocument()
     })

@@ -37,27 +37,30 @@ Shundan keyin `bg-info`, `text-info`, `border-info` o'zi ishlaydi.
 **Komponentda hex kod yozmang.** Agar kerakli semantik rang yo'q bo'lsa,
 uni yuqoridagidek qo'shing.
 
-## Palitra (2026-10 yangilanishi)
+## Palitra (2026-10, ikkinchi yangilanish)
 
-- **Bitta asosiy rang — indigo** (`brand`, `accent`), **bitta yordamchi —
-  osmon ko'ki** (`magenta`/`steel` tokenlari). `purple` endi indigo'ning
-  to'q tusi: gradientlar bir oiladan. Yangi ekranga yangi yorqin rang
-  qo'shmang — holat ranglari (`success`, `danger`, `warning`) faqat holat
-  uchun.
-- **Fon — slate**, sof oq/qora emas: yorug'da `#f8fafc`, to'qda `#0b1120`.
-- **Shisha karta:** `bg-surface-card/80 backdrop-blur-md`, ingichka qirra
-  (`border-border-base` — to'qda oq 7%), soya `shadow-[var(--shadow-card)]`.
-  Rangli "dog'" soyalar ishlatilmaydi.
-- **Jadval:** qator chiziqlari `border-border-base/60`, hover — to'qda oq 5%.
-  Amallar tugmalari (`IconButton`) neytral kulrang, faqat hover'da yorishadi.
-- **Asosiy tugma** (`primary`) — kapsula (`rounded-full`) va indigo gradient.
-  Burchak klassi variantda turadi, `Button` asosida emas: bitta elementda
-  ikki xil `rounded-*` bo'lmasin.
-- **Qidiruv** — `SearchInput` (chapda lupa, kapsula shakli). Loyihadagi
-  barcha qidiruv maydonlari shu.
-- **Statistika** — `StatCard` (admin, o'qituvchi, super-admin): ikonka
-  rangli kichik fonda, katta raqam, ostida faqat HAQIQIY dinamika.
-- **Ro'yxatdagi odamlar** — `Avatar colorful`: ismga qarab doim bir xil rang.
+Nurulloh ikki namuna tanladi: **light — "ERP" uslubi**, **dark — "PulseBoard"**.
+
+- **Light:** och kulrang-ko'k fon `#eef2f7`, oq kartalar, bitta ko'k aksent
+  `#2563eb`. Chap menyu ham oq (`--sidebar`), faol band — to'liq ko'k kapsula.
+- **Dark:** chuqur navy fon `#070b16`, karta `#0d1426`, chegaralar ko'rinadigan
+  `#1b2540` (oq foiz emas). Faol band va asosiy tugma — moviydan binafshaga
+  gradient.
+- **Gradient bitta joyda:** `from-brand to-brand-2`. Light'da ikkala token bir
+  xil (`#2563eb`) — gradient sezilmaydi, dark'da `#3b82f6 → #6d5cf6`. Yangi
+  gradient yozmang, shu juftlikni ishlating.
+- **Kartalar to'liq rangli** (`bg-surface-card`), shishasiz (`backdrop-blur` yo'q),
+  soya — `shadow-[var(--shadow-card)]`.
+- **Ikonka fonlari pastel** (`accent-soft`, `success-soft`, `amber-soft`,
+  `purple-soft`, `steel-soft`) — namunadagi dumaloq ikonkalar.
+- **Holat ranglari** (`success`, `danger`, `warning`) faqat holat uchun.
+- **`StatCard`:** tepada kichik bosh harfli sarlavha, o'ng burchakda dumaloq
+  ikonka, katta raqam, ostida yashil o'sish yozuvi (faqat HAQIQIY ma'lumot).
+- **Progress chiziqlari** — `<progress>` + `[&::-webkit-progress-value]:bg-…`:
+  eni ma'lumotga bog'liq, lekin inline `style` kerak emas.
+- **Asosiy tugma** (`primary`) — kapsula (`rounded-full`). Burchak klassi
+  variantda turadi, `Button` asosida emas: bitta elementda ikki xil `rounded-*` bo'lmasin.
+- **Qidiruv** — `SearchInput`; **odamlar** — `Avatar colorful`.
 
 ## Dark rejim
 

@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import userEvent from '@testing-library/user-event'
 import { renderWithProviders } from '@/test/renderWithProviders'
 import { AnalyticsPanel } from './AnalyticsPanel'
 
@@ -23,6 +24,33 @@ vi.mock('../hooks/useAnalytics', async (importOriginal) => {
 })
 
 const mockUseMonthlyInvoiceRevenue = vi.fn()
+
+vi.mock('../hooks/useDashboardLists', () => ({
+    useLeadStatusCounts: () => ({
+        counts: [
+            { status: 'NEW', count: 7 },
+            { status: 'ENROLLED', count: 3 },
+            { status: 'REJECTED', count: 1 },
+            { status: 'CALL_LATER', count: 2 },
+        ],
+        isLoading: false,
+        error: null,
+    }),
+    useRecentPayments: () => ({
+        rows: [
+            {
+                id: 't1',
+                type: 'PAID',
+                amount: 450000,
+                createdAt: '2026-10-09T10:00:00',
+                user: { id: 's1', userDto: { id: 'u1', fullName: 'Aziza Karimova' } },
+                invoice: { id: 'i1', invoiceNumber: 'INV-007' },
+            },
+        ],
+        isLoading: false,
+        error: null,
+    }),
+}))
 
 vi.mock('../hooks/useMonthlyInvoiceRevenue', () => ({
     useMonthlyInvoiceRevenue: (...args: unknown[]) => mockUseMonthlyInvoiceRevenue(...args),
@@ -61,6 +89,19 @@ describe('AnalyticsPanel', () => {
         expect(screen.getByText('150')).toBeInTheDocument()
         expect(screen.getByText('20')).toBeInTheDocument()
         expect(screen.getByText('Tushum dinamikasi (oxirgi 6 oy)')).toBeInTheDocument()
+    })
+
+    it('shows the lead funnel, recent payments and quick links', async () => {
+        const onOpenSection = vi.fn()
+        renderWithProviders(<AnalyticsPanel token="fake-token" onOpenSection={onOpenSection} />)
+
+        expect(screen.getByText('Lidlar holati')).toBeInTheDocument()
+        expect(screen.getByText('Jami 13 ta')).toBeInTheDocument()
+        expect(screen.getByRole('progressbar', { name: 'Yangi' })).toHaveAttribute('value', '7')
+        expect(screen.getByText('Aziza Karimova')).toBeInTheDocument()
+
+        await userEvent.click(screen.getByRole('button', { name: /Filiallar/ }))
+        expect(onOpenSection).toHaveBeenCalledWith('branches')
     })
 
     it('renders error message when chart data fails', () => {

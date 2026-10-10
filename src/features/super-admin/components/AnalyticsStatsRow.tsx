@@ -3,13 +3,13 @@ import { useT } from '@/shared/i18n'
 import { formatAmount } from '@/shared/lib'
 import { FolderIcon, LayersIcon, StatCard, TargetIcon, TeacherIcon, UsersIcon, WalletIcon } from '@/shared/ui'
 import type { AnalyticsCategory } from '@/shared/types'
-import { ANALYTICS_CATEGORIES, type AnalyticsItemResult } from '../hooks/useAnalytics'
+import type { AnalyticsItemResult } from '../hooks/useAnalytics'
 
 const CATEGORY_ICON: Record<AnalyticsCategory, { icon: ReactNode; tone: string }> = {
     student: { icon: <UsersIcon />, tone: 'bg-accent-soft text-accent-fg' },
-    teacher: { icon: <TeacherIcon />, tone: 'bg-steel-soft text-steel-fg' },
+    teacher: { icon: <TeacherIcon />, tone: 'bg-success-soft text-success-fg' },
     lead: { icon: <TargetIcon />, tone: 'bg-amber-soft text-amber-fg' },
-    invoice: { icon: <WalletIcon />, tone: 'bg-success-soft text-success-fg' },
+    invoice: { icon: <WalletIcon />, tone: 'bg-purple-soft text-purple-fg' },
     enrollment: { icon: <FolderIcon />, tone: 'bg-accent-soft text-accent-fg' },
     branch: { icon: <LayersIcon />, tone: 'bg-steel-soft text-steel-fg' },
 }
@@ -19,16 +19,21 @@ function formatTotal(category: AnalyticsCategory, value: number): string {
     return category === 'invoice' ? formatAmount(value) : String(value)
 }
 
+/** Tepadagi to'rt karta (namunadagidek). A'zolar va filiallar — "Tezkor havolalar"da. */
+const MAIN_CATEGORIES: AnalyticsCategory[] = ['invoice', 'student', 'lead', 'teacher']
+
 export function AnalyticsStatsRow({
     items,
+    categories = MAIN_CATEGORIES,
 }: {
     items: Record<AnalyticsCategory, AnalyticsItemResult>
+    categories?: AnalyticsCategory[]
 }) {
     const { t } = useT()
 
     return (
-        <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-            {ANALYTICS_CATEGORIES.map((category) => {
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-4">
+            {categories.map((category) => {
                 const item = items[category]
                 const hasError = Boolean(item?.error)
                 const totalText = hasError

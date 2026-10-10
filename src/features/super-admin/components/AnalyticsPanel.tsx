@@ -1,102 +1,55 @@
-import {
-    Area,
-    AreaChart,
-    CartesianGrid,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
-} from 'recharts'
-import { useT } from '@/shared/i18n'
-import { formatAmount } from '@/shared/lib'
 import { AnalyticsStatsRow } from './AnalyticsStatsRow'
+import { LeadFunnelCard } from './dashboard/LeadFunnelCard'
+import { QuickLinksCard } from './dashboard/QuickLinksCard'
+import { RecentPaymentsCard } from './dashboard/RecentPaymentsCard'
+import { RevenueChartCard } from './dashboard/RevenueChartCard'
+import type { SuperAdminSection } from './SuperAdminSidebar'
 import { useAnalytics } from '../hooks/useAnalytics'
+import { useLeadStatusCounts, useRecentPayments } from '../hooks/useDashboardLists'
 import { useMonthlyInvoiceRevenue } from '../hooks/useMonthlyInvoiceRevenue'
 
 interface AnalyticsPanelProps {
     token: string
+    onOpenSection?: (section: SuperAdminSection) => void
 }
 
-export default function AnalyticsPanel({ token }: AnalyticsPanelProps) {
-    const { t } = useT()
+/**
+ * Super-admin dashboardi — namunadagi (ERP) tartib: tepada to'rt karta,
+ * o'rtada grafik + lidlar holati, pastda so'nggi to'lovlar + tezkor havolalar.
+ */
+export default function AnalyticsPanel({ token, onOpenSection = () => {} }: AnalyticsPanelProps) {
     const analytics = useAnalytics(token)
-    const { chartData, isLoading: isChartLoading, isError: isChartError } = useMonthlyInvoiceRevenue(token)
+    const revenue = useMonthlyInvoiceRevenue(token)
+    const leads = useLeadStatusCounts(token)
+    const payments = useRecentPayments(token)
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-5">
             <AnalyticsStatsRow items={analytics.items} />
 
-            <div className="rounded-lg border border-border-base bg-surface-card p-5 shadow-[0_6px_16px_-10px_rgba(31,42,61,0.25)]">
-                <div className="mb-4 flex items-center justify-between">
-                    <div>
-                        <h3 className="font-display text-base font-semibold text-fg">
-                            {t('analytics.revenueDynamics')}
-                        </h3>
-                        <p className="text-xs text-fg-muted">
-                            {t('analytics.monthlyInvoiceRevenue')}
-                        </p>
-                    </div>
-                </div>
+            <div className="grid gap-5 lg:grid-cols-3">
+                <RevenueChartCard
+                    className="lg:col-span-2"
+                    data={revenue.chartData}
+                    isLoading={revenue.isLoading}
+                    isError={revenue.isError}
+                />
+                <LeadFunnelCard counts={leads.counts} isLoading={leads.isLoading} hasError={leads.error != null} />
+            </div>
 
-                <div className="h-72 w-full">
-                    {isChartLoading ? (
-                        <div className="flex h-full items-center justify-center text-sm text-fg-muted">
-                            ···
-                        </div>
-                    ) : isChartError ? (
-                        <div className="flex h-full items-center justify-center text-sm text-danger-fg">
-                            {t('analytics.error')}
-                        </div>
-                    ) : (
-                        <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                                <defs>
-                                    <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="var(--color-accent)" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="var(--color-accent)" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border-base)" />
-                                <XAxis
-                                    dataKey="monthLabel"
-                                    axisLine={false}
-                                    tickLine={false}
-                                    tick={{ fill: 'var(--color-fg-muted)', fontSize: 12 }}
-                                />
-                                <YAxis
-                                    axisLine={false}
-                                    tickLine={false}
-                                    tick={{ fill: 'var(--color-fg-muted)', fontSize: 12 }}
-                                    // Standart 60px "1 200 000" ga yetmaydi — boshi qirqilib
-                                    // "200 000" ko'rinardi va summa 6 baravar kam tuyulardi.
-                                    width={84}
-                                    tickFormatter={(val) => formatAmount(val)}
-                                />
-                                <Tooltip
-                                    contentStyle={{
-                                        backgroundColor: 'var(--color-surface-card)',
-                                        borderColor: 'var(--color-border-base)',
-                                        borderRadius: '0.5rem',
-                                        color: 'var(--color-fg)',
-                                    }}
-                                    formatter={(value: unknown) => [
-                                        formatAmount(typeof value === 'number' ? value : 0),
-                                        t('analytics.revenue'),
-                                    ]}
-                                    labelStyle={{ color: 'var(--color-fg-muted)' }}
-                                />
-                                <Area
-                                    type="monotone"
-                                    dataKey="amount"
-                                    stroke="var(--color-accent)"
-                                    strokeWidth={2}
-                                    fillOpacity={1}
-                                    fill="url(#revenueGradient)"
-                                />
-                            </AreaChart>
-                        </ResponsiveContainer>
-                    )}
-                </div>
+            <div className="grid gap-5 lg:grid-cols-3">
+                <RecentPaymentsCard
+                    className="lg:col-span-2"
+                    rows={payments.rows}
+                    isLoading={payments.isLoading}
+                    hasError={payments.error != null}
+                />
+                <QuickLinksCard
+                    leadCount={analytics.items.lead?.total}
+                    branchCount={analytics.items.branch?.total}
+                    enrollmentCount={analytics.items.enrollment?.total}
+                    onOpenSection={onOpenSection}
+                />
             </div>
         </div>
     )

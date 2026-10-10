@@ -3,9 +3,12 @@ import type {
     AnalyticsCategory,
     AnalyticsStatDto,
     BranchDto,
+    LeadDto,
+    LeadStatus,
     OrganizationDto,
     Page,
     SubscriptionDto,
+    TransactionDto,
     UserCreatePayload,
     UserCreatedResponseDto,
     UserDto,
@@ -179,4 +182,22 @@ export function updateOwnOrganization(token: string, id: string, body: Organizat
  */
 export function createAdmin(token: string, body: UserCreatePayload) {
     return apiFetch<UserCreatedResponseDto>('/user', { method: 'POST', token, body })
+}
+
+// --- dashboard: lidlar voronkasi va so'nggi to'lovlar ---
+
+/** Holat bo'yicha lidlar soni — sahifaning o'zi kerak emas, faqat `totalElements`. */
+export async function fetchLeadCount(token: string, status: LeadStatus) {
+    const data = await apiFetch<Page<LeadDto>>('/leads', { token, params: { status, page: 0, size: 1 } })
+    return data?.totalElements ?? 0
+}
+
+export async function fetchTransactionCount(token: string) {
+    const data = await apiFetch<{ count?: number }>('/transaction/count', { token })
+    return data?.count ?? 0
+}
+
+export async function fetchTransactionPage(token: string, page: number, size: number) {
+    const data = await apiFetch<Page<TransactionDto>>('/transaction', { token, params: { page, size } })
+    return data?.content ?? []
 }

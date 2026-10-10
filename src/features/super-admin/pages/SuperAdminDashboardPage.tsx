@@ -112,7 +112,7 @@ export function SuperAdminDashboardPage() {
                                 </div>
                             }
                         >
-                            <AnalyticsPanel token={session.token} />
+                            <AnalyticsPanel token={session.token} onOpenSection={changeSection} />
                         </Suspense>
                     )}
 

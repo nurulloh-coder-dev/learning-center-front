@@ -74,6 +74,11 @@ export const queryKeys = {
     publicLeadForm: (key: string) => ['lead-form', 'public', key] as const,
 
     analytics: (category: string) => ['analytics', category] as const,
+    /** `lead` prefiksi — lid o'zgarganda super-admin voronkasi ham yangilanadi. */
+    leadStatusCount: (status: string) => ['lead', 'count', status] as const,
+    /** `transaction` prefiksi — to'lov yozilgach "so'nggi to'lovlar" ham yangilanadi. */
+    transactionCount: () => ['transaction', 'count'] as const,
+    transactionPage: (page: number, size: number) => ['transaction', 'page', page, size] as const,
     analyticsInvoiceRange: (from: string, to: string) => ['analytics', 'invoice', 'range', { from, to }] as const,
 
     groupStats: () => ['group', 'stats'] as const,

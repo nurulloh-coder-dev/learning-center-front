@@ -6,9 +6,9 @@ export function Panel({ children, className }: { children: ReactNode; className?
     return (
         <section
             className={cn(
-                // Shisha karta: yarim shaffof fon + blur + ingichka qirra. To'q temada
-                // fondan "ko'tarilib" turadi, yorug' temada oddiy oq karta.
-                'rounded-2xl border border-border-base bg-surface-card/80 p-6 shadow-[var(--shadow-card)] backdrop-blur-md',
+                // To'liq rangli karta + ingichka qirra (2026-10 palitra): light'da och
+                // fonda oq, dark'da navy fonda biroz ochroq — shishasiz, sokin.
+                'rounded-2xl border border-border-base bg-surface-card p-6 shadow-[var(--shadow-card)]',
                 className
             )}
         >

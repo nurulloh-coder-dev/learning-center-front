@@ -34,7 +34,7 @@ export function AdminSidebar({ entities, activeTab, onTabChange, links }: AdminS
     const { t } = useT()
 
     return (
-        <aside className="hidden w-60 shrink-0 flex-col border-r border-white/8 bg-sidebar/95 px-3 py-6 text-sidebar-fg backdrop-blur-md lg:flex">
+        <aside className="hidden w-60 shrink-0 flex-col border-r border-border-base bg-sidebar px-3 py-6 text-sidebar-fg backdrop-blur-md lg:flex">
             <div className="mb-6 flex items-center gap-2.5 px-3">
                 <span className="rounded-md bg-brand px-1.5 py-0.5 font-mono text-xs tracking-[0.1em] text-brand-fg">
                     ALIA
@@ -55,7 +55,7 @@ export function AdminSidebar({ entities, activeTab, onTabChange, links }: AdminS
 
                 {links.length > 0 && (
                     <>
-                        <div className="mx-3 my-3 border-t border-white/8" />
+                        <div className="mx-3 my-3 border-t border-border-base" />
                         {links.map((link) => (
                             <NavItem
                                 key={link.key}
@@ -69,7 +69,7 @@ export function AdminSidebar({ entities, activeTab, onTabChange, links }: AdminS
                 )}
             </nav>
 
-            <div className="border-t border-white/8 px-3 pt-4">
+            <div className="border-t border-border-base px-3 pt-4">
                 <div className="text-[0.68rem] font-medium tracking-[0.08em] text-sidebar-fg/45 uppercase">
                     {t('admin.role')}
                 </div>
@@ -108,11 +108,12 @@ function NavItem({
             className={cn(
                 'flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition-colors',
                 isActive
-                    ? 'bg-linear-to-r from-brand/25 to-brand/5 font-medium text-white shadow-[inset_0_0_0_1px_rgb(255_255_255/0.06)]'
-                    : 'text-sidebar-fg/60 hover:bg-white/5 hover:text-sidebar-fg'
+                    // Faol — to'liq rangli kapsula (light: ko'k, dark: moviy→binafsha)
+                    ? 'bg-linear-to-r from-brand to-brand-2 font-medium text-brand-fg shadow-[0_6px_16px_-8px_var(--brand)]'
+                    : 'text-sidebar-fg/70 hover:bg-surface-hover hover:text-sidebar-fg'
             )}
         >
-            <span className={cn('shrink-0', isActive ? 'text-accent-fg' : 'text-sidebar-fg/50')}>{icon}</span>
+            <span className={cn('shrink-0', isActive ? 'text-brand-fg' : 'text-sidebar-fg/50')}>{icon}</span>
             {label}
         </button>
     )

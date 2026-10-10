@@ -16,6 +16,7 @@ export {
     formatDate,
     formatDayMonth,
     formatHeader,
+    formatMonthShort,
     formatTime,
     initials,
     singular,

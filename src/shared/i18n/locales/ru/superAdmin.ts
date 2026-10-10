@@ -70,4 +70,11 @@ export const superAdmin: Record<SuperAdminKeys, string> = {
     'superAdmin.permission.TEACHER_MANAGEMENT': 'Преподаватели',
     'superAdmin.permission.STUDENT_MANAGEMENT': 'Ученики',
     'superAdmin.permission.INVOICE_MANAGEMENT': 'Платежи',
+    'analytics.leadFunnel': "Лиды по статусам",
+    'analytics.leadTotal': "Всего {{count}}",
+    'analytics.recentPayments': "Последние платежи",
+    'analytics.noPayments': "Платежей пока нет",
+    'analytics.viewAll': "Все",
+    'analytics.quickLinks': "Быстрые ссылки",
+    'analytics.unknownStudent': "Ученик",
 }

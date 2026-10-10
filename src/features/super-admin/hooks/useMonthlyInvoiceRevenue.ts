@@ -1,6 +1,7 @@
 import { useQueries } from '@tanstack/react-query'
 import { queryKeys } from '@/shared/api'
 import { useT } from '@/shared/i18n'
+import { formatMonthShort } from '@/shared/lib'
 import { fetchInvoiceAnalyticsRange } from '../api/superAdminApi'
 
 export interface MonthRevenueData {
@@ -22,7 +23,7 @@ export function getMonthDateRange(year: number, monthIndex: number, locale = 'uz
     const from = `${start.getUTCFullYear()}-${pad(start.getUTCMonth() + 1)}-01`
     const to = `${end.getUTCFullYear()}-${pad(end.getUTCMonth() + 1)}-${pad(end.getUTCDate())}`
 
-    const monthLabel = start.toLocaleString(locale, { month: 'short' })
+    const monthLabel = formatMonthShort(start.getUTCMonth(), locale)
 
     return { year, monthIndex, monthLabel, from, to }
 }

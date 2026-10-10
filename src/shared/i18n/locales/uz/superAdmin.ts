@@ -73,6 +73,13 @@ export const superAdmin = {
     'superAdmin.permission.TEACHER_MANAGEMENT': 'O‘qituvchilar',
     'superAdmin.permission.STUDENT_MANAGEMENT': 'O‘quvchilar',
     'superAdmin.permission.INVOICE_MANAGEMENT': 'To‘lovlar',
+    'analytics.leadFunnel': "Lidlar holati",
+    'analytics.leadTotal': "Jami {{count}} ta",
+    'analytics.recentPayments': "So'nggi to'lovlar",
+    'analytics.noPayments': "Hali to'lov yo'q",
+    'analytics.viewAll': "Hammasi",
+    'analytics.quickLinks': "Tezkor havolalar",
+    'analytics.unknownStudent': "O'quvchi",
 } as const
 
 export type SuperAdminKeys = keyof typeof superAdmin

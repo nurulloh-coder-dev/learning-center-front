@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatAmount, formatCell, formatDate, formatDayMonth, formatHeader, formatTime, initials, singular, titleCase } from './format'
+import { formatAmount, formatCell, formatDate, formatDayMonth, formatHeader, formatMonthShort, formatTime, initials, singular, titleCase } from './format'
 
 /** `Intl` razryadlarni uzuq bo'shliq (U+00A0) bilan ajratadi. */
 const normalizeAmount = (value: string) => value.replace(/\u00a0/g, ' ')
@@ -129,5 +129,14 @@ describe('formatDayMonth', () => {
 
     it('bo‘sh qiymatda bo‘sh satr', () => {
         expect(formatDayMonth(undefined)).toBe('')
+    })
+})
+
+describe('formatMonthShort', () => {
+    // Chrome'da `toLocaleString('uz')` "M10" berardi.
+    it('gives capitalised short month names without Intl', () => {
+        expect(formatMonthShort(0, 'uz')).toBe('Yan')
+        expect(formatMonthShort(9, 'ru')).toBe('Окт')
+        expect(formatMonthShort(9, 'en')).toBe('Oct')
     })
 })

@@ -81,6 +81,9 @@ export function handleInvoices(
         return noContent()
     }
 
+    if (path === '/transaction/count' && method === 'GET') {
+        return json({ count: db.transactions.length })
+    }
     if (path === '/transaction' && method === 'GET') {
         return page(db.transactions as unknown as Row[], url)
     }

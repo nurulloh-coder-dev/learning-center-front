@@ -15,59 +15,59 @@
  */
 :root {
     /*
-     * 2026-10 UI yangilanishi: bitta asosiy rang (indigo) + bitta yordamchi
-     * (osmon ko'ki). Ilgari binafsha, pushti, yashil, to'q sariq bir vaqtda
-     * ishlatilib, dizayn "arzon" ko'rinardi. Fon — sof oq/qora emas, slate.
+     * 2026-10 palitra (2): light — "ERP" uslubidagi namuna (och kulrang-ko'k
+     * fon, oq kartalar, bitta ko'k aksent, pastel ikonka fonlari); dark —
+     * "PulseBoard" namunasi (chuqur navy, ko'rinadigan ingichka chegaralar,
+     * moviydan binafshaga gradient). Ikkalasini Nurulloh tanlagan.
      */
-    --surface: #f8fafc;
+    --surface: #eef2f7;
     --surface-card: #ffffff;
-    --surface-muted: #f1f5f9;
+    --surface-muted: #f5f7fb;
     --surface-hover: #f1f5f9;
 
-    --border: #e2e8f0;
+    --border: #e3e8ef;
     --border-strong: #cbd5e1;
 
     /* Matn: asosiy → ikkilamchi → eng xira (label, jadval sarlavhasi) */
     --fg: #0f172a;
-    --fg-muted: #475569;
+    --fg-muted: #64748b;
     --fg-faint: #94a3b8;
     --fg-inverted: #ffffff;
 
-    /* Brend — indigo; CTA va ALIA belgisi shu rangda */
-    --brand: #4f46e5;
+    /* Brend: light'da bir tekis ko'k (`brand-2` = `brand`, gradient sezilmaydi) */
+    --brand: #2563eb;
+    --brand-2: #2563eb;
     --brand-fg: #ffffff;
 
-    --accent: #4f46e5;
-    --accent-fg: #4338ca;
-    --accent-soft: #eef2ff;
+    --accent: #2563eb;
+    --accent-fg: #1d4ed8;
+    --accent-soft: #e8efff;
 
-    --success: #059669;
-    --success-fg: #047857;
+    --success: #16a34a;
+    --success-fg: #15803d;
     --success-soft: #dcfce7;
 
-    --danger: #dc2626;
-    --danger-fg: #b91c1c;
+    --danger: #ef4444;
+    --danger-fg: #dc2626;
     --danger-soft: #fee2e2;
 
-    /* `warning` o'zi ilgari yo'q edi — `border-warning` rangsiz qolardi */
     --warning: #f59e0b;
     --warning-fg: #b45309;
     --warning-soft: #fef3c7;
 
     --neutral-soft: #f1f5f9;
 
-    /* `purple` endi indigo'ning to'qroq tusi — gradient bir oiladan bo'lsin */
-    --purple: #4338ca;
-    --purple-fg: #4338ca;
-    --purple-soft: #eef2ff;
-    /* Yordamchi rang — osmon ko'ki */
+    /* Binafsha — ikonka fonlari uchun (namunadagi "kassa balansi") */
+    --purple: #7c3aed;
+    --purple-fg: #6d28d9;
+    --purple-soft: #ede9fe;
     --magenta: #0ea5e9;
 
-    /* Chap menyu — ikkala temada ham to'q slate */
-    --sidebar: #0f172a;
-    --sidebar-fg: #e2e8f0;
+    /* Chap menyu: light'da oq (namunadagidek), dark'da navy */
+    --sidebar: #ffffff;
+    --sidebar-fg: #334155;
 
-    --sage-fg: #047857;
+    --sage-fg: #15803d;
     --sage-soft: #dcfce7;
     --amber: #f59e0b;
     --amber-fg: #b45309;
@@ -78,40 +78,39 @@
     --slate-fg: #475569;
     --slate-soft: #f1f5f9;
 
-    /* Kartalar soyasi — yumshoq, ko'p qatlamli; to'q rangli "dog'" emas */
-    --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+    /* Oq karta och fonda — juda yengil, keng soya */
+    --shadow-card: 0 1px 2px rgb(15 23 42 / 0.03), 0 10px 30px -18px rgb(15 23 42 / 0.18);
 }
 
 .dark {
-    /* Sof qora emas — chuqurlik beruvchi slate-navy */
-    --surface: #0b1120;
-    --surface-card: #111a2e;
-    --surface-muted: #162036;
-    /* Qator hover — oq 5% (shisha ustida yumshoq yorishish) */
-    --surface-hover: #ffffff0d;
+    /* Sahifa fonidan karta biroz ochroq — chegaralar ko'rinib turadi */
+    --surface: #070b16;
+    --surface-card: #0d1426;
+    --surface-muted: #121b30;
+    --surface-hover: #ffffff0a;
 
-    /* Ingichka, deyarli ko'rinmas chegaralar — "shisha" qirrasi */
-    --border: #ffffff12;
-    --border-strong: #ffffff24;
+    --border: #1b2540;
+    --border-strong: #2a3655;
 
     --fg: #f1f5f9;
     --fg-muted: #94a3b8;
     --fg-faint: #64748b;
-    --fg-inverted: #0b1120;
+    --fg-inverted: #070b16;
 
-    --brand: #6366f1;
+    /* Moviy → binafsha: faol menyu, asosiy tugma, progress chiziqlari */
+    --brand: #3b82f6;
+    --brand-2: #6d5cf6;
     --brand-fg: #ffffff;
 
-    /* To'q fonda to'yingan ranglar "yonib" ketadi — ochroq variant olinadi */
     --accent: #818cf8;
     --accent-fg: #a5b4fc;
     --accent-soft: #6366f126;
 
-    --success: #10b981;
+    --success: #34d399;
     --success-fg: #34d399;
     --success-soft: #10b98126;
 
-    --danger: #ef4444;
+    --danger: #f87171;
     --danger-fg: #f87171;
     --danger-soft: #ef444426;
 
@@ -121,12 +120,12 @@
 
     --neutral-soft: #ffffff0d;
 
-    --purple: #4f46e5;
-    --purple-fg: #a5b4fc;
-    --purple-soft: #6366f126;
+    --purple: #8b5cf6;
+    --purple-fg: #c4b5fd;
+    --purple-soft: #8b5cf626;
     --magenta: #38bdf8;
 
-    --sidebar: #0b1120;
+    --sidebar: #0a1020;
     --sidebar-fg: #e2e8f0;
 
     --sage-fg: #34d399;
@@ -140,7 +139,7 @@
     --slate-fg: #94a3b8;
     --slate-soft: #ffffff0d;
 
-    --shadow-card: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 12px 32px -16px rgb(0 0 0 / 0.6);
+    --shadow-card: 0 1px 0 rgb(255 255 255 / 0.02) inset, 0 16px 40px -24px rgb(0 0 0 / 0.7);
 }
 
 /*
@@ -163,6 +162,7 @@
     --color-fg-inverted: var(--fg-inverted);
 
     --color-brand: var(--brand);
+    --color-brand-2: var(--brand-2);
     --color-brand-fg: var(--brand-fg);
 
     --color-accent: var(--accent);

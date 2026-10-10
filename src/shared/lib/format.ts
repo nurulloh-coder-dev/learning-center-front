@@ -70,6 +70,17 @@ const SHORT_MONTHS: Record<string, string[]> = {
 }
 
 /**
+ * Oyning qisqa nomi bosh harf bilan: "Yan", "Okt" (grafik o'qi uchun).
+ *
+ * `toLocaleString('uz', { month: 'short' })` emas: Chrome'da o'zbekcha oy
+ * nomlari yo'q va u "M10" qaytaradi (Node'da esa ishlaydi — testda sezilmaydi).
+ */
+export function formatMonthShort(monthIndex: number, locale = 'uz'): string {
+    const name = (SHORT_MONTHS[locale] ?? SHORT_MONTHS.uz)[monthIndex] ?? ''
+    return name.charAt(0).toUpperCase() + name.slice(1)
+}
+
+/**
  * Jadval sarlavhasidagi sana: "16 sen" (uz/ru) yoki "Sep 16" (en).
  *
  * Yil ataylab yo'q — jadval bir necha oylik oraliqni ko'rsatadi, yil esa

@@ -70,4 +70,11 @@ export const superAdmin: Record<SuperAdminKeys, string> = {
     'superAdmin.permission.TEACHER_MANAGEMENT': 'Teachers',
     'superAdmin.permission.STUDENT_MANAGEMENT': 'Students',
     'superAdmin.permission.INVOICE_MANAGEMENT': 'Payments',
+    'analytics.leadFunnel': "Leads by status",
+    'analytics.leadTotal': "{{count}} total",
+    'analytics.recentPayments': "Recent payments",
+    'analytics.noPayments': "No payments yet",
+    'analytics.viewAll': "View all",
+    'analytics.quickLinks': "Quick links",
+    'analytics.unknownStudent': "Student",
 }

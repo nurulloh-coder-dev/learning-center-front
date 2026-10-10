@@ -59,7 +59,7 @@ function itemClasses(isActive: boolean) {
         // avtomatik qo'yilmaydi va ular bosilmaydigandek ko'rinadi.
         'min-h-11 cursor-pointer rounded-xl px-3 text-left text-sm transition-colors',
         isActive
-            ? 'bg-linear-to-r from-brand/20 to-brand/5 font-medium text-fg ring-1 ring-border-base'
+            ? 'bg-linear-to-r from-brand to-brand-2 font-medium text-brand-fg shadow-[0_6px_16px_-8px_var(--brand)]'
             : 'text-fg-muted hover:bg-surface-hover hover:text-fg'
     )
 }
@@ -87,7 +87,7 @@ export function SuperAdminSidebar({
                 )}
             >
                 <span className="flex items-center gap-3">
-                    <span className={cn('shrink-0', active === item.key ? 'text-accent-fg' : 'text-fg-faint')}>
+                    <span className={cn('shrink-0', active === item.key ? 'text-brand-fg' : 'text-fg-faint')}>
                         {item.icon}
                     </span>
                     <span className="flex-1">{t(item.labelKey)}</span>
@@ -109,7 +109,8 @@ export function SuperAdminSidebar({
     return (
         <>
             {/* Kompyuterda chap ustun */}
-            <nav className="hidden w-52 shrink-0 flex-col gap-1 lg:flex">
+            {/* Namunadagidek alohida oq (dark'da navy) ustun — kontentdan ajralib turadi */}
+            <nav className="hidden w-56 shrink-0 flex-col gap-1 self-start rounded-2xl border border-border-base bg-sidebar p-3 shadow-[var(--shadow-card)] lg:flex">
                 <p className="px-3 pb-1 text-[0.68rem] font-semibold tracking-[0.08em] text-fg-faint uppercase">
                     {t('superAdmin.group.people')}
                 </p>
@@ -122,7 +123,7 @@ export function SuperAdminSidebar({
             </nav>
 
             {/* Telefonda gorizontal tasma — chap ustun ekranning yarmini yeydi */}
-            <nav className="-mx-1 mb-4 flex gap-1 overflow-x-auto px-1 pb-1 lg:hidden">
+            <nav className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:hidden">
                 {[...PEOPLE, ...SETTINGS].map((item) => renderItem(item, 'shrink-0 whitespace-nowrap'))}
             </nav>
         </>

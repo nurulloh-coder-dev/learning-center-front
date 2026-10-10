@@ -74,7 +74,8 @@ export function SuperAdminDashboardPage() {
                 isLoading={mySubscription.isLoading}
             />
 
-            <div className="flex gap-6">
+            {/* Telefonda bo'limlar tasmasi kontent USTIDA (ustun emas), kompyuterda chapda */}
+            <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
                 <SuperAdminSidebar
                     active={activeSection}
                     onChange={changeSection}
@@ -112,7 +113,7 @@ export function SuperAdminDashboardPage() {
                                 </div>
                             }
                         >
-                            <AnalyticsPanel token={session.token} />
+                            <AnalyticsPanel token={session.token} onOpenSection={changeSection} />
                         </Suspense>
                     )}
 

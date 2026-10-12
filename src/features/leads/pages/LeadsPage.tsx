@@ -232,19 +232,19 @@ export function LeadsPage() {
                     onEnroll={(groupId) =>
                         mutations.enroll.mutate(
                             { id: action.lead.id, groupId },
-                            { onSuccess: () => setAction(null)}
+                            { onSuccess: () => setAction(null) }
                         )
                     }
                     onReject={(body) =>
                         mutations.reject.mutate(
                             { id: action.lead.id, body },
-                            { onSuccess: () => setAction(null)}
+                            { onSuccess: () => setAction(null) }
                         )
                     }
                     onCallLater={(callAt) =>
                         mutations.callLater.mutate(
                             { id: action.lead.id, callAt },
-                            { onSuccess: () => setAction(null)}
+                            { onSuccess: () => setAction(null) }
                         )
                     }
                 />

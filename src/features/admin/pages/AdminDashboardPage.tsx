@@ -3,15 +3,14 @@ import { useAuth, useSession } from '@/app/providers/useAuth'
 import { useTheme } from '@/app/providers/useTheme'
 import { errorMessage } from '@/shared/api'
 import { useT } from '@/shared/i18n'
-import { GROUP_STATUSES } from '@/shared/types'
-import { Button, ErrorBox, Eyebrow, Pagination, Panel, SearchInput, Select } from '@/shared/ui'
+import { ErrorBox, Pagination, Panel } from '@/shared/ui'
 import { AdminTabStrip } from '../components/AdminSidebar'
 import { useAdminNav } from '../hooks/useAdminNav'
 import { AssignStudentsModal } from '../components/AssignStudentsModal'
 import { EntityFormModal } from '../components/EntityFormModal'
+import { EntityListHeader } from '../components/EntityListHeader'
 import { EntityTable } from '../components/EntityTable'
-import { CredentialsModal, type CreatedCredentials } from '../components/CredentialsModal'
-import { createdCredentials } from '../lib/createdCredentials'
+import { CredentialsModal } from '../components/CredentialsModal'
 import { OnboardingSteps } from '../components/OnboardingSteps'
 import { StatsRow } from '../components/StatsRow'
 import { COLUMN_CONFIGS, inferColumns } from '../config/columns'
@@ -21,18 +20,12 @@ import { useAdminPermissions } from '../hooks/useAdminPermissions'
 import { useEntityCounts } from '../hooks/useEntityCounts'
 import { useEntityList } from '../hooks/useEntityList'
 import { useGroupLevelNames } from '../hooks/useGroupLevelNames'
-import { useEntityMutations } from '../hooks/useEntityMutations'
+import { useEntityFormFlow } from '../hooks/useEntityFormFlow'
 import { useBranchOptions } from '../hooks/useBranchOptions'
 import { useGroupOptions } from '../hooks/useGroupOptions'
 import { useTeacherOptions } from '../hooks/useTeacherOptions'
 import { AppShell } from '@/shared/ui'
-import type { AdminRow, EntityKey, FormValues, ModalMode } from '../types'
-
-interface FormModalState {
-    mode: ModalMode
-    id: string | null
-    values: FormValues
-}
+import type { AdminRow, EntityKey } from '../types'
 
 export function AdminDashboardPage() {
     const { t } = useT()
@@ -46,7 +39,6 @@ export function AdminDashboardPage() {
     const [page, setPage] = useState(0)
     const [search, setSearch] = useState('')
     const [statusFilter, setStatusFilter] = useState('STARTING')
-    const [formModal, setFormModal] = useState<FormModalState | null>(null)
     const [assignGroup, setAssignGroup] = useState<AdminRow | null>(null)
 
     const entity = entityByKey(activeTab)
@@ -67,10 +59,9 @@ export function AdminDashboardPage() {
     const teacherOptions = useTeacherOptions(session.token)
     const groupOptions = useGroupOptions(session.token)
     const branchOptions = useBranchOptions(session.token)
-    const { save, remove } = useEntityMutations(entity, session.token)
-
     const columns = columnConfigs ? columnConfigs.map((column) => column.key) : inferColumns(list.rows)
-
+    const flow = useEntityFormFlow(entity, session.token, formConfig, columns)
+    const { save, remove, formModal, credentials } = flow
 
     /** Tab almashganda sahifalash va filtrlarni tozalaymiz — aks holda yangi
      *  bo'limda "3-sahifa, qidiruv: Ali" holati qolib ketadi. */
@@ -85,49 +76,6 @@ export function AdminDashboardPage() {
         leads: hasLeadPermission,
         invoices: hasInvoicePermission,
     })
-
-    function openCreate() {
-        const values = formConfig
-            ? formConfig.getInitialValues(null)
-            : Object.fromEntries(columns.map((column) => [column, '']))
-        setFormModal({ mode: 'create', id: null, values })
-    }
-
-    function openEdit(row: AdminRow) {
-        const values = formConfig ? formConfig.getInitialValues(row) : { ...row }
-        setFormModal({ mode: 'edit', id: row.id, values })
-    }
-
-    // Parol faqat yaratish javobida keladi — keyin uni hech qayerdan
-    // olib bo'lmaydi, shuning uchun darrov ko'rsatiladi.
-    const [credentials, setCredentials] = useState<CreatedCredentials | null>(null)
-
-    function handleSubmit(values: FormValues) {
-        if (!formModal) return
-
-        let body: unknown
-        if (formConfig) {
-            body =
-                formModal.mode === 'create'
-                    ? formConfig.buildCreatePayload(values)
-                    : formConfig.buildUpdatePayload(values)
-        } else {
-            const generic = { ...values }
-            delete generic.id
-            body = generic
-        }
-
-        save.mutate(
-            { mode: formModal.mode, id: formModal.id, body },
-            {
-                onSuccess: (created) => {
-                    setFormModal(null)
-                    const user = createdCredentials(created)
-                    if (formModal.mode === 'create' && user) setCredentials(user)
-                },
-            }
-        )
-    }
 
     function handleDelete(row: AdminRow) {
         if (!confirm(t('admin.deleteConfirm', { entity: singular.toLowerCase() }))) return
@@ -163,43 +111,22 @@ export function AdminDashboardPage() {
             />
 
             <Panel>
-                <header className="mb-5 flex flex-wrap items-end justify-between gap-3">
-                    <div className="min-w-0">
-                        <Eyebrow>{t('admin.records')}</Eyebrow>
-                        <h1 className="mt-1 font-display text-2xl font-semibold text-fg">{plural}</h1>
-                    </div>
-
-                    <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
-                        {activeTab === 'groups' && (
-                            <Select
-                                aria-label={t('admin.filterStatus')}
-                                className="w-full sm:w-auto"
-                                options={GROUP_STATUSES.map((status) => ({
-                                    value: status,
-                                    label: t(`status.${status}`),
-                                }))}
-                                value={statusFilter}
-                                onChange={(event) => {
-                                    setStatusFilter(event.target.value)
-                                    setPage(0)
-                                }}
-                            />
-                        )}
-                        <SearchInput
-                            className="min-w-40 flex-1 sm:w-64 sm:flex-none"
-                            aria-label={t('admin.search', { entity: plural.toLowerCase() })}
-                            placeholder={t('admin.search', { entity: plural.toLowerCase() })}
-                            value={search}
-                            onChange={(event) => {
-                                setSearch(event.target.value)
-                                setPage(0)
-                            }}
-                        />
-                        <Button variant="primary" onClick={openCreate}>
-                            {t('admin.new', { entity: singular.toLowerCase() })}
-                        </Button>
-                    </div>
-                </header>
+                <EntityListHeader
+                    plural={plural}
+                    singular={singular}
+                    showStatusFilter={activeTab === 'groups'}
+                    statusFilter={statusFilter}
+                    search={search}
+                    onStatusChange={(status) => {
+                        setStatusFilter(status)
+                        setPage(0)
+                    }}
+                    onSearchChange={(value) => {
+                        setSearch(value)
+                        setPage(0)
+                    }}
+                    onCreate={flow.openCreate}
+                />
 
                 {list.error && (
                     <div className="mb-4">
@@ -228,7 +155,7 @@ export function AdminDashboardPage() {
                         isLoading={list.isLoading}
                         entityLabel={plural.toLowerCase()}
                         onAssignStudents={activeTab === 'groups' ? setAssignGroup : undefined}
-                        onEdit={openEdit}
+                        onEdit={flow.openEdit}
                         onDelete={handleDelete}
                     />
                 )}
@@ -258,13 +185,13 @@ export function AdminDashboardPage() {
                     branchOptions={branchOptions}
                     isSaving={save.isPending}
                     error={save.error}
-                    onSubmit={handleSubmit}
-                    onClose={() => setFormModal(null)}
+                    onSubmit={flow.handleSubmit}
+                    onClose={flow.closeForm}
                 />
             )}
 
             {credentials && (
-                <CredentialsModal credentials={credentials} onClose={() => setCredentials(null)} />
+                <CredentialsModal credentials={credentials} onClose={flow.closeCredentials} />
             )}
 
             {assignGroup && (

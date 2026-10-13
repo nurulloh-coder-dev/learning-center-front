@@ -1,10 +1,9 @@
-/* eslint-disable react-refresh/only-export-components */
 import type { LeadDto, LeadStatus } from '@/shared/types'
 import { useT } from '@/shared/i18n'
 import { Badge } from '@/shared/ui'
 import { LeadCard } from './LeadCard'
 
-export const STATUS_TONE: Record<LeadStatus, 'accent' | 'success' | 'warning' | 'danger'> = {
+const STATUS_TONE: Record<LeadStatus, 'accent' | 'success' | 'warning' | 'danger'> = {
     NEW: 'accent',
     ENROLLED: 'success',
     CALL_LATER: 'warning',
@@ -13,7 +12,7 @@ export const STATUS_TONE: Record<LeadStatus, 'accent' | 'success' | 'warning' | 
 
 // Ustun foni neytral, holat rangi faqat sarlavhadagi nuqtada — to'rtta yorqin
 // rangli maydon yonma-yon ko'zni charchatardi.
-export const COLUMN_DOT: Record<LeadStatus, string> = {
+const COLUMN_DOT: Record<LeadStatus, string> = {
     NEW: 'bg-accent',
     ENROLLED: 'bg-success',
     CALL_LATER: 'bg-warning',

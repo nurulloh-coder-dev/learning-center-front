@@ -18,7 +18,7 @@ export function CtaSection() {
         <AnimateOnScroll variant='zoom-in' delay={0}>
           <div className='relative rounded-2xl border border-neutral-800 bg-neutral-900 dark:bg-black p-10 md:p-16 text-center space-y-6 shadow-2xl overflow-hidden text-white'>
             {/* Ambient Pulse Aura */}
-            <div className='pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-96 rounded-full bg-blue-600/20 blur-[100px] animate-pulse' />
+            <div className='pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-72 w-96 rounded-full bg-blue-600/20 blur-[100px]' />
 
             <h2 className='text-3xl sm:text-5xl font-black tracking-tight text-white max-w-3xl mx-auto leading-tight relative z-10'>
               {t.heading}
@@ -33,7 +33,7 @@ export function CtaSection() {
                 onClick={openDemoModal}
                 className='inline-flex items-center gap-2.5 rounded-md bg-blue-600 hover:bg-blue-700 px-8 py-4 text-base font-bold text-white shadow-xs transition-all cursor-pointer active:scale-95 group'
               >
-                <Sparkles className='h-4 w-4 text-white animate-pulse' />
+                <Sparkles className='h-4 w-4 text-white' />
                 <span>{t.bookDemoBtn}</span>
                 <ArrowRight className='h-4 w-4 group-hover:translate-x-1 transition-transform' />
               </button>

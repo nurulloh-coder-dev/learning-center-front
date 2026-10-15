@@ -98,7 +98,7 @@ export function PlatformTourSection() {
               <div className='lg:col-span-7 bg-neutral-900 dark:bg-black text-white rounded-xl border border-neutral-800 p-5 sm:p-6 space-y-4 shadow-2xl relative overflow-hidden transition-all duration-300'>
                 <div className='flex items-center justify-between border-b border-neutral-800 pb-3.5'>
                   <div className='flex items-center gap-2 text-xs font-mono text-neutral-400'>
-                    <div className='h-2.5 w-2.5 rounded-full bg-blue-500 animate-pulse' />
+                    <div className='h-2.5 w-2.5 rounded-full bg-blue-500' />
                     <span>{t.liveInterface}: {currentTourData.label}</span>
                   </div>
                   <span className='text-[10px] font-bold bg-blue-950 text-blue-400 border border-blue-900 px-2.5 py-0.5 rounded-md uppercase'>

@@ -1,22 +1,14 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
 import {
   Zap,
   ArrowRight,
   Play,
   CheckCircle2,
-  Bell,
   TrendingUp,
   Users,
   ShieldCheck,
   Sparkles,
-  CreditCard,
-  QrCode,
-  UserPlus,
-  MessageSquare,
-  Pause,
-  RotateCcw,
 } from 'lucide-react'
 import { useDemoModal } from '@/context/DemoModalContext'
 import { useLanguage } from '@/context/LanguageContext'
@@ -24,23 +16,12 @@ import { TRANSLATIONS } from '@/data/translations'
 import { AnimateOnScroll } from '@/components/ui/AnimateOnScroll'
 import { CountUp } from '@/components/ui/CountUp'
 
-interface NotificationItem {
-  id: string
-  title: string
-  detail: string
-  time: string
-  type: 'payment' | 'qr' | 'lead' | 'sms'
-}
-
-// Namuna hodisalar — faqat tizimda haqiqatan bor ish turlari
-// (formadan lid, qo'lda kiritilgan to'lov, o'qituvchi belgilagan davomat).
-const REAL_NOTIFICATIONS_POOL: Omit<NotificationItem, 'id' | 'time'>[] = [
-  { title: "To'lov qabul qilindi", detail: "Azizbek T. — 450 000 so'm", type: 'payment' },
-  { title: 'Davomat belgilandi', detail: 'IELTS Intensive #2 — 12/14', type: 'qr' },
-  { title: 'Formadan yangi lid', detail: 'Sardor B. — Instagram havolasi', type: 'lead' },
-  { title: "To'lov qabul qilindi", detail: "Gulnora M. — 600 000 so'm", type: 'payment' },
-  { title: 'Davomat belgilandi', detail: 'General English #5 — 9/10', type: 'qr' },
-  { title: 'Formadan yangi lid', detail: 'Malika S. — Telegram havolasi', type: 'lead' },
+// Namuna hodisalar — statik. Ilgari bu yerda o'zi chiqib turadigan "jonli"
+// bildirishnomalar bor edi; ular soxta faollik ko'rsatardi, olib tashlandi.
+const SAMPLE_EVENTS = [
+  { id: '1', detail: "Azizbek T. — 450 000 so'm", time: '14:02' },
+  { id: '2', detail: 'IELTS Intensive #2 — 12/14', time: '13:58' },
+  { id: '3', detail: 'Sardor B. — Instagram havolasi', time: '13:51' },
 ]
 
 export function HeroSection() {
@@ -48,92 +29,10 @@ export function HeroSection() {
   const { language } = useLanguage()
   const t = TRANSLATIONS[language].hero
 
-  // Notification engine states
-  const [feedItems, setFeedItems] = useState<NotificationItem[]>([
-    {
-      id: '1',
-      title: "To'lov qabul qilindi",
-      detail: "Azizbek T. — 450 000 so'm",
-      time: '14:02',
-      type: 'payment',
-    },
-    {
-      id: '2',
-      title: 'Davomat belgilandi',
-      detail: 'IELTS Intensive #2 — 12/14',
-      time: '13:58',
-      type: 'qr',
-    },
-    {
-      id: '3',
-      title: 'Formadan yangi lid',
-      detail: 'Sardor B. — Instagram havolasi',
-      time: '13:51',
-      type: 'lead',
-    },
-  ])
-
-  const [unreadCount, setUnreadCount] = useState<number>(3)
-  const [isRinging, setIsRinging] = useState<boolean>(false)
-  const [activeToast, setActiveToast] = useState<NotificationItem | null>(null)
-  const [isAutoPlay, setIsAutoPlay] = useState<boolean>(true)
-  const [poolIndex, setPoolIndex] = useState<number>(0)
-
-  // Function to trigger a realistic new notification
-  const triggerNewNotification = useCallback(() => {
-    const template = REAL_NOTIFICATIONS_POOL[poolIndex % REAL_NOTIFICATIONS_POOL.length]
-    setPoolIndex((prev) => prev + 1)
-
-    const newItem: NotificationItem = {
-      ...template,
-      id: Date.now().toString(),
-      time: '14:05',
-    }
-
-    setFeedItems((prev) => [newItem, ...prev.slice(0, 3)])
-    setUnreadCount((prev) => prev + 1)
-    setActiveToast(newItem)
-    setIsRinging(true)
-
-    // Reset ring animation after 1.2s
-    setTimeout(() => {
-      setIsRinging(false)
-    }, 1200)
-
-    // Auto dismiss active toast after 3.5s
-    setTimeout(() => {
-      setActiveToast((current) => (current?.id === newItem.id ? null : current))
-    }, 3800)
-  }, [poolIndex])
-
-  // Interval loop for automated notifications
-  useEffect(() => {
-    if (!isAutoPlay) return
-
-    const interval = setInterval(() => {
-      triggerNewNotification()
-    }, 4500)
-
-    return () => clearInterval(interval)
-  }, [isAutoPlay, triggerNewNotification])
-
-  const getNotificationIcon = (type: NotificationItem['type']) => {
-    switch (type) {
-      case 'payment':
-        return <CreditCard className='h-4 w-4 text-blue-600 dark:text-blue-400' />
-      case 'qr':
-        return <QrCode className='h-4 w-4 text-blue-600 dark:text-blue-400' />
-      case 'lead':
-        return <UserPlus className='h-4 w-4 text-blue-600 dark:text-blue-400' />
-      case 'sms':
-        return <MessageSquare className='h-4 w-4 text-blue-600 dark:text-blue-400' />
-    }
-  }
-
   return (
     <section className='relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden bg-white dark:bg-black text-neutral-900 dark:text-neutral-100 transition-colors duration-200'>
       {/* Subtle Minimalist Background Aura */}
-      <div className='pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 h-[500px] w-[600px] rounded-full bg-blue-500/5 dark:bg-blue-600/10 blur-[120px] animate-float-slow' />
+      <div className='pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 h-[500px] w-[600px] rounded-full bg-blue-500/5 dark:bg-blue-600/10 blur-[120px]' />
 
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10'>
         <div className='grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center'>
@@ -211,30 +110,6 @@ export function HeroSection() {
             <AnimateOnScroll variant='zoom-in' delay={200}>
               <div className='rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-5 sm:p-6 shadow-2xl relative overflow-visible transition-colors duration-200'>
 
-                {/* Real Notification Toast Pop-up */}
-                {activeToast && (
-                  <div className='absolute -top-6 right-4 z-30 animate-notification-pop bg-neutral-900 dark:bg-neutral-900 text-white rounded-xl border border-neutral-700 p-3.5 shadow-2xl flex items-start gap-3 max-w-xs sm:max-w-sm'>
-                    <div className='p-2 rounded-lg bg-blue-950 border border-blue-800 shrink-0'>
-                      {getNotificationIcon(activeToast.type)}
-                    </div>
-                    <div className='flex-1 pr-2'>
-                      <div className='text-xs font-bold text-white flex items-center justify-between'>
-                        <span>{activeToast.title}</span>
-                        <span className='text-[9px] text-blue-400 font-mono'>{activeToast.time}</span>
-                      </div>
-                      <div className='text-[11px] text-neutral-300 font-medium mt-0.5 leading-snug'>
-                        {activeToast.detail}
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setActiveToast(null)}
-                      className='text-neutral-400 hover:text-white text-xs font-bold cursor-pointer p-0.5'
-                    >
-                      ✕
-                    </button>
-                  </div>
-                )}
-
                 {/* Window Bar */}
                 <div className='flex items-center justify-between pb-4 border-b border-neutral-200 dark:border-neutral-800 mb-5 gap-2'>
                   <div className='flex items-center gap-2'>
@@ -247,20 +122,8 @@ export function HeroSection() {
                   </div>
 
                   <div className='flex items-center gap-2'>
-                    {/* AutoPlay Toggle Button */}
-                    <button
-                      onClick={() => setIsAutoPlay(!isAutoPlay)}
-                      className='p-1 rounded-md bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-800 transition-colors cursor-pointer'
-                      title={isAutoPlay ? 'Pause Live Simulation' : 'Resume Live Simulation'}
-                    >
-                      {isAutoPlay ? <Pause className='h-3 w-3' /> : <RotateCcw className='h-3 w-3' />}
-                    </button>
-
                     <div className='flex items-center gap-1.5 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-900 px-2.5 py-0.5 rounded-full text-xs font-semibold text-blue-600 dark:text-blue-400'>
-                      <span className='relative flex h-2 w-2'>
-                        <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75' />
-                        <span className='relative inline-flex rounded-full h-2 w-2 bg-blue-600' />
-                      </span>
+                      <span className='inline-flex rounded-full h-2 w-2 bg-blue-600' />
                       <span>{t.liveSystem}</span>
                     </div>
                   </div>
@@ -335,7 +198,7 @@ export function HeroSection() {
                     </div>
                   </div>
 
-                  {/* Dynamic Real-Time Live Feed */}
+                  {/* So'nggi voqealar — namuna */}
                   <div className='rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-4 space-y-3'>
                     <div className='text-xs font-bold text-neutral-900 dark:text-white flex items-center justify-between'>
                       <span>{t.liveStreamTitle}</span>
@@ -343,12 +206,10 @@ export function HeroSection() {
                     </div>
 
                     <div className='space-y-2 overflow-hidden'>
-                      {feedItems.map((item, idx) => (
+                      {SAMPLE_EVENTS.map((item) => (
                         <div
                           key={item.id}
-                          className={`flex items-center justify-between text-[11px] bg-white dark:bg-black p-2 rounded border border-neutral-200 dark:border-neutral-800 transition-all duration-300 ${
-                            idx === 0 ? 'border-blue-500/60 shadow-xs scale-[1.01]' : ''
-                          }`}
+                          className='flex items-center justify-between text-[11px] bg-white dark:bg-black p-2 rounded border border-neutral-200 dark:border-neutral-800'
                         >
                           <div className='flex items-center gap-2 truncate'>
                             <span className='h-2 w-2 rounded-full bg-blue-600 shrink-0' />
@@ -361,42 +222,6 @@ export function HeroSection() {
                           </span>
                         </div>
                       ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Notification Badge */}
-                <div
-                  onClick={() => {
-                    triggerNewNotification()
-                    setUnreadCount(0)
-                  }}
-                  className={`absolute -bottom-4 -left-4 hidden sm:flex items-center gap-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-3 shadow-xl cursor-pointer hover:border-blue-500 transition-all active:scale-95 select-none ${
-                    isRinging ? 'border-blue-600 ring-2 ring-blue-500/20' : ''
-                  }`}
-                >
-                  <div className='relative flex h-10 w-10 items-center justify-center rounded-md bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900 shrink-0'>
-                    <Bell
-                      className={`h-5 w-5 ${
-                        isRinging ? 'animate-bell-active' : 'animate-bell-ring'
-                      }`}
-                    />
-                    {unreadCount > 0 && (
-                      <span className='absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-[9px] font-bold text-white shadow-xs animate-ping-once'>
-                        {unreadCount}
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <div className='text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1.5'>
-                      <span>{t.smsBadgeTitle}</span>
-                      <span className='text-[9px] bg-blue-600 text-white px-1.5 py-0.2 rounded font-mono uppercase tracking-wide flex items-center gap-1'>
-                        <span className='h-1.5 w-1.5 rounded-full bg-white animate-pulse' />
-                        Live
-                      </span>
-                    </div>
-                    <div className='text-[11px] text-neutral-500 dark:text-neutral-400 font-medium'>
-                      {t.smsBadgeSub}
                     </div>
                   </div>
                 </div>

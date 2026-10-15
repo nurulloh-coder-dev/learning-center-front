@@ -88,10 +88,7 @@ export function TeamSection() {
 
                   <div className='mt-auto flex items-center justify-between border-t border-neutral-100 pt-4 dark:border-neutral-800'>
                     <span className='inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400'>
-                      <span className='relative flex h-1.5 w-1.5'>
-                        <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75' />
-                        <span className='relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-600' />
-                      </span>
+                      <span className='inline-flex h-1.5 w-1.5 rounded-full bg-blue-600' />
                       Active
                     </span>
                     <div className='flex items-center gap-2'>

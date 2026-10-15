@@ -115,6 +115,12 @@ landing'dagi o'zgarish ilovani ham qayta deploy qiladi:
 - `frontend`: `/**` va `!/landing/**`
 - `landing`: `/landing/**`
 
+`landing` xizmatida **Settings → Config-as-code → Railway Config File** ga
+`/landing/railway.json` yoziladi — shunda Railway ildizdagi `railway.json`
+(ilovaning `Dockerfile` i) bilan adashtirmaydi.
+Builder ko'rsatilmagan — Railway Next.js'ni o'zi taniydi; `next start`
+Railway bergan `PORT` ni o'zi o'qiydi.
+
 `landing` — oddiy Next.js (`npm run build`, `npm start`); `.dockerignore`
 uni ilova obrazidan chiqarib tashlaydi. Ilovani `alia.uz/app` ga ko'chirish
 va `/api` ni bitta domenda uzatish — keyingi bosqich.

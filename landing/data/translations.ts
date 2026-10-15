@@ -65,8 +65,6 @@ export interface HeroTranslations {
   tuitionPaid: string
   qrCheckin: string
   newLeadIg: string
-  smsBadgeTitle: string
-  smsBadgeSub: string
 }
 
 export interface ComparisonTranslations {
@@ -283,8 +281,6 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
       tuitionPaid: "To'lov qabul qilindi",
       qrCheckin: "Davomat belgilandi",
       newLeadIg: "Formadan yangi lid",
-      smsBadgeTitle: "Yangi lid tushdi",
-      smsBadgeSub: "“Instagram havolasi orqali — Lidlar bo'limida”",
     },
     comparison: {
       badge: "Excel va Telegram tartibsizligiga chek qo'ying",
@@ -653,8 +649,6 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
       tuitionPaid: "Платёж принят",
       qrCheckin: "Посещаемость отмечена",
       newLeadIg: "Новый лид из формы",
-      smsBadgeTitle: "Пришёл новый лид",
-      smsBadgeSub: "«Через ссылку в Instagram — в разделе Лиды»",
     },
     comparison: {
       badge: "Хватит хаоса в Excel и Telegram",
@@ -1022,8 +1016,6 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
       tuitionPaid: "Payment received",
       qrCheckin: "Attendance marked",
       newLeadIg: "New lead from the form",
-      smsBadgeTitle: "A new lead arrived",
-      smsBadgeSub: "“Via the Instagram link — in Leads”",
     },
     comparison: {
       badge: "Stop the Excel and Telegram chaos",

@@ -202,9 +202,9 @@ src/
                               mockApi/ ichida endpointlar bo'lim-bo'lim
 ```
 
-`landing/` — ochiq sahifa (Next.js 16, `alia.uz`), alohida loyiha: o'z
+`landing/` — ochiq sahifa (Next.js 16, statik eksport, `alia.uz`): o'z
 `package.json`, `eslint`, `next build`; ildizdagi lint/test unga tegmaydi,
-CI'da alohida `landing` job. Unda **faqat ilovada bor imkoniyat** yoziladi.
+CI'da alohida `landing` job. Ilova bilan bitta `Dockerfile`/Caddy'da turadi. Unda **faqat ilovada bor imkoniyat** yoziladi.
 Qoidalari — [`landing/README.md`](landing/README.md).
 
 Ildizda: `Dockerfile` + `Caddyfile` (production, `/api` proxysi),
@@ -213,8 +213,13 @@ Ildizda: `Dockerfile` + `Caddyfile` (production, `/api` proxysi),
 
 ### Marshrutlar
 
-`/` → rolga qarab dashboard · `/attendance` · `/payments` · `/group-levels` ·
-`/leads` · `/settings` (`src/app/routes/AppRoutes.tsx`).
+Bitta domen: `/` — landing (`landing/`), qolgani ilova; ajratishni
+`Caddyfile` (`@app`) qiladi ([docs/deployment.md](docs/deployment.md)).
+Ilova: `/login` · rol paneli `/admin`, `/teacher`, `/student`,
+`/super-admin`, `/developer` (`src/app/routes/roleHome.ts`; `/` → shunga
+yo'naltiradi) · `/attendance` · `/payments` · `/group-levels` · `/leads` ·
+`/settings` (`src/app/routes/AppRoutes.tsx`). **Yangi yo'l qo'shilsa —
+`Caddyfile` dagi `@app` ga ham.**
 `/f/:key` — ochiq lid formasi, tizimga kirmasdan ([docs/lead-form.md](docs/lead-form.md)).
 
 Chap menyu: sahifa bo'limlari — `AppShell` `nav`; umumiy havolalar —

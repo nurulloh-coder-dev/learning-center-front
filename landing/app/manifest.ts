@@ -1,5 +1,8 @@
 import type { MetadataRoute } from 'next'
 
+// Statik eksport (output: 'export') uchun build vaqtida bir marta yoziladi.
+export const dynamic = 'force-static'
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "A.L.I.A - Academic Lead & Intelligence Assistant",

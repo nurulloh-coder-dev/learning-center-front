@@ -3,8 +3,9 @@
 **A**cademic **L**ead & **I**ntelligence **A**ssistant
 
 Monorepo: ildizda — ilova (Vite, React), [`landing/`](landing/README.md) —
-ochiq sahifa (Next.js, `alia.uz`). Ikkalasi alohida build va alohida
-Railway xizmati; quyidagi hamma narsa ilova haqida.
+ochiq sahifa (Next.js, `alia.uz`). Ikkalasi bitta `Dockerfile` va bitta
+Caddy serverida: `/` — landing, `/login`, `/admin` ... — ilova. Quyidagi
+hamma narsa ilova haqida.
 
 O'quv markazi uchun veb-mijoz. Spring backend bilan `/api/v1/**` orqali
 ishlaydi va rolga qarab har xil panel ko'rsatadi:

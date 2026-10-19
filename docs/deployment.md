@@ -100,61 +100,34 @@ backend `SameSite` va `Secure` ni qanday qo'yayotganini tekshiring.
 
 ## Railway xizmatlari tuzilishi
 
-Bitta loyiha (project) ichida to'rtta xizmat:
+Bitta loyiha (project) ichida uchta xizmat:
 
 | Xizmat | Manba | Ochiq domen |
 | --- | --- | --- |
 | `frontend` | shu repo (Dockerfile o'zi topiladi) | **Ha** |
 | `backend` | Java repo | Yo'q — kerak emas |
 | `postgres` | Railway plagini | Yo'q |
-| `landing` | shu repo, **Root Directory = `landing`** | **Ha** (`alia.uz`) |
 
-### Monorepo: Railway qadamlari
+### Bitta domen: landing + ilova bitta xizmatda
 
-Repo ichida ikki loyiha: ildizda ilova (Vite, `Dockerfile` + `Caddyfile`),
-`landing/` da ochiq sahifa (Next.js). Railway'da ular **ikki alohida xizmat**,
-ikkalasi ham shu bitta repoga, `N` branchiga ulanadi.
+`alia.uz` da hammasi **bitta `frontend` xizmati**: `Dockerfile` landing'ni
+(Next.js, statik eksport) ham, ilovani ham yig'adi, `Caddyfile` esa yo'lga
+qarab ajratadi:
 
-**A. Mavjud `frontend` xizmati (ilova) — faqat bitta sozlama qo'shiladi**
+| Yo'l | Nima |
+| --- | --- |
+| `/`, landing sahifalari | landing (`/srv/site`) |
+| `/login`, `/admin`, `/teacher`, `/student`, `/super-admin`, `/developer`, `/attendance`, `/payments`, `/group-levels`, `/leads`, `/settings`, `/f/<kalit>` | ilova (`/srv/app`) |
+| `/api/*` | backend |
 
-1. `frontend` → **Settings → Build → Watch Paths**:
-   ```
-   /**
-   !/landing/**
-   ```
-   Busiz landing'dagi har o'zgarish ilovani ham qayta deploy qiladi.
-2. Qolgan hammasi o'zgarmaydi: Root Directory bo'sh, ildizdagi
-   `railway.json` (Dockerfile), `BACKEND_URL` o'zgaruvchisi.
+Ikkinchi (landing) xizmat **ochilmaydi**. Ilovaga yangi yo'l qo'shilsa —
+`Caddyfile` dagi `@app` ro'yxatiga ham qo'shiladi, aks holda sahifa
+yangilanganda landing'ning 404 sahifasi chiqadi.
 
-**B. Yangi `landing` xizmati**
-
-1. Loyiha ichida **+ New → GitHub Repo** →
-   `nurulloh-coder-dev/learning-center-front`.
-2. **Settings → Source**: Branch = `N`, **Root Directory = `landing`**.
-3. **Settings → Config-as-code → Railway Config File** = `/landing/railway.json`
-   (ildizdagi `railway.json` ilovaning Dockerfile'i uchun — landing uni
-   ishlatmasin).
-4. **Settings → Build → Watch Paths**:
-   ```
-   /landing/**
-   ```
-5. O'zgaruvchi kerak emas: Railway Next.js'ni o'zi taniydi, `PORT` ni o'zi
-   beradi, `next start` uni o'qiydi. Node versiyasi `landing/package.json`
-   dagi `engines` dan olinadi (`>=20.9`).
-6. **Settings → Networking → Generate Domain** → ochib tekshiring.
-7. Ishlasa, `alia.uz` ni shu xizmatga **Custom Domain** qilib ulang.
-   Railway ko'rsatgan DNS yozuvini registratorda qo'ying. Asosiy domenga
-   (`alia.uz`) CNAME qo'yib bo'lmasa — DNS'ni Cloudflare'ga o'tkazish kerak
-   bo'ladi.
-
-**C. Tekshirish**
-
-- `landing/` dagi faylni o'zgartirib push qiling → faqat `landing` deploy
-  bo'lsin, `frontend` emas.
-- `src/` dagi faylni o'zgartiring → faqat `frontend` deploy bo'lsin.
-
-Ilovani `alia.uz/app` ga ko'chirish (bitta domen, `/api` proxy) — keyingi
-bosqich; ungacha ilova hozirgi domenida qoladi.
+Railway'da qilinadigan yagona ish: `frontend` → **Settings → Networking →
+Custom Domain** → `alia.uz`. Railway ko'rsatgan DNS yozuvini registratorda
+qo'ying; asosiy domenga CNAME qo'yib bo'lmasa — DNS'ni Cloudflare'ga
+o'tkazish kerak bo'ladi.
 
 ### 1. Frontend xizmati
 

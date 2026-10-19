@@ -3,6 +3,10 @@ dist
 dist-demo
 .git
 .github
+.claude
 *.tsbuildinfo
-# Landing alohida servis — ilova image'iga kerak emas
-landing
+# Landing obrazga kiradi (alohida bosqichda build bo'ladi), lekin uning
+# lokal artefaktlari emas
+landing/node_modules
+landing/.next
+landing/out

@@ -1,7 +1,10 @@
 # A.L.I.A — landing (alia.uz)
 
 O'quv markazlari uchun CRM'ning ochiq sahifasi. Next.js 16, Tailwind 4,
-lucide-react. Hammasi statik (`next build`).
+lucide-react. Statik eksport (`output: 'export'` → `out/`): ildizdagi
+`Dockerfile` uni ilova bilan bitta Caddy serveriga qo'yadi. Shuning uchun
+server talab qiladigan Next imkoniyatlari (API route, SSR, rasm
+optimallashtirish) ishlatilmaydi.
 
 Bu papka monorepoga `git subtree` bilan olib kelingan
 (`Diyor-Khasanov-dev/learning-center-landing`); endi ish shu yerda davom etadi.

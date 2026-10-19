@@ -13,6 +13,7 @@ import {
     type NavItem,
     type NavSection,
 } from '@/shared/ui'
+import { roleHome } from './roleHome'
 
 /**
  * Rolga qarab umumiy havolalar — har sahifaning chap menyusi pastida.
@@ -39,7 +40,7 @@ export function AppNavigation({ children }: { children: ReactNode }) {
             onClick: () => navigate(path),
         })
 
-        const items: NavItem[] = [link('home', '/', t('nav.home'), <DashboardIcon />)]
+        const items: NavItem[] = [link('home', roleHome(role), t('nav.home'), <DashboardIcon />)]
         if (role === 'TEACHER') items.push(link('attendance', '/attendance', t('nav.attendance'), <CalendarIcon />))
         if (role === 'ADMINISTRATOR' || role === 'SUPER_ADMIN') {
             items.push(link('group-levels', '/group-levels', t('groupLevel.title'), <LayersIcon />))

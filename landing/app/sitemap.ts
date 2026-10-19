@@ -1,5 +1,8 @@
 import type { MetadataRoute } from 'next'
 
+// Statik eksport (output: 'export') uchun build vaqtida bir marta yoziladi.
+export const dynamic = 'force-static'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://alia.uz'
   const currentDate = new Date()

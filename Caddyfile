@@ -1,10 +1,14 @@
-# Frontend xizmati: statik fayllarni beradi va `/api` ni backendga uzatadi.
+# Bitta server, bitta domen (alia.uz):
+#   /api/*                     → backend (proxy)
+#   ilova yo'llari (pastda)    → ilova (Vite SPA, /srv/app)
+#   qolgan hammasi, `/` ham    → landing (Next statik eksport, /srv/site)
 #
 # NEGA PROXY, alohida backend domeni emas: refresh token httpOnly cookie'da
 # yuboriladi. Frontend va backend turli domenlarda bo'lsa, bu cross-site
 # cookie bo'lib qoladi — `SameSite=None` talab qilinadi va Safari/Brave uni
 # baribir bloklaydi. Proxy bilan brauzer uchun hammasi BITTA origin: cookie
 # oddiy `SameSite=Lax` bo'lib qolaveradi va CORS umuman kerak bo'lmaydi.
+# Landing ham shu origin'da — u ham `/api/v1/public/**` ga CORS'siz yozadi.
 {
 	admin off
 	# Railway (va aksariyat PaaS) HTTPS'ni o'zi tugatadi — Caddy sertifikat
@@ -20,8 +24,13 @@
 		reverse_proxy {$BACKEND_URL:http://localhost:8080}
 	}
 
-	handle {
-		root * /srv
+	# Ilova yo'llari. `src/app/routes/AppRoutes.tsx` va `roleHome.ts` bilan
+	# BIR XIL bo'lishi shart: bu yerda yo'q yo'l sahifa yangilanganda
+	# landing'ning 404 sahifasiga tushadi.
+	@app path /login /login/* /admin /admin/* /teacher /teacher/* /student /student/* /super-admin /super-admin/* /developer /developer/* /dashboard /dashboard/* /attendance /attendance/* /payments /payments/* /group-levels /group-levels/* /leads /leads/* /settings /settings/* /f/* /assets/* /favicon.svg /icons.svg
+
+	handle @app {
+		root * /srv/app
 
 		# Vite fayl nomiga hash qo'shadi, ya'ni ular hech qachon o'zgarmaydi.
 		@hashed path /assets/*
@@ -32,9 +41,30 @@
 		@entry not path /assets/*
 		header @entry Cache-Control "no-cache"
 
-		# SPA fallback: `/attendance` ni to'g'ridan-to'g'ri ochganda ham
+		# SPA fallback: `/admin` ni to'g'ridan-to'g'ri ochganda ham
 		# index.html qaytsin, aks holda 404 bo'ladi.
 		try_files {path} /index.html
+		file_server
+	}
+
+	handle {
+		root * /srv/site
+
+		# Next ham fayl nomiga hash qo'shadi.
+		@next path /_next/static/*
+		header @next Cache-Control "public, max-age=31536000, immutable"
+
+		@page not path /_next/static/*
+		header @page Cache-Control "no-cache"
+
+		try_files {path} {path}.html {path}/index.html
+		file_server
+	}
+
+	# Landing'da yo'q sahifa — landing'ning o'z 404 sahifasi.
+	handle_errors 404 {
+		root * /srv/site
+		rewrite * /404.html
 		file_server
 	}
 }

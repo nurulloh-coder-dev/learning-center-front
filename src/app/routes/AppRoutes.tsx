@@ -1,4 +1,4 @@
-import { Route, Routes, useMatch } from 'react-router-dom'
+import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 import { useAuth } from '@/app/providers/useAuth'
 import { LoginPage } from '@/features/auth/pages/LoginPage'
 import { AttendancePage } from '@/features/attendance/pages/AttendancePage'
@@ -12,6 +12,7 @@ import { NotFoundPage } from './NotFoundPage'
 import { RequirePermission } from './RequirePermission'
 import { RequireRole } from './RequireRole'
 import { RoleDashboard } from './RoleDashboard'
+import { roleHome } from './roleHome'
 
 /**
  * Ilova marshrutlari.
@@ -91,7 +92,12 @@ export function AppRoutes() {
                         </RequireRole>
                     }
                 />
-                <Route path="/" element={<RoleDashboard />} />
+                {/* Panel rolning o'z manzilida. `/` va `/login` unga yo'naltiradi:
+                    ilova ichidagi `navigate('/')` lar ham shu yo'l bilan to'g'ri
+                    joyga tushadi (sahifa qayta yuklanmaydi, landing ochilmaydi). */}
+                <Route path={roleHome(session.role)} element={<RoleDashboard />} />
+                <Route path="/" element={<Navigate to={roleHome(session.role)} replace />} />
+                <Route path="/login" element={<Navigate to={roleHome(session.role)} replace />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </AppNavigation>

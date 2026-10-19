@@ -68,13 +68,14 @@ export function Navbar() {
 
           <div className='h-4 w-[1px] bg-neutral-200 dark:bg-neutral-800 mx-1' />
 
-          <button
-            onClick={openDemoModal}
+          {/* Ilova shu domenda: alia.uz/login (bitta server, Caddy ajratadi) */}
+          <a
+            href='/login'
             className='flex items-center gap-1.5 text-xs xl:text-sm font-semibold text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors cursor-pointer px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 whitespace-nowrap'
           >
             <LogIn className='h-3.5 w-3.5 text-neutral-500 dark:text-neutral-400' />
             <span>{t.login}</span>
-          </button>
+          </a>
 
           <button
             onClick={openDemoModal}
@@ -138,15 +139,12 @@ export function Navbar() {
             {t.faq}
           </a>
           <div className='pt-4 border-t border-neutral-200 dark:border-neutral-800 flex flex-col gap-3'>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false)
-                openDemoModal()
-              }}
+            <a
+              href='/login'
               className='w-full rounded-md border border-neutral-300 dark:border-neutral-800 py-3 text-center text-sm font-semibold text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all cursor-pointer whitespace-nowrap'
             >
               {t.login}
-            </button>
+            </a>
             <button
               onClick={() => {
                 setMobileMenuOpen(false)

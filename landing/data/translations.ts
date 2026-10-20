@@ -224,15 +224,6 @@ const TEAM_MEMBERS: TeamMember[] = [
     github: 'https://github.com/goodman113',
     linkedin: 'https://www.linkedin.com/in/muhammadali-yokubjonov-2241972b6/',
   },
-  {
-    id: '5',
-    name: 'Oybek Abdullayev',
-    role: 'Co-Founder & Frontend Engineer',
-    image:
-      '/Oybek.png',
-    github: 'https://github.com/powerful10',
-    linkedin: 'https://linkedin.com/in/oybek-abdullayev-720a41401',
-  },
 ]
 
 export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {

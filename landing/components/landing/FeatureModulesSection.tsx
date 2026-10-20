@@ -22,7 +22,10 @@ export function FeatureModulesSection() {
   return (
     <section id='features' className='py-24 bg-neutral-50 dark:bg-black relative border-y border-neutral-200 dark:border-neutral-800 transition-colors duration-200 overflow-hidden'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10'>
-        {/* Section Header */}
+        {/* Section Header — filtr ro'yxati pastdagi kartalar USTIDA ochilishi
+            uchun alohida qatlam: AnimateOnScroll transform bilan o'z qatlamini
+            yaratadi, ichidagi z-50 kartalardan oshib chiqa olmaydi. */}
+        <div className='relative z-20'>
         <AnimateOnScroll variant='fade-up' delay={0}>
           <div className='flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6'>
             <div className='space-y-3 max-w-2xl'>
@@ -50,6 +53,7 @@ export function FeatureModulesSection() {
             </div>
           </div>
         </AnimateOnScroll>
+        </div>
 
         {/* Feature Grid */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8'>

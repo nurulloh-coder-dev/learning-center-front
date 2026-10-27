@@ -58,18 +58,24 @@ Nurulloh ikki namuna tanladi: **light — "ERP" uslubi**, **dark — "PulseBoard
   ikonka, katta raqam, ostida yashil o'sish yozuvi (faqat HAQIQIY ma'lumot).
 - **Progress chiziqlari** — `<progress>` + `[&::-webkit-progress-value]:bg-…`:
   eni ma'lumotga bog'liq, lekin inline `style` kerak emas.
-- **Asosiy tugma** (`primary`) — kapsula (`rounded-full`). Burchak klassi
-  variantda turadi, `Button` asosida emas: bitta elementda ikki xil `rounded-*` bo'lmasin.
+- **Palitra — landing (alia.uz) bilan bir xil** (2026-10): neytral oq/qora
+  fon, ingichka kulrang chegara, bitta ko'k aksent, gradient yo'q
+  (`brand-2` = `brand`). Ilova va landing bitta mahsulot bo'lib ko'rinishi kerak.
+- **Asosiy tugma** (`primary`) — landing'dagidek bir tekis ko'k, `rounded-md`,
+  "nur" soyasiz. Burchak klassi variantda turadi, `Button` asosida emas: bitta
+  elementda ikki xil `rounded-*` bo'lmasin.
 - **Qidiruv** — `SearchInput`; **odamlar** — `Avatar colorful`.
 - **Tepa panel** (`AppShell`) — oq, ingichka chiziq, chapda ALIA + sahifa
   nomi katta yozuvda; sahifa tugmalari kompyuterda o'ngda, telefonda pastki
   tasmada (bir marta chiziladi, joyi `order` bilan o'zgaradi).
 - **Ikkinchi darajali rangli tugma** (`purple` varianti) — chegarali ko'k
-  kapsula, gradient emas.
+  tugma, gradient emas.
 - **Kanban ustunlari** (lidlar) — neytral fon, holat rangi faqat nuqtada.
-- **Shrift — bitta, Plus Jakarta Sans.** `font-mono` tokeni ham shunga
-  ulangan: monospace yorliqlar "texnik/AI" ko'rinardi. Yangi joyda
-  monospace kerak bo'lsa, avval kelishing.
+- **Shrift — tizim shrifti** (landing bilan bir xil, tashqi shrift
+  yuklanmaydi). `font-mono` tokeni ham shunga ulangan: monospace yorliqlar
+  "texnik/AI" ko'rinardi. Yangi joyda monospace kerak bo'lsa, avval kelishing.
+- **Burchaklar** — ixcham (`--radius-*` shkalasi `index.css` da, standart
+  Tailwind'ga yaqin).
 - **Ochiladigan narsalar soyasi** — `shadow-[var(--shadow-pop)]` (doim qora).
   Soyaga `--fg` ishlatilmaydi: dark'da u oq bo'lib, menyu atrofida "nur" chiqardi.
 - **Tanlangan segment/tab** — `bg-brand text-brand-fg` (oq/qora emas).

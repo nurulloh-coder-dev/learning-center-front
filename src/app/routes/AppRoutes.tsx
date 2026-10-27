@@ -12,7 +12,7 @@ import { NotFoundPage } from './NotFoundPage'
 import { RequirePermission } from './RequirePermission'
 import { RequireRole } from './RequireRole'
 import { RoleDashboard } from './RoleDashboard'
-import { roleHome } from './roleHome'
+import { otherRoleHomes, roleHome } from './roleHome'
 
 /**
  * Ilova marshrutlari.
@@ -98,6 +98,10 @@ export function AppRoutes() {
                 <Route path={roleHome(session.role)} element={<RoleDashboard />} />
                 <Route path="/" element={<Navigate to={roleHome(session.role)} replace />} />
                 <Route path="/login" element={<Navigate to={roleHome(session.role)} replace />} />
+                {/* Boshqa akkauntga kirilganda manzil eskisicha qoladi — o'z paneliga */}
+                {otherRoleHomes(session.role).map((path) => (
+                    <Route key={path} path={path} element={<Navigate to={roleHome(session.role)} replace />} />
+                ))}
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </AppNavigation>

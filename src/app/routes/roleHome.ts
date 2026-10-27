@@ -21,3 +21,13 @@ export const FALLBACK_HOME = '/dashboard'
 export function roleHome(role: string): string {
     return HOME[role as Role] ?? FALLBACK_HOME
 }
+
+/**
+ * Boshqa rollarning bosh sahifalari. Odam bir akkauntdan chiqib boshqasiga
+ * kirsa, manzil eskisicha qoladi (masalan `/developer`) — bu yo'llar 404
+ * emas, o'z paneliga yo'naltirishi kerak.
+ */
+export function otherRoleHomes(role: string): string[] {
+    const own = roleHome(role)
+    return [...Object.values(HOME), FALLBACK_HOME].filter((path) => path !== own)
+}

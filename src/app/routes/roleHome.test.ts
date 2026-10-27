@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { FALLBACK_HOME, roleHome } from './roleHome'
+import { FALLBACK_HOME, otherRoleHomes, roleHome } from './roleHome'
 
 describe('roleHome', () => {
     it('har rolga o‘z manzili', () => {
@@ -12,5 +12,11 @@ describe('roleHome', () => {
 
     it('noma‘lum rol zaxira manzilga tushadi', () => {
         expect(roleHome('ACCOUNTANT')).toBe(FALLBACK_HOME)
+    })
+
+    it('boshqa rollarning sahifalari o‘zinikisiz qaytadi', () => {
+        const others = otherRoleHomes('ADMINISTRATOR')
+        expect(others).not.toContain('/admin')
+        expect(others).toEqual(expect.arrayContaining(['/developer', '/teacher', '/student', '/super-admin', FALLBACK_HOME]))
     })
 })

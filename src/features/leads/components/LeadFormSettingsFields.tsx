@@ -7,6 +7,8 @@ interface LeadFormSettingsFieldsProps {
     form: LeadFormDto
     levels: SelectOption[]
     isSaving: boolean
+    /** Oxirgi saqlash muvaffaqiyatli bo'ldimi — "Saqlandi ✓" shunga qarab chiqadi. */
+    isSaved?: boolean
     onSave: (body: LeadFormUpdateDto) => void
 }
 
@@ -18,7 +20,7 @@ const CHECKBOX_ROW = 'flex cursor-pointer items-center gap-2.5 text-sm text-fg'
  * Kurslar yashiriladiganlar ro'yxati bilan saqlanadi: yangi kurs qo'shilsa,
  * formada o'zi chiqadi.
  */
-export function LeadFormSettingsFields({ form, levels, isSaving, onSave }: LeadFormSettingsFieldsProps) {
+export function LeadFormSettingsFields({ form, levels, isSaving, isSaved = false, onSave }: LeadFormSettingsFieldsProps) {
     const { t } = useT()
     const [values, setValues] = useState<LeadFormUpdateDto>(() => ({
         enabled: form.enabled,
@@ -27,7 +29,13 @@ export function LeadFormSettingsFields({ form, levels, isSaving, onSave }: LeadF
         courseRequired: form.courseRequired,
         hiddenLevelIds: form.hiddenLevelIds,
     }))
-    const update = (patch: Partial<LeadFormUpdateDto>) => setValues((current) => ({ ...current, ...patch }))
+    // Saqlangandan keyin biror narsa o'zgartirilsa "Saqlandi" yashiriladi —
+    // aks holda yangi, saqlanmagan o'zgarish ham saqlangandek ko'rinardi.
+    const [editedSinceSave, setEditedSinceSave] = useState(false)
+    const update = (patch: Partial<LeadFormUpdateDto>) => {
+        setEditedSinceSave(true)
+        setValues((current) => ({ ...current, ...patch }))
+    }
 
     function toggleLevel(id: string, visible: boolean) {
         update({
@@ -68,12 +76,20 @@ export function LeadFormSettingsFields({ form, levels, isSaving, onSave }: LeadF
                 ))}
                 <p className="text-xs text-fg-faint">{t('leadForm.levelsHint')}</p>
             </fieldset>
-            <div className="flex justify-end">
+            <div className="flex items-center justify-end gap-3">
+                {isSaved && !editedSinceSave && !isSaving && (
+                    <span role="status" className="text-sm font-medium text-success-fg">
+                        {t('leadForm.saved')}
+                    </span>
+                )}
                 <Button
                     variant="primary"
                     disabled={isSaving}
-                    // Bo'sh matn — "standart sarlavha ishlatilsin" degani, serverga null.
-                    onClick={() => onSave({ ...values, title: values.title?.trim() || null, description: values.description?.trim() || null })}
+                    onClick={() => {
+                        setEditedSinceSave(false)
+                        // Bo'sh matn — "standart sarlavha ishlatilsin" degani, serverga null.
+                        onSave({ ...values, title: values.title?.trim() || null, description: values.description?.trim() || null })
+                    }}
                 >
                     {isSaving ? t('common.saving') : t('common.save')}
                 </Button>

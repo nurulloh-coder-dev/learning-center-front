@@ -61,6 +61,17 @@ describe('LeadFormSettingsModal', () => {
         })
     })
 
+    it('shows "Saqlandi" after saving and hides it once the form is edited again', async () => {
+        mockBackend(FORM)
+        renderWithProviders(<LeadFormSettingsModal token="tok" onClose={vi.fn()} />)
+
+        await userEvent.click(await screen.findByRole('button', { name: 'Saqlash' }))
+        expect(await screen.findByRole('status')).toHaveTextContent('Saqlandi ✓')
+
+        await userEvent.click(screen.getByRole('checkbox', { name: 'IELTS' }))
+        expect(screen.queryByRole('status')).not.toBeInTheDocument()
+    })
+
     it('puts the placement into the link', async () => {
         mockBackend(FORM)
         renderWithProviders(<LeadFormSettingsModal token="tok" onClose={vi.fn()} />)

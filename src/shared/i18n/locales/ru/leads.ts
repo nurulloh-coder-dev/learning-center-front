@@ -99,6 +99,7 @@ export const leads: Record<LeadsKeys, string> = {
     'leadForm.levels': "Курсы в форме",
     'leadForm.levelsHint': "Курс без отметки не показывается в форме. Новые курсы появляются в форме сами.",
     'leadForm.regenerate': "Обновить ссылку",
+    'leadForm.saved': "Сохранено ✓",
     'leadForm.regenerateConfirm': "Старая ссылка перестанет работать — её нужно будет заменить в Instagram и других местах. Продолжить?",
     'leadForm.loadSettingsFailed': "Не удалось загрузить настройки формы: {{message}}",
 }

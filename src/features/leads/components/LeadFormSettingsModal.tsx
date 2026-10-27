@@ -41,6 +41,7 @@ export function LeadFormSettingsModal({ token, onClose }: { token: string; onClo
                         form={form.data}
                         levels={levels.data ?? []}
                         isSaving={mutations.update.isPending}
+                        isSaved={mutations.update.isSuccess}
                         onSave={(body) => mutations.update.mutate(body)}
                     />
                     <hr className="border-border-base" />

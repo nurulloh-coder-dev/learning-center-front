@@ -11,7 +11,7 @@ import { cn } from '@/shared/lib'
  * bir elementda bo'lsa qaysi biri yutishi CSS tartibiga qolib ketadi.
  */
 export const inputBaseClasses = cn(
-    'min-h-11 w-full border border-border-base bg-surface-card text-sm text-fg shadow-[0_1px_2px_rgb(15_23_42/0.04)]',
+    'min-h-11 w-full border border-border-base bg-surface-card text-sm text-fg',
     'transition-[border-color,box-shadow] duration-150 placeholder:text-fg-faint',
     'hover:border-border-strong',
     'focus:border-accent focus:ring-3 focus:ring-accent/20 focus:outline-none',
@@ -21,4 +21,4 @@ export const inputBaseClasses = cn(
     'read-only:bg-surface-muted read-only:text-fg-muted read-only:hover:border-border-base'
 )
 
-export const inputClasses = cn(inputBaseClasses, 'rounded-lg px-3.5')
+export const inputClasses = cn(inputBaseClasses, 'rounded-md px-3.5')

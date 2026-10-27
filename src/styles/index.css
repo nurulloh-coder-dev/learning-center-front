@@ -15,23 +15,23 @@
  */
 :root {
     /*
-     * 2026-10 palitra (2): light — "ERP" uslubidagi namuna (och kulrang-ko'k
-     * fon, oq kartalar, bitta ko'k aksent, pastel ikonka fonlari); dark —
-     * "PulseBoard" namunasi (chuqur navy, ko'rinadigan ingichka chegaralar,
-     * moviydan binafshaga gradient). Ikkalasini Nurulloh tanlagan.
+     * 2026-10 palitra (3): landing (alia.uz) bilan bir xil — neytral oq/qora,
+     * ingichka kulrang chegaralar, bitta ko'k aksent, gradientsiz. Jamoa
+     * landing ko'rinishini ilovanikidan yaxshiroq deb topdi; ikkalasi bir
+     * mahsulot bo'lib ko'rinishi kerak.
      */
-    --surface: #eef2f7;
+    --surface: #fafafa;
     --surface-card: #ffffff;
-    --surface-muted: #f5f7fb;
-    --surface-hover: #f1f5f9;
+    --surface-muted: #f5f5f5;
+    --surface-hover: #f5f5f5;
 
-    --border: #e3e8ef;
-    --border-strong: #cbd5e1;
+    --border: #e5e5e5;
+    --border-strong: #d4d4d4;
 
     /* Matn: asosiy → ikkilamchi → eng xira (label, jadval sarlavhasi) */
-    --fg: #0f172a;
-    --fg-muted: #64748b;
-    --fg-faint: #94a3b8;
+    --fg: #171717;
+    --fg-muted: #525252;
+    --fg-faint: #a3a3a3;
     --fg-inverted: #ffffff;
 
     /* Brend: light'da bir tekis ko'k (`brand-2` = `brand`, gradient sezilmaydi) */
@@ -41,7 +41,7 @@
 
     --accent: #2563eb;
     --accent-fg: #1d4ed8;
-    --accent-soft: #e8efff;
+    --accent-soft: #eff6ff;
 
     --success: #16a34a;
     --success-fg: #15803d;
@@ -55,7 +55,7 @@
     --warning-fg: #b45309;
     --warning-soft: #fef3c7;
 
-    --neutral-soft: #f1f5f9;
+    --neutral-soft: #f5f5f5;
 
     /* Binafsha — ikonka fonlari uchun (namunadagi "kassa balansi") */
     --purple: #7c3aed;
@@ -65,7 +65,7 @@
 
     /* Chap menyu: light'da oq (namunadagidek), dark'da navy */
     --sidebar: #ffffff;
-    --sidebar-fg: #334155;
+    --sidebar-fg: #404040;
 
     --sage-fg: #15803d;
     --sage-soft: #dcfce7;
@@ -75,38 +75,38 @@
     --steel: #0ea5e9;
     --steel-fg: #0369a1;
     --steel-soft: #e0f2fe;
-    --slate-fg: #475569;
-    --slate-soft: #f1f5f9;
+    --slate-fg: #525252;
+    --slate-soft: #f5f5f5;
 
     /* Oq karta och fonda — juda yengil, keng soya */
-    --shadow-card: 0 1px 2px rgb(15 23 42 / 0.03), 0 10px 30px -18px rgb(15 23 42 / 0.18);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04);
     /* Ochiladigan narsalar (menyu, oyna) — kartadan balandroq */
-    --shadow-pop: 0 24px 60px -24px rgb(15 23 42 / 0.3);
+    --shadow-pop: 0 20px 50px -20px rgb(0 0 0 / 0.25);
 }
 
 .dark {
     /* Sahifa fonidan karta biroz ochroq — chegaralar ko'rinib turadi */
-    --surface: #070b16;
-    --surface-card: #0d1426;
-    --surface-muted: #121b30;
-    --surface-hover: #ffffff0a;
+    --surface: #000000;
+    --surface-card: #0a0a0a;
+    --surface-muted: #171717;
+    --surface-hover: #ffffff0d;
 
-    --border: #1b2540;
-    --border-strong: #2a3655;
+    --border: #262626;
+    --border-strong: #404040;
 
-    --fg: #f1f5f9;
-    --fg-muted: #94a3b8;
-    --fg-faint: #64748b;
-    --fg-inverted: #070b16;
+    --fg: #f5f5f5;
+    --fg-muted: #a3a3a3;
+    --fg-faint: #737373;
+    --fg-inverted: #000000;
 
-    /* Moviy → binafsha: faol menyu, asosiy tugma, progress chiziqlari */
+    /* Landing'dagidek bir tekis ko'k (`brand-2` = `brand`, gradient yo'q) */
     --brand: #3b82f6;
-    --brand-2: #6d5cf6;
+    --brand-2: #3b82f6;
     --brand-fg: #ffffff;
 
-    --accent: #818cf8;
-    --accent-fg: #a5b4fc;
-    --accent-soft: #6366f126;
+    --accent: #3b82f6;
+    --accent-fg: #60a5fa;
+    --accent-soft: #3b82f61f;
 
     --success: #34d399;
     --success-fg: #34d399;
@@ -127,8 +127,8 @@
     --purple-soft: #8b5cf626;
     --magenta: #38bdf8;
 
-    --sidebar: #0a1020;
-    --sidebar-fg: #e2e8f0;
+    --sidebar: #000000;
+    --sidebar-fg: #e5e5e5;
 
     --sage-fg: #34d399;
     --sage-soft: #10b98126;
@@ -138,12 +138,12 @@
     --steel: #38bdf8;
     --steel-fg: #7dd3fc;
     --steel-soft: #0ea5e926;
-    --slate-fg: #94a3b8;
+    --slate-fg: #a3a3a3;
     --slate-soft: #ffffff0d;
 
-    --shadow-card: 0 1px 0 rgb(255 255 255 / 0.02) inset, 0 16px 40px -24px rgb(0 0 0 / 0.7);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.5);
     /* Soya doim QORA: ilgari `--fg` dan olinardi va dark'da oq "nur" bo'lib chiqardi */
-    --shadow-pop: 0 24px 60px -20px rgb(0 0 0 / 0.85);
+    --shadow-pop: 0 24px 60px -20px rgb(0 0 0 / 0.9);
 }
 
 /*
@@ -206,22 +206,22 @@
     --color-slate-fg: var(--slate-fg);
     --color-slate-soft: var(--slate-soft);
 
-    /* Zamonaviy SaaS ko'rinishi: sarlavha ham, matn ham bitta grotesk.
-       Ilgari sarlavha serif (Fraunces) edi — u "gazeta" hissini berardi. */
-    --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-    --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    /* Landing bilan bir xil tizim shrifti: tashqi shrift yuklanmaydi (tezroq
+       ochiladi) va telefonda o'sha qurilmaning o'z shrifti chiqadi. */
+    --font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     /* `font-mono` endi ham grotesk: yorliq va sarlavhalardagi monospace
        "texnik/AI" taassurot berardi (Nurulloh izohi). Namunadagidek bosh
        harfli qalin sans. Nomi qoldi — 57 joyni qayta yozmaslik uchun. */
-    --font-mono: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-    /* Burchak shkalasi bosib o'tiladi — shunda `rounded-lg` yozilgan
-       o'nlab komponentga tegmasdan hammasi yumaloqroq bo'ladi. */
-    --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1rem;
-    --radius-xl: 1.25rem;
-    --radius-2xl: 1.5rem;
+    /* Burchaklar landing'dagidek ixchamroq (standart Tailwind shkalasiga yaqin).
+       Shkala shu yerda — `rounded-lg` yozilgan komponentlarga tegilmaydi. */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
 
     --animate-float-slow: float-slow 16s ease-in-out infinite alternate;
     --animate-float-slower: float-slower 20s ease-in-out infinite alternate;

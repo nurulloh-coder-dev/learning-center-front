@@ -26,7 +26,7 @@ function itemClasses(isActive: boolean) {
         // avtomatik qo'yilmaydi va ular bosilmaydigandek ko'rinadi.
         'min-h-11 cursor-pointer rounded-xl px-3 text-left text-sm transition-colors',
         isActive
-            ? 'bg-linear-to-r from-brand to-brand-2 font-medium text-brand-fg shadow-[0_6px_16px_-8px_var(--brand)]'
+            ? 'bg-brand font-medium text-brand-fg'
             : 'text-fg-muted hover:bg-surface-hover hover:text-fg'
     )
 }

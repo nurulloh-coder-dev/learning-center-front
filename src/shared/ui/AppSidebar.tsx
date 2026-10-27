@@ -33,7 +33,7 @@ export function AppSidebar({ sections, onNavigate }: AppSidebarProps) {
                     'flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-xl px-3 text-left text-sm transition-colors',
                     'disabled:cursor-not-allowed disabled:opacity-40',
                     item.active
-                        ? 'bg-linear-to-r from-brand to-brand-2 font-semibold text-brand-fg shadow-[0_6px_16px_-8px_var(--brand)]'
+                        ? 'bg-brand font-semibold text-brand-fg'
                         : 'font-medium text-sidebar-fg/80 hover:bg-surface-hover hover:text-sidebar-fg'
                 )}
             >

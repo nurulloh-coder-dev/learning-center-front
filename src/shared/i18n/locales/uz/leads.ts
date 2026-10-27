@@ -102,6 +102,7 @@ export const leads = {
     'leadForm.levels': "Formada ko‘rinadigan kurslar",
     'leadForm.levelsHint': "Belgisi olib tashlangan kurs formada chiqmaydi. Yangi kurs qo'shilsa, formada o'zi paydo bo'ladi.",
     'leadForm.regenerate': "Havolani yangilash",
+    'leadForm.saved': "Saqlandi ✓",
     'leadForm.regenerateConfirm': "Eski havola ishlamay qoladi — Instagram va boshqa joylardagi havolani almashtirishingiz kerak bo'ladi. Davom etilsinmi?",
     'leadForm.loadSettingsFailed': "Forma sozlamasini yuklab bo'lmadi: {{message}}",
 } as const

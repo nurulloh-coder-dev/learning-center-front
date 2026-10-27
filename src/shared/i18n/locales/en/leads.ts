@@ -99,6 +99,7 @@ export const leads: Record<LeadsKeys, string> = {
     'leadForm.levels': "Courses shown in the form",
     'leadForm.levelsHint': "Unchecked courses are hidden. New courses show up in the form on their own.",
     'leadForm.regenerate': "Regenerate link",
+    'leadForm.saved': "Saved ✓",
     'leadForm.regenerateConfirm': "The old link will stop working — you will need to replace it on Instagram and elsewhere. Continue?",
     'leadForm.loadSettingsFailed': "Could not load form settings: {{message}}",
 }

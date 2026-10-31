@@ -89,6 +89,17 @@ Birinchi ro'yxatdagi narsalar bajarilgani kodda tekshirildi:
 
 ## Qolgan va yangi topilganlar
 
+### 0. 🔴 `POST /user/{id}/password-regenerate` va `PUT /user/{id}` (2026-10-28)
+
+- Javobdagi `temporaryPassword` — `user.getPassword()`, ya'ni **hash**. Ochiq
+  parol qaytarilmasa, tugma bosilgach odam akkauntidan butunlay qulflanadi.
+  Shu tuzatilmaguncha frontenddagi "Parolni yangilash" tugmasi ishlatilmasin.
+- Tashkilot va ruxsat tekshiruvi yo'q (`validateIdAndGet` butun bazadan
+  qidiradi): istalgan administrator boshqa tashkilot odamining yoki super
+  adminning parolini almashtira oladi.
+- `PUT /user/{id}` — `validateIfCurrentUser`: faqat o'zini tahrirlaydi,
+  super admin administratorni tahrirlasa 403.
+
 ### 1. 🔴 Hech qayerda `@PreAuthorize` yo'q — endi eng katta teshik
 
 Butun `src/main/java` da `@PreAuthorize` **0 ta**. `@EnableMethodSecurity`

@@ -35,18 +35,10 @@ export function LeadCard({
             className="cursor-grab rounded-xl border border-border-base bg-surface-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md active:cursor-grabbing"
         >
             <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                    <h3 className="truncate font-semibold text-fg">
-                        {lead.fullName || t('lead.unnamed')}
-                    </h3>
-                    <a
-                        className="mt-1 block text-sm text-accent-fg hover:underline"
-                        href={`tel:${lead.phone ?? ''}`}
-                    >
-                        {lead.phone || t('lead.noPhone')}
-                    </a>
-                </div>
-                <div className="flex items-center gap-1">
+                <h3 className="min-w-0 font-semibold break-words text-fg">
+                    {lead.fullName || t('lead.unnamed')}
+                </h3>
+                <div className="flex shrink-0 items-center gap-1">
                     <IconButton label={t('common.edit')} onClick={() => onEdit(lead)}>
                         <EditIcon />
                     </IconButton>
@@ -55,26 +47,33 @@ export function LeadCard({
                     </IconButton>
                 </div>
             </div>
-            {/* Manba va kurs chapda, status o'ngda — alohida pastki qator kerak emas */}
-            <div className="mt-3 flex items-center gap-1.5">
-                <div className="flex min-w-0 flex-wrap gap-1.5">
+            {/* Telefon tugmalar ostida emas, to'liq enida: tor ustunda raqam
+                ikki qatorga bo'linib qolardi. */}
+            <a
+                className="mt-1 block text-sm whitespace-nowrap text-accent-fg hover:underline"
+                href={`tel:${lead.phone ?? ''}`}
+            >
+                {lead.phone || t('lead.noPhone')}
+            </a>
+            {(lead.source || lead.preferredCourse?.name) && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
                     {lead.source && <Badge tone="slate">{t(`lead.source.${lead.source}`)}</Badge>}
                     {lead.preferredCourse?.name && <Badge tone="purple">{lead.preferredCourse.name}</Badge>}
                 </div>
-                {/* `Select` doim `w-full` — kenglikni o'rovchi beradi, ustiga `w-auto` qo'yilmaydi */}
-                <div className="ml-auto w-32 shrink-0">
-                    <Select
-                        aria-label={t('lead.changeStatus')}
-                        className="text-xs"
-                        value={status}
-                        options={LEAD_STATUSES.map((value) => ({
-                            value,
-                            label: t(`lead.status.${value}`),
-                        }))}
-                        onChange={(event) => onStatusChange(lead, event.target.value as LeadStatus)}
-                    />
-                </div>
-            </div>
+            )}
+            {/* Holat alohida qatorda, to'liq enida: tor ustunda (telefon, 4 ustunli
+                kanban) yonma-yon qo'yilganda "Keyinroq qo'ng…" kesilib, ism ham
+                qisqarib qolardi. */}
+            <Select
+                aria-label={t('lead.changeStatus')}
+                className="mt-3 text-xs"
+                value={status}
+                options={LEAD_STATUSES.map((value) => ({
+                    value,
+                    label: t(`lead.status.${value}`),
+                }))}
+                onChange={(event) => onStatusChange(lead, event.target.value as LeadStatus)}
+            />
             {lead.callAt && (
                 <p className="mt-3 rounded-lg bg-warning-soft px-2.5 py-2 text-xs font-medium text-warning-fg">
                     {t('lead.callAt')}: {formatCallAt(lead.callAt, new Date(), locale, { today: t('lead.today'), tomorrow: t('lead.tomorrow') })}

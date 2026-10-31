@@ -52,19 +52,21 @@ export function LeadColumn({
 
     return (
         <section
-            className="flex min-h-110 flex-col rounded-2xl border border-border-base bg-surface-muted/70 p-3.5"
+            className="flex flex-col sm:min-h-110 rounded-2xl border border-border-base bg-surface-muted/70 p-3.5"
             onDragOver={(event) => event.preventDefault()}
             onDrop={() => onDrop(status)}
         >
-            <header className="mb-3 flex flex-wrap items-center justify-between gap-2 px-1">
-                <div>
+            <header className="mb-3 flex items-start justify-between gap-2 px-1">
+                <div className="min-w-0">
                     <h2 className="flex items-center gap-2 font-display text-base font-semibold text-fg">
                         <span aria-hidden="true" className={`size-2.5 rounded-full ${COLUMN_DOT[status]}`} />
                         {t(`lead.status.${status}`)}
                     </h2>
                     <p className="text-xs text-fg-muted">{t('lead.count', { count: leads.length })}</p>
                 </div>
-                <Badge tone={STATUS_TONE[status]}>{leads.length}</Badge>
+                <span className="shrink-0">
+                    <Badge tone={STATUS_TONE[status]}>{leads.length}</Badge>
+                </span>
             </header>
             <div className="flex flex-1 flex-col gap-3">
                 {isLoading ? (

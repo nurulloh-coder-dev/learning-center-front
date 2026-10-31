@@ -17,7 +17,8 @@ export interface UserDto {
 export interface UserUpdatePayload {
     fullName: string
     phone: string
-    birthDate: string
+    /** Bo'sh bo'lsa yuborilmaydi — backend `null` ni "o'zgartirma" deb oladi. */
+    birthDate?: string
 }
 
 /** `POST /auth/change-password` uchun. */

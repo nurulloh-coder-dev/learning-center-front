@@ -67,7 +67,7 @@ cd dist-demo && python3 -m http.server 4599
 | Ish | Holat | Kimda |
 | --- | --- | --- |
 | PR #135: parolni yangilash, adminni tahrirlash, o'z akkaunti ro'yxatda yo'q, `GROUP_MANAGEMENT`, lid kartasi stili | Draft. Backend tuzatmaguncha **merge qilinmaydi** | Agent kutadi |
-| `POST /user/{id}/password-regenerate`: javobda hash qaytadi, tashkilot/ruxsat tekshiruvi yo'q; `PUT /user/{id}` faqat o'zini tahrirlaydi | Tuzatilmagan (2026-10-30 holati) | Nurulloh |
+| `password-regenerate`: ruxsat va tashkilot tekshiruvi qo'shildi, lekin javobda hali **hash** qaytadi (`UserService.java:219-223`). `PUT /user/{id}`: `id` e'tiborsiz, so'rov yuborgan odamning o'zi yangilanadi (`:153-157`); yangi `EMPLOYEE_MANAGEMENT` talabi Sozlamalardagi o'z profilini tahrirlashni bloklashi mumkin | Qisman (`main` `d98db27`, 2026-10-31 tekshirildi); tayyor tuzatish bilan xabar berildi | Nurulloh |
 | Limit foizi API (tashkilotda o'quvchilar soni / tarif limiti) | Kutilmoqda | Muhammadali |
 | Limit UI: dasturchi panelida >100% tashkilot qizil; super admin'ga ≥80% — "N% joy qoldi", >100% — "7 kun ichida yangi tarifga o'ting" | API kelgach | Agent |
 | `PlanValidator.validateLimits` limitga yetganda darhol bloklaydi — 7 kunlik muhlat qoidasiga zid | Nurullohga aytilgan | Nurulloh |

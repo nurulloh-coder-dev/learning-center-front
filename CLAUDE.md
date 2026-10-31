@@ -1,6 +1,7 @@
 # CLAUDE.md — loyiha qoidalari
 
-Kodga tegadigan har kim uchun (odam yoki agent). Bu yerda faqat **qoidalar
+Kodga tegadigan har kim uchun (odam yoki agent). Agent sessiyasi avval
+[`docs/SESSIYA-DAVOMI.md`](docs/SESSIYA-DAVOMI.md) ni o'qiydi. Bu yerda faqat **qoidalar
 va xarita**. "Nega shunday" — [`docs/ARXITEKTURA-TARIXI.md`](docs/ARXITEKTURA-TARIXI.md),
 u faqat kerak bo'lganda o'qiladi.
 
@@ -264,3 +265,4 @@ sessiya uni qayta "kashf qiladi".
 | [docs/backend-notes.md](docs/backend-notes.md) | Backend jamoasiga: topilgan xatolar |
 | [docs/backend-api-request.md](docs/backend-api-request.md) | Backend jamoasiga: kerakli API'lar |
 | [docs/lead-form.md](docs/lead-form.md) | Ochiq lid formasi: qarorlar va endpointlar |
+| [docs/SESSIYA-DAVOMI.md](docs/SESSIYA-DAVOMI.md) | Agent sessiyasi: ish tartibi, ochiq ishlar, tariflar — yangi sessiya shundan boshlaydi |

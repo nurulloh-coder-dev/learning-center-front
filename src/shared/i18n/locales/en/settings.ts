@@ -25,6 +25,7 @@ export const settings: Record<SettingsKeys, string> = {
     'settings.centreSaved': "Centre settings saved.",
     'settings.centreLoadFailed': "Couldn’t load the centre: {{message}}",
     'settings.profileSaved': 'Profile saved.',
+    'settings.profileReadOnly': 'To change your details, contact your centre administrator.',
     'settings.passwordChanged': 'Password changed.',
     'settings.passwordEmpty': 'Fill in every field.',
     'settings.passwordTooShort': 'The new password must be at least 8 characters.',

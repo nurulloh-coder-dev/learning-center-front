@@ -3,6 +3,7 @@ import { errorMessage } from '@/shared/api'
 import { useT } from '@/shared/i18n'
 import { ErrorBox } from '@/shared/ui'
 import { useMe } from '../hooks/useMe'
+import { canEditProfile } from '../lib/canEditProfile'
 import { ProfileForm } from './ProfileForm'
 import { SettingsSection } from './SettingsSection'
 
@@ -20,7 +21,7 @@ export function ProfileSection() {
             {isLoading && <p className="text-sm text-fg-faint">{t('common.loading')}</p>}
             {error != null && <ErrorBox>{errorMessage(error)}</ErrorBox>}
             {/* `key` — ma'lumot yangilanganda forma toza holatda qayta quriladi */}
-            {me && <ProfileForm key={me.id ?? 'me'} user={me} />}
+            {me && <ProfileForm key={me.id ?? 'me'} user={me} readOnly={!canEditProfile(session)} />}
         </SettingsSection>
     )
 }

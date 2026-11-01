@@ -28,6 +28,7 @@ export const settings = {
     'settings.centreSaved': "Markaz sozlamalari saqlandi.",
     'settings.centreLoadFailed': "Markaz ma'lumotini yuklab bo‘lmadi: {{message}}",
     'settings.profileSaved': 'Profil saqlandi.',
+    'settings.profileReadOnly': "Ma'lumotlaringizni o'zgartirish uchun markaz administratoriga murojaat qiling.",
     'settings.passwordChanged': 'Parol o‘zgartirildi.',
     'settings.passwordEmpty': 'Hamma maydonni to‘ldiring.',
     'settings.passwordTooShort': 'Yangi parol kamida 8 belgidan iborat bo‘lsin.',

@@ -89,16 +89,15 @@ Birinchi ro'yxatdagi narsalar bajarilgani kodda tekshirildi:
 
 ## Qolgan va yangi topilganlar
 
-### 0. 🔴 `POST /user/{id}/password-regenerate` va `PUT /user/{id}` (2026-10-28)
+### 0. ✅ `POST /user/{id}/password-regenerate` va `PUT /user/{id}` (2026-10-28 → tuzatildi)
 
-- Javobdagi `temporaryPassword` — `user.getPassword()`, ya'ni **hash**. Ochiq
-  parol qaytarilmasa, tugma bosilgach odam akkauntidan butunlay qulflanadi.
-  Shu tuzatilmaguncha frontenddagi "Parolni yangilash" tugmasi ishlatilmasin.
-- Tashkilot va ruxsat tekshiruvi yo'q (`validateIdAndGet` butun bazadan
-  qidiradi): istalgan administrator boshqa tashkilot odamining yoki super
-  adminning parolini almashtira oladi.
-- `PUT /user/{id}` — `validateIfCurrentUser`: faqat o'zini tahrirlaydi,
-  super admin administratorni tahrirlasa 403.
+`main` `e566900` da tekshirildi (2026-11-01): parol endi ochiq holda
+qaytadi, ikkalasida ham `EMPLOYEE_MANAGEMENT` va tashkilot tekshiruvi bor,
+`PUT /user/{id}` endi `id` dagi odamni yangilaydi.
+
+Qaror (Nurulloh): profilni faqat `EMPLOYEE_MANAGEMENT` egasi o'zgartiradi —
+o'qituvchi va o'quvchi o'zinikini ham. Frontda Sozlamalardagi profil
+ularga faqat o'qish uchun ko'rsatiladi (`settings/lib/canEditProfile.ts`).
 
 ### 1. 🔴 Hech qayerda `@PreAuthorize` yo'q — endi eng katta teshik
 

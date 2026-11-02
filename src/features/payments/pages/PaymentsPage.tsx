@@ -103,7 +103,15 @@ export function PaymentsPage() {
                     <IconButton label={t('common.back')} onClick={() => navigate('/')}>
                         <BackIcon />
                     </IconButton>
-                    <Button size="sm" onClick={handleExportCsv} disabled={list.isLoading || list.invoices.length === 0}>
+                    {/* Telefonda tugmalar qatori sig'maydi va o'ngga suriladi: kam
+                        ishlatiladigan CSV oxirga o'tadi, "+ To'lov qo'shish" esa
+                        ekranda qoladi (ilgari aynan u qirqilib ko'rinardi). */}
+                    <Button
+                        size="sm"
+                        className="order-last lg:order-none"
+                        onClick={handleExportCsv}
+                        disabled={list.isLoading || list.invoices.length === 0}
+                    >
                         {t('common.exportCsv')}
                     </Button>
                     <Button size="sm" onClick={() => setFormType('REFUND')}>

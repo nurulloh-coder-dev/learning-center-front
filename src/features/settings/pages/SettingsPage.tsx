@@ -4,7 +4,6 @@ import { useTheme } from '@/app/providers/useTheme'
 import { useT } from '@/shared/i18n'
 import { AppShell, Button } from '@/shared/ui'
 import { AppearanceSection } from '../components/AppearanceSection'
-import { CentreSection } from '../components/CentreSection'
 import { ImageGallery } from '../components/ImageGallery'
 import { PasswordSection } from '../components/PasswordSection'
 import { ProfileSection } from '../components/ProfileSection'
@@ -16,7 +15,6 @@ export function SettingsPage() {
     const { theme, toggleTheme } = useTheme()
     const navigate = useNavigate()
 
-    const isAdmin = session.role === 'ADMINISTRATOR' || session.role === 'SUPER_ADMIN'
     // Dasturchi hech bir tashkilotga tegishli emas: profil (`PUT /user`) va
     // rasmlar backendda tashkilotga bog'langan, unga yopiq. Unga faqat
     // ko'rinish va parol — ilgari menyudagi "Sozlamalar" umuman ochilmasdi.
@@ -41,7 +39,6 @@ export function SettingsPage() {
                 {!isDeveloper && <ProfileSection />}
                 {!isDeveloper && <ImageGallery />}
                 <PasswordSection />
-                {isAdmin && <CentreSection />}
             </div>
         </AppShell>
     )

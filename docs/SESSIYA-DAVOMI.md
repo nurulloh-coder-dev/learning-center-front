@@ -43,6 +43,9 @@ qayta "kashf qilinmasin". Oxirgi yangilanish: 2026-10-31.
 - Mavjud xatti-harakatni "yo'l-yo'lakay" o'zgartirish yo'q: masalan
   `GROUP_MANAGEMENT` ruxsati qo'shildi, lekin bu ruxsatsiz adminlardan guruh
   bo'limi yashirilmadi — eski adminlar uni birdan yo'qotardi.
+- Sozlamalardagi "Markaz sozlamalari" bloki rahbar qarori bilan olib
+  tashlangan (2026-11-02) — qayta qo'shilmasin; filial super admin panelida
+  tahrirlanadi.
 - Sinab ko'rilmagan narsa "ishlaydi" deyilmaydi; taxmin — taxmin deb aytiladi.
 - Next.js metadata route'lariga `export const dynamic = 'force-static'` kerak
   (statik eksport). `/developer` kabi yangi ilova yo'li `Caddyfile` `@app` ga ham
@@ -70,7 +73,6 @@ cd dist-demo && python3 -m http.server 4599
 | Limit foizi API (tashkilotda o'quvchilar soni / tarif limiti) | Kutilmoqda | Muhammadali |
 | Limit UI: dasturchi panelida >100% tashkilot qizil; super admin'ga ≥80% — "N% joy qoldi", >100% — "7 kun ichida yangi tarifga o'ting" | API kelgach | Agent |
 | `PlanValidator.validateLimits` limitga yetganda darhol bloklaydi — 7 kunlik muhlat qoidasiga zid | Nurullohga aytilgan | Nurulloh |
-| `/auth/me` da `branchId` doim `null` (`User` da filial yo'q) → "Markaz sozlamalari" ochilmaydi | Nurullohga aytilgan | Nurulloh |
 | Landing canonical/metadata/sitemap → `https://www.alia.uz` | Va'da qilingan | Agent |
 | Landing demo formasi → ochiq lead-form endpointiga | Berilgan | Diyor |
 | Ilgarigi backend topilmalari: to'lov invoice `paidAmount`/holatini yangilamaydi, `@PreAuthorize` bo'shliqlari, ikki marta invoice xavfi, `unmappedTargetPolicy = ERROR`, kunlik zaxira | Ochiq | Nurulloh |

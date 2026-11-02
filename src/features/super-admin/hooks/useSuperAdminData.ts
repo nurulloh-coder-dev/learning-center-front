@@ -1,6 +1,6 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { queryKeys } from '@/shared/api'
-import type { UserCreatePayload } from '@/shared/types'
+import type { UserCreatePayload, UserUpdatePayload } from '@/shared/types'
 import {
     createAdmin,
     createBranch,
@@ -9,6 +9,8 @@ import {
     fetchAdminCount,
     fetchBranches,
     fetchOrganizations,
+    regeneratePassword,
+    updateAdmin,
     updateBranch,
     updateOrganization,
     type BranchPayload,
@@ -121,6 +123,24 @@ export function useCreateAdmin(token: string) {
             // eskirgan deb belgilanadi.
             queryClient.invalidateQueries({ queryKey: queryKeys.peopleKind('administrators') })
             queryClient.invalidateQueries({ queryKey: queryKeys.adminCount() })
+        },
+    })
+}
+
+/** Ro'yxat o'zgarmaydi — faqat parol, shuning uchun invalidatsiya kerak emas. */
+export function useRegeneratePassword(token: string) {
+    return useMutation({
+        mutationFn: (userId: string) => regeneratePassword(token, userId),
+    })
+}
+
+export function useUpdateAdmin(token: string) {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: ({ userId, body }: { userId: string; body: UserUpdatePayload }) =>
+            updateAdmin(token, userId, body),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: queryKeys.peopleKind('administrators') })
         },
     })
 }

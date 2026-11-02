@@ -44,6 +44,7 @@ export {
     EyeOffIcon,
     FolderIcon,
     LayersIcon,
+    LockResetIcon,
     MenuIcon,
     MoonIcon,
     SearchIcon,

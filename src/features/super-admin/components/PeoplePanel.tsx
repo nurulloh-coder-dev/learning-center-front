@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { errorMessage } from '@/shared/api'
+import { useMe } from '@/shared/hooks'
 import { useT } from '@/shared/i18n'
 import { Avatar, Button, ErrorBox, Pagination, Panel, SearchInput } from '@/shared/ui'
-import type { UserCreatedResponseDto } from '@/shared/types'
+import type { UserCreatedResponseDto, UserDto } from '@/shared/types'
 import { AdminCreateModal } from './AdminCreateModal'
 import { AdminCredentialsModal } from './AdminCredentialsModal'
+import { AdminEditModal } from './AdminEditModal'
 import { SimpleTable } from './SimpleTable'
 import { usePeople } from '../hooks/usePeople'
-import { useBranches, useCreateAdmin } from '../hooks/useSuperAdminData'
+import { useBranches, useCreateAdmin, useRegeneratePassword, useUpdateAdmin } from '../hooks/useSuperAdminData'
 import type { PeopleKind, PersonRow } from '../api/superAdminApi'
 
 interface PeoplePanelProps {
@@ -40,15 +42,31 @@ export function PeoplePanel({
     onSearchChange,
 }: PeoplePanelProps) {
     const { t } = useT()
-    const { rows, totalPages, totalElements, isLoading, error } = usePeople(
+    const people = usePeople(
         token,
         kind,
         page,
         search
     )
+    const { totalPages, totalElements, isLoading, error } = people
+
+    // Super-admin o'zini ro'yxatda ko'rmaydi: o'z parolini shu yerdan
+    // yangilab, akkauntidan qulflanib qolmasin (o'zi uchun Sozlamalar bor).
+    const { data: me } = useMe(token)
+    const rows = people.rows.filter((row) => !me?.id || row.userDto?.id !== me.id)
+
+    const regenerate = useRegeneratePassword(token)
+    const resetPassword = (row: PersonRow) => {
+        const userId = row.userDto?.id
+        if (!userId) return
+        if (!confirm(t('superAdmin.password.confirm', { name: row.userDto?.fullName ?? '' }))) return
+        regenerate.mutate(userId, { onSuccess: (created) => setCredentials(created) })
+    }
 
     const [showCreate, setShowCreate] = useState(false)
     const [credentials, setCredentials] = useState<UserCreatedResponseDto | null>(null)
+    const [editing, setEditing] = useState<UserDto | null>(null)
+    const updateAdmin = useUpdateAdmin(token)
 
     // Filiallar ro'yxati faqat administrator qo'shishda kerak, lekin
     // `SuperAdminDashboardPage` allaqachon shu so'rovni (`token, 0, ''`)
@@ -107,12 +125,15 @@ export function PeoplePanel({
             </div>
 
             {error != null && <ErrorBox>{errorMessage(error)}</ErrorBox>}
+            {regenerate.error != null && <ErrorBox>{errorMessage(regenerate.error)}</ErrorBox>}
 
             <SimpleTable
                 rows={rows}
                 columns={columns}
                 isLoading={isLoading}
                 emptyText={t('superAdmin.peopleEmpty')}
+                onResetPassword={resetPassword}
+                onEdit={kind === 'administrators' ? (row) => row.userDto && setEditing(row.userDto) : undefined}
             />
 
             <Pagination
@@ -135,6 +156,18 @@ export function PeoplePanel({
                                 setCredentials(created)
                             },
                         })
+                    }
+                />
+            )}
+
+            {editing && (
+                <AdminEditModal
+                    admin={editing}
+                    isSaving={updateAdmin.isPending}
+                    error={updateAdmin.error}
+                    onClose={() => setEditing(null)}
+                    onSubmit={(body) =>
+                        updateAdmin.mutate({ userId: editing.id ?? '', body }, { onSuccess: () => setEditing(null) })
                     }
                 />
             )}

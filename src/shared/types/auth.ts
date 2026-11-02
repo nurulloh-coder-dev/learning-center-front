@@ -8,6 +8,7 @@ export const ADMIN_PERMISSIONS = [
     'TEACHER_MANAGEMENT',
     'STUDENT_MANAGEMENT',
     'INVOICE_MANAGEMENT',
+    'GROUP_MANAGEMENT',
 ] as const
 export type AdminPermission = (typeof ADMIN_PERMISSIONS)[number]
 

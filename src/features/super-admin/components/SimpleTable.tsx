@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { useT } from '@/shared/i18n'
-import { DataTable, EditIcon, IconButton, TrashIcon } from '@/shared/ui'
+import { DataTable, EditIcon, IconButton, LockResetIcon, TrashIcon } from '@/shared/ui'
 import type { DataTableColumn } from '@/shared/ui'
 
 export interface SimpleColumn<T> {
@@ -18,6 +18,8 @@ interface SimpleTableProps<T> {
     onEdit?: (row: T) => void
     /** Berilmasa o'chirish tugmasi umuman ko'rsatilmaydi. */
     onDelete?: (row: T) => void
+    /** Berilmasa parolni yangilash tugmasi ko'rsatilmaydi. */
+    onResetPassword?: (row: T) => void
 }
 
 /**
@@ -34,7 +36,9 @@ export function SimpleTable<T extends { id: string }>({
     emptyText,
     onEdit,
     onDelete,
+    onResetPassword,
 }: SimpleTableProps<T>) {
+    const hasActions = Boolean(onEdit || onDelete || onResetPassword)
     const { t } = useT()
     const tableColumns: DataTableColumn<T>[] = columns.map((column) => ({
         key: column.key,
@@ -50,13 +54,21 @@ export function SimpleTable<T extends { id: string }>({
             loadingText={t('common.loading')}
             emptyText={emptyText}
             getRowKey={(row) => row.id}
-            // Ikkalasi ham berilmasa ustun umuman chizilmaydi: hech nima
+            // Hech biri berilmasa ustun umuman chizilmaydi: hech nima
             // qilmaydigan tugma tugma yo'qligidan yomonroq.
-            actionsHeader={onEdit || onDelete ? t('admin.actions') : undefined}
+            actionsHeader={hasActions ? t('admin.actions') : undefined}
             renderActions={
-                onEdit || onDelete
+                hasActions
                     ? (row) => (
                           <>
+                              {onResetPassword && (
+                                  <IconButton
+                                      label={t('superAdmin.password.regenerate')}
+                                      onClick={() => onResetPassword(row)}
+                                  >
+                                      <LockResetIcon />
+                                  </IconButton>
+                              )}
                               {onEdit && (
                                   <IconButton label={t('common.edit')} onClick={() => onEdit(row)}>
                                       <EditIcon />

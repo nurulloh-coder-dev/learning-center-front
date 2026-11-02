@@ -11,6 +11,7 @@ import type {
     TransactionDto,
     UserCreatePayload,
     UserCreatedResponseDto,
+    UserUpdatePayload,
     UserDto,
 } from '@/shared/types'
 
@@ -182,6 +183,22 @@ export function updateOwnOrganization(token: string, id: string, body: Organizat
  */
 export function createAdmin(token: string, body: UserCreatePayload) {
     return apiFetch<UserCreatedResponseDto>('/user', { method: 'POST', token, body })
+}
+
+/** Administratorni tahrirlash — ism, telefon, tug'ilgan sana (`PUT /user/{id}`). */
+export function updateAdmin(token: string, userId: string, body: UserUpdatePayload) {
+    return apiFetch<UserDto>(`/user/${userId}`, { method: 'PUT', token, body })
+}
+
+/**
+ * Parolni yangilash — odam parolini unutsa, super-admin yangisini beradi.
+ *
+ * `userId` — `User` ning ID'si (o'quvchi/o'qituvchi yozuvining emas), ya'ni
+ * `row.userDto.id`. Yangi parol faqat shu javobda keladi, qayta ko'rib
+ * bo'lmaydi.
+ */
+export function regeneratePassword(token: string, userId: string) {
+    return apiFetch<UserCreatedResponseDto>(`/user/${userId}/password-regenerate`, { method: 'POST', token })
 }
 
 // --- dashboard: lidlar voronkasi va so'nggi to'lovlar ---

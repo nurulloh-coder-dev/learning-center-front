@@ -9,10 +9,22 @@ export function handleCrud(
 ): Response | null {
     // Profil saqlash `PUT /user/{id}` orqali ketadi — demo'da shunchaki
     // yangi qiymatni qaytaramiz.
-    const [, resource, tail] = path.split('/')
+    const [, resource, tail, action] = path.split('/')
     if (resource === 'user' && method === 'PUT') {
+        // Super-admin administratorni tahrirlasa — ro'yxatdagi yozuv yangilanadi.
+        const admin = db.administrators.find((row) => row.id === tail)
+        if (admin) {
+            Object.assign(admin, body)
+            return json(admin)
+        }
         Object.assign(demoUser, body)
         return json(demoUser)
+    }
+
+    // Parolni yangilash — demo'da har safar yangi soxta parol.
+    if (resource === 'user' && action === 'password-regenerate' && method === 'POST') {
+        const admin = db.administrators.find((row) => row.id === tail)
+        return json({ id: tail, fullName: admin?.fullName ?? '', phone: admin?.phone ?? '', temporaryPassword: 'demo-' + nextId('p') })
     }
 
     // Super-admin paneldagi administratorlar ro'yxati (2026-09-27: backend

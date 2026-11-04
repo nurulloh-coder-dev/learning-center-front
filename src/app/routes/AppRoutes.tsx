@@ -3,6 +3,7 @@ import { useAuth } from '@/app/providers/useAuth'
 import { LoginPage } from '@/features/auth/pages/LoginPage'
 import { AttendancePage } from '@/features/attendance/pages/AttendancePage'
 import { GroupLevelsPage } from '@/features/group-levels/pages/GroupLevelsPage'
+import { ImportPage } from '@/features/import/pages/ImportPage'
 import { LeadsPage } from '@/features/leads/pages/LeadsPage'
 import { PublicLeadFormPage } from '@/features/leads/pages/PublicLeadFormPage'
 import { PaymentsPage } from '@/features/payments/pages/PaymentsPage'
@@ -80,6 +81,27 @@ export function AppRoutes() {
                         <RequireRole roles={['ADMINISTRATOR', 'SUPER_ADMIN']}>
                             <RequirePermission permission="LEAD_MANAGEMENT">
                                 <LeadsPage />
+                            </RequirePermission>
+                        </RequireRole>
+                    }
+                />
+                {/* Excel import — har tur o'z ruxsati bilan (backenddagi @PreAuthorize bilan bir xil). */}
+                <Route
+                    path="/import/students"
+                    element={
+                        <RequireRole roles={['ADMINISTRATOR', 'SUPER_ADMIN']}>
+                            <RequirePermission permission="STUDENT_MANAGEMENT">
+                                <ImportPage kind="students" />
+                            </RequirePermission>
+                        </RequireRole>
+                    }
+                />
+                <Route
+                    path="/import/teachers"
+                    element={
+                        <RequireRole roles={['ADMINISTRATOR', 'SUPER_ADMIN']}>
+                            <RequirePermission permission="TEACHER_MANAGEMENT">
+                                <ImportPage kind="teachers" />
                             </RequirePermission>
                         </RequireRole>
                     }

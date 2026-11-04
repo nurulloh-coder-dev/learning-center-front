@@ -1,5 +1,6 @@
 import { handleAnalytics } from './analytics'
 import { handleAttendance } from './attendance'
+import { handleBulkImport } from './bulkImport'
 import { handleAuth } from './auth'
 import { handleCrud } from './crud'
 import { handleEnrollments } from './enrollments'
@@ -59,6 +60,9 @@ export function installMockApi() {
 
         const enrollmentsRes = handleEnrollments(path, method, url, body)
         if (enrollmentsRes) return enrollmentsRes
+
+        const bulkImportRes = handleBulkImport(path, method, body)
+        if (bulkImportRes) return bulkImportRes
 
         const studentsRes = handleStudents(path, method, url)
         if (studentsRes) return studentsRes

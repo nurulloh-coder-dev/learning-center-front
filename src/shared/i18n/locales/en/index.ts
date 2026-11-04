@@ -10,6 +10,7 @@ import { settings } from './settings'
 import { student } from './student'
 import { leads } from './leads'
 import { developer } from './developer'
+import { importSection } from './import'
 
 /**
  * Inglizcha.
@@ -30,4 +31,5 @@ export const en: Translations = {
     ...student,
     ...leads,
     ...developer,
+    ...importSection,
 }

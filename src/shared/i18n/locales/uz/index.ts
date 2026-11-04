@@ -9,6 +9,7 @@ import { settings } from './settings'
 import { student } from './student'
 import { leads } from './leads'
 import { developer } from './developer'
+import { importSection } from './import'
 
 /**
  * O'zbekcha lug'at — kalitlarning HAQIQAT MANBAI.
@@ -30,6 +31,7 @@ export const uz = {
     ...student,
     ...leads,
     ...developer,
+    ...importSection,
 }
 
 export type TranslationKey = keyof typeof uz

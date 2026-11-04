@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth, useSession } from '@/app/providers/useAuth'
 import { useTheme } from '@/app/providers/useTheme'
 import { errorMessage } from '@/shared/api'
@@ -34,6 +35,7 @@ export function AdminDashboardPage() {
     const { theme, toggleTheme } = useTheme()
 
     const { visibleEntities, hasLeadPermission, hasInvoicePermission } = useAdminPermissions()
+    const navigate = useNavigate()
 
     const [activeTab, setActiveTab] = useState<EntityKey>(() => visibleEntities[0]?.key ?? 'groups')
     const [page, setPage] = useState(0)
@@ -126,6 +128,11 @@ export function AdminDashboardPage() {
                         setPage(0)
                     }}
                     onCreate={flow.openCreate}
+                    onImport={
+                        activeTab === 'students' || activeTab === 'teachers'
+                            ? () => navigate(`/import/${activeTab}`)
+                            : undefined
+                    }
                 />
 
                 {list.error && (

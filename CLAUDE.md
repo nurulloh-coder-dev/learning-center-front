@@ -177,7 +177,7 @@ src/
     providers/                AppProviders, AuthProvider, ThemeProvider,
                               LocaleProvider (+ *-context.ts, use*.ts)
     routes/                   AppRoutes, RoleDashboard, NotFoundPage
-  features/<bo'lim>/          auth admin teacher attendance payments
+  features/<bo'lim>/          auth admin teacher attendance payments import
                               settings student super-admin
     api/                      endpoint chaqiruvlari; React'ni bilmaydi
     hooks/                    useQuery/useMutation va holat mantiqi
@@ -219,7 +219,8 @@ Bitta domen: `/` — landing (`landing/`), qolgani ilova; ajratishni
 Ilova: `/login` · rol paneli `/admin`, `/teacher`, `/student`,
 `/super-admin`, `/developer` (`src/app/routes/roleHome.ts`; `/` → shunga
 yo'naltiradi) · `/attendance` · `/payments` · `/group-levels` · `/leads` ·
-`/settings` (`src/app/routes/AppRoutes.tsx`). **Yangi yo'l qo'shilsa —
+`/settings` · `/import/students`, `/import/teachers` ([docs/import.md](docs/import.md))
+(`src/app/routes/AppRoutes.tsx`). **Yangi yo'l qo'shilsa —
 `Caddyfile` dagi `@app` ga ham.**
 `/f/:key` — ochiq lid formasi, tizimga kirmasdan ([docs/lead-form.md](docs/lead-form.md)).
 
@@ -265,4 +266,5 @@ sessiya uni qayta "kashf qiladi".
 | [docs/backend-notes.md](docs/backend-notes.md) | Backend jamoasiga: topilgan xatolar |
 | [docs/backend-api-request.md](docs/backend-api-request.md) | Backend jamoasiga: kerakli API'lar |
 | [docs/lead-form.md](docs/lead-form.md) | Ochiq lid formasi: qarorlar va endpointlar |
+| [docs/import.md](docs/import.md) | Excel/CSV import: oqim, moslash qoidalari, backend cheklovlari |
 | [docs/SESSIYA-DAVOMI.md](docs/SESSIYA-DAVOMI.md) | Agent sessiyasi: ish tartibi, ochiq ishlar, tariflar — yangi sessiya shundan boshlaydi |

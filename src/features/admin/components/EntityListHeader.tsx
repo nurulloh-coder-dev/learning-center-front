@@ -11,6 +11,8 @@ interface EntityListHeaderProps {
     onStatusChange: (status: string) => void
     onSearchChange: (search: string) => void
     onCreate: () => void
+    /** Faqat o'quvchi va o'qituvchida — Excel import sahifasiga o'tadi. */
+    onImport?: () => void
 }
 
 export function EntityListHeader({
@@ -22,6 +24,7 @@ export function EntityListHeader({
     onStatusChange,
     onSearchChange,
     onCreate,
+    onImport,
 }: EntityListHeaderProps) {
     const { t } = useT()
 
@@ -52,6 +55,7 @@ export function EntityListHeader({
                     value={search}
                     onChange={(event) => onSearchChange(event.target.value)}
                 />
+                {onImport && <Button onClick={onImport}>{t('import.button')}</Button>}
                 <Button variant="primary" onClick={onCreate}>
                     {t('admin.new', { entity: singular.toLowerCase() })}
                 </Button>

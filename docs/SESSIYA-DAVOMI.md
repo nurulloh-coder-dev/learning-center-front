@@ -70,6 +70,7 @@ cd dist-demo && python3 -m http.server 4599
 | Ish | Holat | Kimda |
 | --- | --- | --- |
 | PR #135: parolni yangilash, adminni tahrirlash, o'z akkaunti ro'yxatda yo'q, `GROUP_MANAGEMENT`, lid kartasi stili, Sozlamalarda profil faqat `EMPLOYEE_MANAGEMENT` bilan tahrirlanadi | Backend tuzatildi (`main` `e566900`). Haqiqiy backendda sinov kutilmoqda: test akkaunt `ALIA_TEST_PHONE` / `ALIA_TEST_PASSWORD` env'da kerak | Agent |
+| Excel import (`/import/students`, `/import/teachers`) | Front tayyor, demo'da sinalgan; haqiqiy backendda sinov kerak. Backend cheklovlari — `docs/import.md` | Agent / Nurulloh |
 | Limit foizi API (tashkilotda o'quvchilar soni / tarif limiti) | Kutilmoqda | Muhammadali |
 | Limit UI: dasturchi panelida >100% tashkilot qizil; super admin'ga ≥80% — "N% joy qoldi", >100% — "7 kun ichida yangi tarifga o'ting" | API kelgach | Agent |
 | `PlanValidator.validateLimits` limitga yetganda darhol bloklaydi — 7 kunlik muhlat qoidasiga zid | Nurullohga aytilgan | Nurulloh |

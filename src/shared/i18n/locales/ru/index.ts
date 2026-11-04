@@ -10,6 +10,7 @@ import { settings } from './settings'
 import { student } from './student'
 import { leads } from './leads'
 import { developer } from './developer'
+import { importSection } from './import'
 
 /**
  * Ruscha.
@@ -34,4 +35,5 @@ export const ru: Translations = {
     ...student,
     ...leads,
     ...developer,
+    ...importSection,
 }

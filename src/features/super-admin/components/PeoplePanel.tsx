@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { errorMessage } from '@/shared/api'
 import { useMe } from '@/shared/hooks'
 import { useT } from '@/shared/i18n'
@@ -42,6 +43,7 @@ export function PeoplePanel({
     onSearchChange,
 }: PeoplePanelProps) {
     const { t } = useT()
+    const navigate = useNavigate()
     const people = usePeople(
         token,
         kind,
@@ -117,6 +119,11 @@ export function PeoplePanel({
                     onChange={(event) => onSearchChange(event.target.value)}
                     placeholder={t('superAdmin.search')}
                 />
+                {kind !== 'administrators' && (
+                    <Button size="sm" onClick={() => navigate(`/import/${kind}`)}>
+                        {t('import.button')}
+                    </Button>
+                )}
                 {kind === 'administrators' && (
                     <Button variant="primary" size="sm" onClick={() => setShowCreate(true)}>
                         {t('superAdmin.admin.new')}

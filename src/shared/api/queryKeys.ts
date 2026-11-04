@@ -20,6 +20,8 @@ export const queryKeys = {
     entityList: (entity: string, params: Record<string, unknown>) =>
         ['entity', entity, 'list', params] as const,
     entityCount: (entity: string) => ['entity', entity, 'count'] as const,
+    /** `entityList` va `entityCount` ning prefiksi — import'dan keyin butun bo'limni eskirtirish uchun. */
+    entityKind: (entity: string) => ['entity', entity] as const,
 
     me: () => ['auth', 'me'] as const,
     myStudentRecord: () => ['student', 'me'] as const,

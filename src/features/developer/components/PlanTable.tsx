@@ -45,7 +45,12 @@ export function PlanTable({ plans, isLoading, onEdit, onDelete }: PlanTableProps
             key: 'active',
             header: t('plan.active'),
             render: (plan) =>
-                plan.active === false ? <Badge tone="neutral">{t('plan.inactive')}</Badge> : null,
+                // `active` kelmasa ham faol: backendda ustun `true` bilan yaratiladi.
+                plan.active === false ? (
+                    <Badge tone="neutral">{t('plan.inactive')}</Badge>
+                ) : (
+                    <Badge tone="success">{t('plan.activeBadge')}</Badge>
+                ),
         },
     ]
 

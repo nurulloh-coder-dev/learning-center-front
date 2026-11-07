@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { queryKeys } from '@/shared/api'
 import { createPlan, deletePlan, fetchPlans, updatePlan } from '../api/developerApi'
 import type { PlanPayload } from '@/shared/types'
+import { sortPlans } from '../lib/sortPlans'
 
 /*
  * `search` ataylab bo'sh SATR, tashlab ketilmaydi.
@@ -24,9 +25,7 @@ export function usePlans(token: string) {
     })
 
     return {
-        // Tariflar ro'yxati qisqa — narx tartibida ko'rsatiladi, chunki
-        // dasturchi ularni "arzondan qimmatga" deb o'ylaydi.
-        plans: [...(query.data?.content ?? [])].sort((a, b) => a.price - b.price),
+        plans: sortPlans(query.data?.content ?? []),
         isLoading: query.isLoading,
         error: query.error,
     }

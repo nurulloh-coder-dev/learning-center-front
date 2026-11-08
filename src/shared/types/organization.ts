@@ -5,6 +5,11 @@ export interface OrganizationDto {
     email?: string
     phone?: string
     website?: string
+    /**
+     * Tashkilotda super admin bormi. Backendga so'ralgan (2026-11-08) —
+     * kelmaguncha `undefined`, va "Super-admin qo'shish" tugmasi ko'rinadi.
+     */
+    hasSuperAdmin?: boolean
 }
 
 /**

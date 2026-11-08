@@ -12,6 +12,7 @@ import { AppNavigation } from './AppNavigation'
 import { NotFoundPage } from './NotFoundPage'
 import { RequirePermission } from './RequirePermission'
 import { RequireRole } from './RequireRole'
+import { PAYMENTS_ROLES } from './routeAccess'
 import { RoleDashboard } from './RoleDashboard'
 import { otherRoleHomes, roleHome } from './roleHome'
 
@@ -60,7 +61,7 @@ export function AppRoutes() {
                 <Route
                     path="/payments"
                     element={
-                        <RequireRole roles={['ADMINISTRATOR', 'TEACHER', 'SUPER_ADMIN']}>
+                        <RequireRole roles={[...PAYMENTS_ROLES]}>
                             <RequirePermission permission="INVOICE_MANAGEMENT">
                                 <PaymentsPage />
                             </RequirePermission>

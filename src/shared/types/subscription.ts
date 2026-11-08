@@ -68,11 +68,18 @@ export interface SubscriptionDto {
     note?: string
 }
 
-/** Boshqasining hammasi backendda hisoblanadi (muddat, summa, holat). */
+/**
+ * `POST /subscriptions` — `SubscriptionCreateDto` (backend `0f63169`).
+ * Tugash sanasi va summa endi frontda hisoblanadi (`developer/lib/subscriptionTerm.ts`).
+ */
 export interface SubscriptionCreatePayload {
     organizationId: string
     planId: string
     note?: string
+    /** `YYYY-MM-DD`, majburiy. */
+    expiryDate: string
+    /** Musbat bo'lishi shart (`@Positive`); bo'sh bo'lsa yuborilmaydi. */
+    paidAmount?: number
 }
 
 export interface SubscriptionUpdatePayload {

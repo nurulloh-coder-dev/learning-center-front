@@ -25,6 +25,28 @@ export function useSubscriptions(token: string, page: number, search: string) {
     }
 }
 
+const ALL_PARAMS = { page: 0, size: 200, search: '' }
+
+/**
+ * Tashkilot -> amaldagi obunaning tugash sanasi. Yangi obuna muddati shundan
+ * davom etadi (`computeExpiryDate`). Jadval sahifalangani uchun alohida,
+ * kattaroq so'rov: kerakli tashkilot boshqa sahifada bo'lsa ham topilsin.
+ */
+export function useCurrentExpiries(token: string) {
+    const query = useQuery({
+        queryKey: queryKeys.subscriptions(ALL_PARAMS),
+        queryFn: () => fetchSubscriptions(token, ALL_PARAMS),
+    })
+    const expiries = new Map<string, string>()
+    for (const subscription of query.data?.content ?? []) {
+        const active = subscription.status === 'ACTIVE' || subscription.status === 'GRACE'
+        if (active && subscription.organization?.id && subscription.expiresAt) {
+            expiries.set(subscription.organization.id, subscription.expiresAt)
+        }
+    }
+    return { expiries, isLoading: query.isLoading }
+}
+
 export function useSubscriptionMutations(token: string) {
     const queryClient = useQueryClient()
     // Obuna o'zgarsa tashkilotlar ro'yxati ham eskiradi: u yerda obuna

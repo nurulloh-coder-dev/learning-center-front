@@ -134,6 +134,11 @@ export const FORM_CONFIGS: Partial<Record<EntityKey, EntityFormConfig>> = {
                 { key: 'endTime', labelKey: 'field.endTime', type: 'time' },
                 { key: 'teacherId', labelKey: 'field.teacher', type: 'select', optionsSource: 'freeTeachers' },
             ]
+            if (mode === 'create') {
+                // Backend (`a81133b`) `GroupCreateDto.branchId` ni majburiy qildi —
+                // busiz guruh yaratish 400 qaytaradi. Tahrirlashda filial o'zgarmaydi.
+                base.push({ key: 'branchId', labelKey: 'field.branch', type: 'select', optionsSource: 'branches' })
+            }
             if (mode === 'edit') {
                 base.push({ key: 'status', labelKey: 'field.status', type: 'select', options: STATUS_OPTIONS })
             }
@@ -159,6 +164,7 @@ export const FORM_CONFIGS: Partial<Record<EntityKey, EntityFormConfig>> = {
                 room: values.room,
                 startDate: values.startDate,
                 teacherId: values.teacherId,
+                branchId: values.branchId,
                 timeTable: {
                     dayType: values.dayType,
                     startTime: values.startTime,

@@ -110,6 +110,17 @@ describe('groups form config', () => {
         expect(fields.map((field) => field.key)).not.toContain('status')
     })
 
+    it('yaratishda filial tanlanadi va payload’ga branchId ketadi', () => {
+        const fields = typeof config.fields === 'function' ? config.fields('create') : config.fields
+        expect(fields.find((field) => field.key === 'branchId')?.optionsSource).toBe('branches')
+        expect(config.buildCreatePayload({ branchId: 'b1' })).toMatchObject({ branchId: 'b1' })
+    })
+
+    it('tahrirlashda filial maydoni yo’q', () => {
+        const fields = typeof config.fields === 'function' ? config.fields('edit') : config.fields
+        expect(fields.map((field) => field.key)).not.toContain('branchId')
+    })
+
     it('tahrirlashda status maydoni qo’shiladi', () => {
         const fields = typeof config.fields === 'function' ? config.fields('edit') : config.fields
         expect(fields.map((field) => field.key)).toContain('status')

@@ -29,21 +29,17 @@ describe('developerApi', () => {
     })
 
     /*
-     * Obuna yaratishda faqat tashkilot, tarif va izoh yuboriladi: muddat,
-     * summa va holatni backend hisoblaydi. Bu yerdan summa yuborilsa,
-     * tarif narxi o'zgarganda ikki manba paydo bo'lardi.
+     * Backend `0f63169` dan keyin tugash sanasi va to'langan summa ham
+     * yuboriladi: backend ularni o'zi hisoblamaydi.
      */
-    it('obuna yaratishda faqat tashkilot, tarif va izohni yuboradi', async () => {
+    it('obuna yaratishda tugash sanasi va summani ham yuboradi', async () => {
         const fetchMock = mockFetch({ id: 's-1' })
+        const body = { organizationId: 'o-1', planId: 'p-1', note: 'Humo', expiryDate: '2026-12-08', paidAmount: 300000 }
 
-        await createSubscription(TOKEN, { organizationId: 'o-1', planId: 'p-1', note: 'Humo' })
+        await createSubscription(TOKEN, body)
 
         const [, init] = fetchMock.mock.calls[0]
-        expect(JSON.parse(String(init?.body))).toEqual({
-            organizationId: 'o-1',
-            planId: 'p-1',
-            note: 'Humo',
-        })
+        expect(JSON.parse(String(init?.body))).toEqual(body)
     })
 
     it('holatni PUT bilan o’zgartiradi', async () => {

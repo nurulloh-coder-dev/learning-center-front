@@ -222,7 +222,7 @@ export function DeveloperDashboardPage() {
             {isSubscriptionFormOpen && (
                 <NewSubscriptionModal
                     organizations={organizations.data ?? []}
-                    plans={plans.map((plan) => ({ value: plan.id, label: plan.name }))}
+                    plans={plans.filter((plan) => plan.active !== false)}
                     isSaving={subscriptionMutations.create.isPending}
                     error={subscriptionMutations.create.error}
                     onSubmit={(body) =>

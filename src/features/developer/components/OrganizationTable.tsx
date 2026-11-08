@@ -36,13 +36,18 @@ export function OrganizationTable({
             emptyText={t('organization.empty')}
             getRowKey={(row) => row.id}
             actionsHeader={t('admin.actions')}
-            renderActions={(row) => (
-                <div className="flex justify-end">
-                    <Button size="sm" onClick={() => onAddSuperAdmin(row)}>
-                        {t('organization.addSuperAdmin')}
-                    </Button>
-                </div>
-            )}
+            // Har markazga bitta super admin (rahbar qarori): qo'shilgandan
+            // keyin tugma qaytib chiqmaydi. Ma'lumot backenddan keladi,
+            // shuning uchun boshqa qurilma va boshqa dasturchida ham bir xil.
+            renderActions={(row) =>
+                row.hasSuperAdmin ? null : (
+                    <div className="flex justify-end">
+                        <Button size="sm" onClick={() => onAddSuperAdmin(row)}>
+                            {t('organization.addSuperAdmin')}
+                        </Button>
+                    </div>
+                )
+            }
         />
     )
 }

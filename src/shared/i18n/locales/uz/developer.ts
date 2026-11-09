@@ -12,6 +12,7 @@ export const developer = {
     'developer.organizationsTab': 'Tashkilotlar',
     'organization.email': 'Email',
     'organization.website': 'Sayt',
+    'organization.superAdmins': 'Super adminlar',
     'organization.empty': 'Hali tashkilot qo‘shilmagan.',
     'organization.new': 'Yangi tashkilot',
     'organization.newTitle': 'Tashkilot qo‘shish',

@@ -12,6 +12,7 @@ export const developer = {
     'developer.organizationsTab': 'Organisations',
     'organization.email': 'Email',
     'organization.website': 'Website',
+    'organization.superAdmins': 'Super admins',
     'organization.empty': 'No organisations yet.',
     'organization.new': 'New organisation',
     'organization.newTitle': 'Add an organisation',

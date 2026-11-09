@@ -8,13 +8,14 @@ describe('OrganizationTable', () => {
         renderWithProviders(
             <OrganizationTable
                 organizations={[
-                    { id: 'o1', name: 'Bor', hasSuperAdmin: true },
-                    { id: 'o2', name: "Yo'q", hasSuperAdmin: false },
+                    { id: 'o1', name: 'Bor', superAdminCount: 2 },
+                    { id: 'o2', name: "Yo'q", superAdminCount: 0 },
                 ]}
                 isLoading={false}
                 onAddSuperAdmin={vi.fn()}
             />
         )
         expect(screen.getAllByRole('button', { name: /Super-admin qo/ })).toHaveLength(1)
+        expect(screen.getByText('2')).toBeInTheDocument()
     })
 })

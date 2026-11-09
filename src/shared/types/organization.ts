@@ -6,10 +6,10 @@ export interface OrganizationDto {
     phone?: string
     website?: string
     /**
-     * Tashkilotda super admin bormi. Backendga so'ralgan (2026-11-08) —
-     * kelmaguncha `undefined`, va "Super-admin qo'shish" tugmasi ko'rinadi.
+     * Tashkilotdagi super adminlar soni. Backendga so'ralgan (2026-11-09) —
+     * kelmaguncha `undefined`: ustunda "—", "Super-admin qo'shish" ko'rinadi.
      */
-    hasSuperAdmin?: boolean
+    superAdminCount?: number
 }
 
 /**

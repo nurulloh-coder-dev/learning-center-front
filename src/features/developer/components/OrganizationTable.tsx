@@ -25,6 +25,12 @@ export function OrganizationTable({
         },
         { key: 'email', header: t('organization.email'), render: (row) => row.email || '—' },
         { key: 'website', header: t('organization.website'), render: (row) => row.website || '—' },
+        {
+            key: 'superAdmins',
+            header: t('organization.superAdmins'),
+            align: 'right',
+            render: (row) => <span className="tabular-nums">{row.superAdminCount ?? '—'}</span>,
+        },
     ]
 
     return (
@@ -36,11 +42,11 @@ export function OrganizationTable({
             emptyText={t('organization.empty')}
             getRowKey={(row) => row.id}
             actionsHeader={t('admin.actions')}
-            // Har markazga bitta super admin (rahbar qarori): qo'shilgandan
-            // keyin tugma qaytib chiqmaydi. Ma'lumot backenddan keladi,
-            // shuning uchun boshqa qurilma va boshqa dasturchida ham bir xil.
+            // Dasturchi faqat BIRINCHI super adminni ochadi (rahbar qarori);
+            // keyingilarini markazning super admini o'z panelidan qo'shadi.
+            // Son backenddan keladi — boshqa qurilmada ham bir xil.
             renderActions={(row) =>
-                row.hasSuperAdmin ? null : (
+                (row.superAdminCount ?? 0) > 0 ? null : (
                     <div className="flex justify-end">
                         <Button size="sm" onClick={() => onAddSuperAdmin(row)}>
                             {t('organization.addSuperAdmin')}

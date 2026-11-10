@@ -22,7 +22,7 @@ export function StudentInfoSection({ parentPhone, birthDate }: StudentInfoSectio
                     key={row.labelKey}
                     className="flex items-center justify-between gap-3 border-b border-border-base py-2.5 text-sm last:border-b-0"
                 >
-                    <dt className="shrink-0 font-mono text-[0.68rem] tracking-[0.06em] text-fg-faint uppercase">
+                    <dt className="text-xs shrink-0 text-fg-faint">
                         {t(row.labelKey)}
                     </dt>
                     <dd className="truncate text-right text-fg" title={row.value || '—'}>

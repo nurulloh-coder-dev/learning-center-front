@@ -62,7 +62,7 @@ export function PublicLeadForm({ form, source, isSending, error, onSubmit }: Pub
                 // Google Forms'dagidek ochiq ro'yxat: telefonda ochiladigan
                 // ro'yxatdan ko'ra hamma variant birdan ko'rinib turgani qulay.
                 <fieldset className="flex flex-col gap-2">
-                    <legend className="mb-2 font-mono text-[0.68rem] font-semibold tracking-[0.08em] text-fg-muted uppercase">
+                    <legend className="text-xs mb-2 font-semibold text-fg-muted">
                         {courseLabel}
                     </legend>
                     {form.levels.map((level) => (

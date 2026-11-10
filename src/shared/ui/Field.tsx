@@ -12,8 +12,8 @@ export function Field({
     className?: string
 }) {
     return (
-        <label className={cn('flex flex-col gap-2', className)}>
-            <span className="font-mono text-[0.68rem] font-semibold tracking-[0.08em] text-fg-muted dark:text-fg-muted uppercase">{label}</span>
+        <label className={cn('flex flex-col gap-1.5', className)}>
+            <span className="text-sm font-medium text-fg">{label}</span>
             {children}
         </label>
     )

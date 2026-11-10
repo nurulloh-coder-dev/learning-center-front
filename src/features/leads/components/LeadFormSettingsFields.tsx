@@ -62,7 +62,7 @@ export function LeadFormSettingsFields({ form, levels, isSaving, isSaved = false
                 {t('leadForm.courseRequiredToggle')}
             </label>
             <fieldset className="flex flex-col gap-2">
-                <legend className="mb-1 font-mono text-[0.68rem] font-semibold tracking-[0.08em] text-fg-muted uppercase">{t('leadForm.levels')}</legend>
+                <legend className="text-xs mb-1 font-semibold text-fg-muted">{t('leadForm.levels')}</legend>
                 {levels.map((level) => (
                     <label key={level.value} className={CHECKBOX_ROW}>
                         <input

@@ -30,15 +30,15 @@ export function AppSidebar({ sections, onNavigate }: AppSidebarProps) {
                 }}
                 className={cn(
                     // 44px — telefonda barmoq uchun eng kam o'lcham
-                    'flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-xl px-3 text-left text-sm transition-colors',
+                    'flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-lg px-3 text-left text-sm transition-colors',
                     'disabled:cursor-not-allowed disabled:opacity-40',
                     item.active
-                        ? 'bg-brand font-semibold text-brand-fg'
+                        ? 'bg-accent-soft font-semibold text-accent-fg'
                         : 'font-medium text-sidebar-fg/80 hover:bg-surface-hover hover:text-sidebar-fg'
                 )}
             >
                 {item.icon && (
-                    <span className={cn('shrink-0', item.active ? 'text-brand-fg' : 'text-sidebar-fg/55')}>{item.icon}</span>
+                    <span className={cn('shrink-0', item.active ? 'text-accent-fg' : 'text-sidebar-fg/55')}>{item.icon}</span>
                 )}
                 <span className="flex-1 truncate">{item.label}</span>
                 {item.dot && <span aria-hidden="true" className="size-2 shrink-0 rounded-full bg-danger" />}
@@ -65,7 +65,7 @@ export function AppSidebar({ sections, onNavigate }: AppSidebarProps) {
                                     type="button"
                                     aria-expanded={!isCollapsed}
                                     onClick={() => setCollapsed((current) => ({ ...current, [section.key]: !isCollapsed }))}
-                                    className="flex cursor-pointer items-center justify-between px-3 pb-1 text-[0.7rem] font-bold tracking-[0.06em] text-fg-faint uppercase hover:text-fg-muted"
+                                    className="flex cursor-pointer items-center justify-between px-3 pb-1 text-xs font-medium text-fg-faint hover:text-fg-muted"
                                 >
                                     {section.label}
                                     <span className={cn('transition-transform', isCollapsed && '-rotate-90')}>

@@ -8,7 +8,7 @@ export function Panel({ children, className }: { children: ReactNode; className?
             className={cn(
                 // To'liq rangli karta + ingichka qirra (2026-10 palitra): light'da och
                 // fonda oq, dark'da navy fonda biroz ochroq — shishasiz, sokin.
-                'rounded-2xl border border-border-base bg-surface-card p-6 shadow-[var(--shadow-card)]',
+                'rounded-xl border border-border-base bg-surface-card p-5 sm:p-6',
                 className
             )}
         >

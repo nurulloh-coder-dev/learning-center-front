@@ -50,7 +50,7 @@ export function KpiRow({ stats }: { stats: GroupStatsDto | null }) {
     return (
         <section className="mb-5">
             <div className="mb-2 flex items-center justify-between gap-3">
-                <p className="font-mono text-[0.6rem] tracking-[0.05em] text-fg-faint uppercase">
+                <p className="text-xs text-fg-faint">
                     {t('kpi.allGroups')}
                 </p>
                 <PendingTag />

@@ -107,7 +107,7 @@ export function GroupTabs({
                             {group.name}
                         </span>
                         {group.dayType && (
-                            <span className="rounded-full bg-steel-soft px-2 py-0.5 font-mono text-[0.58rem] text-steel-fg uppercase">
+                            <span className="text-xs rounded-full bg-steel-soft px-2 py-0.5 text-steel-fg">
                                 {t(`group.dayType.${group.dayType}`)}
                             </span>
                         )}
@@ -142,7 +142,7 @@ export function GroupSidebar({
             aria-label={t('teacher.switchGroup')}
             className="hidden w-52 shrink-0 flex-col gap-1 lg:flex"
         >
-            <p className="px-3 pb-1 font-mono text-[0.6rem] tracking-[0.05em] text-fg-faint uppercase">
+            <p className="text-xs px-3 pb-1 text-fg-faint">
                 {t('teacher.myGroups')}
             </p>
             {dayFilter && onDayFilterChange && (
@@ -170,7 +170,7 @@ export function GroupSidebar({
                             {group.name}
                         </span>
                         {group.dayType && (
-                            <span className="mt-0.5 block font-mono text-[0.58rem] text-fg-faint uppercase">
+                            <span className="text-xs mt-0.5 block text-fg-faint">
                                 {t(`group.dayType.${group.dayType}`)}
                             </span>
                         )}

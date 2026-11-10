@@ -4,8 +4,9 @@ import { cn } from '@/shared/lib'
 interface StatCardProps {
     label: string
     value: ReactNode
-    /** Ikonka foni va rangi, masalan `bg-accent-soft text-accent-fg`. */
+    /** Kichik xira belgi, rangli doirasiz. */
     icon?: ReactNode
+    /** Eskirgan: rangli doira olib tashlandi, qiymat e'tiborga olinmaydi. */
     tone?: string
     /** Raqam ostidagi kichik yozuv — faqat HAQIQIY ma'lumot (masalan "+3 bu oyda"). */
     hint?: ReactNode
@@ -22,20 +23,20 @@ interface StatCardProps {
  * yozuvi. Ikonka o'ngda — chapda bo'lsa raqamni o'ngga surib, tor
  * kartada pul summasi sig'masdi.
  */
-export function StatCard({ label, value, icon, tone, hint, muted = false, compact = false }: StatCardProps) {
+export function StatCard({ label, value, icon, hint, muted = false, compact = false }: StatCardProps) {
     return (
         <div
             className={cn(
-                'flex items-start justify-between gap-3 rounded-2xl border border-border-base bg-surface-card shadow-[var(--shadow-card)]',
+                'flex items-start justify-between gap-3 rounded-xl border border-border-base bg-surface-card',
                 compact ? 'p-3.5' : 'p-4 sm:p-5'
             )}
         >
             <div className="min-w-0">
-                <div className="truncate text-[0.7rem] font-semibold tracking-[0.06em] text-fg-muted uppercase">{label}</div>
+                <div className="truncate text-sm text-fg-muted">{label}</div>
                 <div
                     className={cn(
-                        'mt-1.5 font-display font-bold tracking-tight tabular-nums',
-                        compact ? 'text-xl' : 'text-2xl sm:text-[1.7rem]',
+                        'mt-1 font-display font-semibold tracking-tight tabular-nums',
+                        compact ? 'text-xl' : 'text-2xl',
                         muted ? 'text-fg-faint' : 'text-fg'
                     )}
                 >
@@ -52,9 +53,9 @@ export function StatCard({ label, value, icon, tone, hint, muted = false, compac
                 )}
             </div>
             {icon && (
-                <span className={cn('hidden size-11 shrink-0 items-center justify-center rounded-full sm:flex', tone)}>
-                    {icon}
-                </span>
+                // Rangli doira ichidagi ikonka "shablon" ko'rinish berardi —
+                // endi faqat kichik, xira belgi; `tone` ataylab ishlatilmaydi.
+                <span className="hidden shrink-0 text-fg-faint sm:block [&_svg]:size-5">{icon}</span>
             )}
         </div>
     )

@@ -15,7 +15,6 @@ interface QuickLinksCardProps {
 interface LinkRow {
     label: string
     icon: ReactNode
-    tone: string
     value?: number | null
     onClick?: () => void
 }
@@ -30,11 +29,11 @@ export function QuickLinksCard({ leadCount, branchCount, enrollmentCount, onOpen
     const navigate = useNavigate()
 
     const rows: LinkRow[] = [
-        { label: t('lead.title'), icon: <TargetIcon />, tone: 'bg-amber-soft text-amber-fg', value: leadCount, onClick: () => navigate('/leads') },
-        { label: t('invoice.title'), icon: <WalletIcon />, tone: 'bg-success-soft text-success-fg', onClick: () => navigate('/payments') },
-        { label: t('superAdmin.section.branches'), icon: <LayersIcon />, tone: 'bg-steel-soft text-steel-fg', value: branchCount, onClick: () => onOpenSection('branches') },
-        { label: t('superAdmin.section.administrators'), icon: <ShieldIcon />, tone: 'bg-purple-soft text-purple-fg', onClick: () => onOpenSection('administrators') },
-        { label: t('analytics.enrollment'), icon: <FolderIcon />, tone: 'bg-accent-soft text-accent-fg', value: enrollmentCount },
+        { label: t('lead.title'), icon: <TargetIcon />, value: leadCount, onClick: () => navigate('/leads') },
+        { label: t('invoice.title'), icon: <WalletIcon />, onClick: () => navigate('/payments') },
+        { label: t('superAdmin.section.branches'), icon: <LayersIcon />, value: branchCount, onClick: () => onOpenSection('branches') },
+        { label: t('superAdmin.section.administrators'), icon: <ShieldIcon />, onClick: () => onOpenSection('administrators') },
+        { label: t('analytics.enrollment'), icon: <FolderIcon />, value: enrollmentCount },
     ]
 
     return (
@@ -43,7 +42,7 @@ export function QuickLinksCard({ leadCount, branchCount, enrollmentCount, onOpen
                 {rows.map((row) => {
                     const content = (
                         <>
-                            <span className={`flex size-8 shrink-0 items-center justify-center rounded-full ${row.tone}`}>{row.icon}</span>
+                            <span className="flex size-8 shrink-0 items-center justify-center text-fg-faint">{row.icon}</span>
                             <span className="flex-1 truncate text-sm font-medium text-fg">{row.label}</span>
                             {row.value != null && <span className="text-sm font-semibold tabular-nums text-fg-muted">{row.value}</span>}
                         </>

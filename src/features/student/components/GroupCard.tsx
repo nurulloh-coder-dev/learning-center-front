@@ -20,7 +20,7 @@ export function GroupCard({ group }: { group: GroupDto }) {
                 <Avatar name={teacherUser?.fullName} src={teacherUser?.imageUrl} />
                 <div className="min-w-0">
                     <p className="truncate font-display font-medium text-fg">{teacherUser?.fullName || '—'}</p>
-                    <p className="font-mono text-[0.62rem] tracking-[0.06em] text-fg-faint uppercase">
+                    <p className="text-xs text-fg-faint">
                         {t('teacher.role')}
                     </p>
                 </div>

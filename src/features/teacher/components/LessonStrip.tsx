@@ -28,7 +28,7 @@ export function LessonStrip({ group }: { group?: GroupDto }) {
                 {cells.map((cell) => (
                     <div key={cell.key} className="rounded-md bg-surface px-3.5 py-3">
                         <div className="flex items-center justify-between gap-2">
-                            <span className="truncate font-mono text-[0.6rem] tracking-[0.05em] text-fg-faint uppercase">
+                            <span className="text-xs truncate text-fg-faint">
                                 {cell.label}
                             </span>
                             {cell.pending && <PendingTag />}

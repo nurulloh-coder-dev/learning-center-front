@@ -18,7 +18,7 @@ export function PendingBackend({ className }: { className?: string }) {
                 className
             )}
         >
-            <p className="font-mono text-[0.62rem] tracking-[0.08em] text-fg-faint uppercase">
+            <p className="text-xs text-fg-faint">
                 {t('pending.title')}
             </p>
             <p className="mt-1 text-sm text-fg-muted">{t('pending.body')}</p>
@@ -30,7 +30,7 @@ export function PendingBackend({ className }: { className?: string }) {
 export function PendingTag() {
     const { t } = useT()
     return (
-        <span className="rounded-full bg-surface-muted px-2 py-0.5 font-mono text-[0.58rem] tracking-[0.06em] text-fg-faint uppercase">
+        <span className="text-xs rounded-full bg-surface-muted px-2 py-0.5 text-fg-faint">
             {t('pending.short')}
         </span>
     )

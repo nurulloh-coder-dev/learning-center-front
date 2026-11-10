@@ -83,7 +83,7 @@ export function AttendanceTable({
             <table className="min-w-full border-collapse text-sm">
                 <thead>
                     <tr>
-                        <th className="sticky left-0 z-20 border-b border-border-base bg-surface px-4 py-2 text-left font-mono text-[0.66rem] tracking-[0.05em] whitespace-nowrap text-fg-faint uppercase">
+                        <th className="text-xs sticky left-0 z-20 border-b border-border-base bg-surface px-4 py-2 text-left whitespace-nowrap text-fg-faint">
                             {t('attendance.student')}
                         </th>
                         {pastColumns.map((column) => {

@@ -29,7 +29,7 @@ export function StudentDetailModal({ student, onClose }: { student: StudentDto; 
                         key={row.labelKey}
                         className="flex flex-col gap-1 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:py-3 text-sm"
                     >
-                        <dt className="font-mono text-[0.68rem] font-semibold tracking-[0.06em] text-fg-faint uppercase">
+                        <dt className="text-xs font-semibold text-fg-faint">
                             {t(row.labelKey)}
                         </dt>
                         <dd className="font-medium text-fg break-all sm:truncate">{row.get(student) || '—'}</dd>

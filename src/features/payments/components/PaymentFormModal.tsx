@@ -12,7 +12,7 @@ import { InvoiceChoice } from './InvoiceChoice'
 import { StudentPicker } from './StudentPicker'
 
 /** `Field` sarlavhasi bilan bir xil ko'rinish — label bo'lolmaydigan bo'limlar uchun. */
-const SECTION_LABEL = 'font-mono text-[0.68rem] font-semibold tracking-[0.08em] text-fg-muted uppercase'
+const SECTION_LABEL = 'text-xs font-semibold text-fg-muted'
 
 interface PaymentFormModalProps {
     token: string

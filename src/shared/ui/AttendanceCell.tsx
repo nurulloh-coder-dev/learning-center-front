@@ -124,7 +124,7 @@ export function AttendanceCell({ studentName, status, reason, onChange }: Attend
                             style={notePosition}
                             className="z-50 rounded-lg border border-border-base bg-surface-card p-3 text-left shadow-[0_12px_30px_-8px_rgba(0,0,0,0.4)]"
                         >
-                            <label className="mb-1.5 block font-mono text-[0.62rem] tracking-[0.06em] text-fg-faint uppercase">
+                            <label className="text-xs mb-1.5 block text-fg-faint">
                                 {t('attendance.excuseReason')}
                             </label>
                             <textarea

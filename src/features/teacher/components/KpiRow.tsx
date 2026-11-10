@@ -1,5 +1,5 @@
 import { useT } from '@/shared/i18n'
-import { PendingTag, StatCard } from '@/shared/ui'
+import { StatCard } from '@/shared/ui'
 import type { TranslationKey } from '@/shared/i18n'
 import type { GroupStatsDto } from '@/shared/types'
 
@@ -49,12 +49,7 @@ export function KpiRow({ stats }: { stats: GroupStatsDto | null }) {
 
     return (
         <section className="mb-5">
-            <div className="mb-2 flex items-center justify-between gap-3">
-                <p className="text-xs text-fg-faint">
-                    {t('kpi.allGroups')}
-                </p>
-                <PendingTag />
-            </div>
+            <p className="mb-2 text-xs text-fg-faint">{t('kpi.allGroups')}</p>
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 xl:grid-cols-7">
                 {KPIS.map((kpi) => (
                     <KpiCard key={kpi.labelKey} label={t(kpi.labelKey)} value={stats ? kpi.value(stats) : undefined} />

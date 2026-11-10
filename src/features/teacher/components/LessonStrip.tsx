@@ -1,5 +1,4 @@
 import { useT } from '@/shared/i18n'
-import { PendingTag } from '@/shared/ui'
 import type { GroupDto } from '@/shared/types'
 
 /**
@@ -19,7 +18,7 @@ export function LessonStrip({ group }: { group?: GroupDto }) {
             value: group?.currentMonth ? t('teacher.month', { current: group.currentMonth }) : undefined,
         },
         { key: 'lessons', label: t('teacher.lessonsCount'), value: group?.lessonsCount },
-        { key: 'homework', label: t('teacher.homeworkDone'), value: undefined, pending: true },
+        { key: 'homework', label: t('teacher.homeworkDone'), value: undefined },
     ]
 
     return (
@@ -27,12 +26,7 @@ export function LessonStrip({ group }: { group?: GroupDto }) {
             <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-4">
                 {cells.map((cell) => (
                     <div key={cell.key} className="rounded-md bg-surface px-3.5 py-3">
-                        <div className="flex items-center justify-between gap-2">
-                            <span className="text-xs truncate text-fg-faint">
-                                {cell.label}
-                            </span>
-                            {cell.pending && <PendingTag />}
-                        </div>
+                        <span className="block truncate text-xs text-fg-faint">{cell.label}</span>
                         <div className="mt-1 font-display text-lg font-semibold text-fg">
                             {cell.value ?? <span className="text-fg-faint">—</span>}
                         </div>

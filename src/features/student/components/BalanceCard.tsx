@@ -1,6 +1,6 @@
 import { useT } from '@/shared/i18n'
 import { cn, formatAmount } from '@/shared/lib'
-import { Eyebrow, Panel, PendingBackend } from '@/shared/ui'
+import { Eyebrow, Panel } from '@/shared/ui'
 import type { StudentDto } from '@/shared/types'
 
 interface BalanceCardProps {
@@ -24,7 +24,7 @@ export function BalanceCard({ student }: BalanceCardProps) {
             <p className="mt-1 mb-4 text-sm text-fg-muted">{t('student.balanceHint')}</p>
 
             {/* Balans hali kelmagan — o'quvchi kartasi yuklanmoqda yoki backend javobi to'liq emas. */}
-            {student?.balance === undefined && <PendingBackend />}
+            {student?.balance === undefined && <span className="font-display text-2xl font-semibold text-fg-faint">—</span>}
 
             {student?.balance !== undefined && (
                 <span

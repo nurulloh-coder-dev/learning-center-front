@@ -68,7 +68,7 @@ export function AppShell({
     return (
         <div className="flex min-h-screen bg-surface">
             {hasSidebar && (
-                <aside className="sticky top-0 hidden h-screen w-64 shrink-0 border-r border-border-base bg-sidebar lg:block">
+                <aside className="sticky top-0 hidden h-screen w-64 shrink-0 border-r border-border-base bg-sidebar/70 backdrop-blur-xl lg:block">
                     <AppSidebar sections={sections} />
                 </aside>
             )}
@@ -89,7 +89,7 @@ export function AppShell({
 
             {/* `min-w-0` shart: busiz keng jadval flex elementni cho'zib yuboradi */}
             <div className="flex min-w-0 flex-1 flex-col">
-                <header className="sticky top-0 z-30 border-b border-border-base bg-surface-card">
+                <header className="sticky top-0 z-30 border-b border-border-base bg-surface-card/80 backdrop-blur-xl">
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 px-4 py-3 sm:px-8">
                         <div className="flex min-w-0 items-center gap-3">
                             {hasSidebar && (

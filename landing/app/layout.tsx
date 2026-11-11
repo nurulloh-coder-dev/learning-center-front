@@ -121,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className="h-full antialiased dark"
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 dark:bg-[#07080e] dark:text-slate-100 transition-colors duration-200">
+      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 dark:bg-neutral-950 dark:text-slate-100 transition-colors duration-200">
         <LanguageProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </LanguageProvider>

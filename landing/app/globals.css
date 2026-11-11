@@ -1,4 +1,39 @@
 @import "tailwindcss";
+@import "@fontsource-variable/geist";
+
+/*
+ * 2026-11 "kompas" palette, same as the app: slate greys, navy dark mode,
+ * sky accent. The page uses Tailwind's neutral/blue classes everywhere, so
+ * the palette is remapped here instead of rewriting ~600 class names.
+ */
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
+  --color-black: #020617;
+
+  --color-blue-50: #f0f9ff;
+  --color-blue-100: #e0f2fe;
+  --color-blue-200: #bae6fd;
+  --color-blue-300: #7dd3fc;
+  --color-blue-400: #38bdf8;
+  --color-blue-500: #0ea5e9;
+  --color-blue-600: #0284c7;
+  --color-blue-700: #0369a1;
+  --color-blue-800: #075985;
+  --color-blue-900: #0c4a6e;
+  --color-blue-950: #082f49;
+}
 
 @variant dark (&:where(.dark, .dark *));
 

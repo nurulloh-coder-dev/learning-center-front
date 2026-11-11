@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@fontsource-variable/geist";
 
 /*
  * Dark rejim `<html class="dark">` orqali boshqariladi (ThemeProvider).
@@ -15,33 +16,32 @@
  */
 :root {
     /*
-     * 2026-10 palitra (3): landing (alia.uz) bilan bir xil — neytral oq/qora,
-     * ingichka kulrang chegaralar, bitta ko'k aksent, gradientsiz. Jamoa
-     * landing ko'rinishini ilovanikidan yaxshiroq deb topdi; ikkalasi bir
-     * mahsulot bo'lib ko'rinishi kerak.
+     * 2026-11 palitra (4): rahbar tanlagan "kompas" uslubi — slate kulranglar,
+     * dark'da navy fon, sky → indigo gradientli urg'u (`brand` → `brand-2`).
+     * Landing ham shu uslubga o'tkaziladi.
      */
-    --surface: #fafafa;
+    --surface: #f8fafc;
     --surface-card: #ffffff;
-    --surface-muted: #f5f5f5;
-    --surface-hover: #f5f5f5;
+    --surface-muted: #f1f5f9;
+    --surface-hover: #f1f5f9;
 
-    --border: #e5e5e5;
-    --border-strong: #d4d4d4;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
 
     /* Matn: asosiy → ikkilamchi → eng xira (label, jadval sarlavhasi) */
-    --fg: #171717;
-    --fg-muted: #525252;
-    --fg-faint: #a3a3a3;
+    --fg: #0f172a;
+    --fg-muted: #475569;
+    --fg-faint: #94a3b8;
     --fg-inverted: #ffffff;
 
-    /* Brend: light'da bir tekis ko'k (`brand-2` = `brand`, gradient sezilmaydi) */
-    --brand: #2563eb;
-    --brand-2: #2563eb;
+    /* Brend: sky → indigo gradient (`from-brand to-brand-2`) */
+    --brand: #0284c7;
+    --brand-2: #4f46e5;
     --brand-fg: #ffffff;
 
-    --accent: #2563eb;
-    --accent-fg: #1d4ed8;
-    --accent-soft: #eff6ff;
+    --accent: #0284c7;
+    --accent-fg: #0369a1;
+    --accent-soft: #e0f2fe;
 
     --success: #16a34a;
     --success-fg: #15803d;
@@ -55,7 +55,7 @@
     --warning-fg: #b45309;
     --warning-soft: #fef3c7;
 
-    --neutral-soft: #f5f5f5;
+    --neutral-soft: #f1f5f9;
 
     /* Binafsha — ikonka fonlari uchun (namunadagi "kassa balansi") */
     --purple: #7c3aed;
@@ -65,7 +65,7 @@
 
     /* Chap menyu: light'da oq (namunadagidek), dark'da navy */
     --sidebar: #ffffff;
-    --sidebar-fg: #404040;
+    --sidebar-fg: #334155;
 
     --sage-fg: #15803d;
     --sage-soft: #dcfce7;
@@ -75,8 +75,8 @@
     --steel: #0ea5e9;
     --steel-fg: #0369a1;
     --steel-soft: #e0f2fe;
-    --slate-fg: #525252;
-    --slate-soft: #f5f5f5;
+    --slate-fg: #475569;
+    --slate-soft: #f1f5f9;
 
     /* Oq karta och fonda — juda yengil, keng soya */
     --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04);
@@ -86,27 +86,27 @@
 
 .dark {
     /* Sahifa fonidan karta biroz ochroq — chegaralar ko'rinib turadi */
-    --surface: #000000;
-    --surface-card: #0a0a0a;
-    --surface-muted: #171717;
+    --surface: #020617;
+    --surface-card: #0f172a;
+    --surface-muted: #1e293b;
     --surface-hover: #ffffff0d;
 
-    --border: #262626;
-    --border-strong: #404040;
+    --border: #1e293b;
+    --border-strong: #334155;
 
-    --fg: #f5f5f5;
-    --fg-muted: #a3a3a3;
-    --fg-faint: #737373;
-    --fg-inverted: #000000;
+    --fg: #f1f5f9;
+    --fg-muted: #94a3b8;
+    --fg-faint: #64748b;
+    --fg-inverted: #020617;
 
-    /* Landing'dagidek bir tekis ko'k (`brand-2` = `brand`, gradient yo'q) */
-    --brand: #3b82f6;
-    --brand-2: #3b82f6;
-    --brand-fg: #ffffff;
+    /* Dark'da gradient yorqinroq, ustidagi matn to'q (`brand-fg`) */
+    --brand: #38bdf8;
+    --brand-2: #818cf8;
+    --brand-fg: #020617;
 
-    --accent: #3b82f6;
-    --accent-fg: #60a5fa;
-    --accent-soft: #3b82f61f;
+    --accent: #38bdf8;
+    --accent-fg: #7dd3fc;
+    --accent-soft: #38bdf81f;
 
     --success: #34d399;
     --success-fg: #34d399;
@@ -127,8 +127,8 @@
     --purple-soft: #8b5cf626;
     --magenta: #38bdf8;
 
-    --sidebar: #000000;
-    --sidebar-fg: #e5e5e5;
+    --sidebar: #0f172a;
+    --sidebar-fg: #e2e8f0;
 
     --sage-fg: #34d399;
     --sage-soft: #10b98126;
@@ -138,7 +138,7 @@
     --steel: #38bdf8;
     --steel-fg: #7dd3fc;
     --steel-soft: #0ea5e926;
-    --slate-fg: #a3a3a3;
+    --slate-fg: #94a3b8;
     --slate-soft: #ffffff0d;
 
     --shadow-card: 0 1px 2px rgb(0 0 0 / 0.5);
@@ -206,14 +206,14 @@
     --color-slate-fg: var(--slate-fg);
     --color-slate-soft: var(--slate-soft);
 
-    /* Landing bilan bir xil tizim shrifti: tashqi shrift yuklanmaydi (tezroq
-       ochiladi) va telefonda o'sha qurilmaning o'z shrifti chiqadi. */
-    --font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    /* Geist — loyiha ichidan (`@fontsource-variable/geist`) yuklanadi, tashqi
+       so'rov yo'q; yuklanmasa tizim shriftiga tushadi. */
+    --font-display: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     /* `font-mono` endi ham grotesk: yorliq va sarlavhalardagi monospace
        "texnik/AI" taassurot berardi (Nurulloh izohi). Namunadagidek bosh
        harfli qalin sans. Nomi qoldi — 57 joyni qayta yozmaslik uchun. */
-    --font-mono: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
     /* Burchaklar landing'dagidek ixchamroq (standart Tailwind shkalasiga yaqin).
        Shkala shu yerda — `rounded-lg` yozilgan komponentlarga tegilmaydi. */

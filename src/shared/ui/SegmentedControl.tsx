@@ -44,7 +44,7 @@ export function SegmentedControl<T extends string>({
                             'cursor-pointer rounded-full px-3 py-1.5 max-sm:py-2.5 max-sm:min-h-11 text-xs whitespace-nowrap transition-colors',
                             'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
                             isActive
-                                ? 'bg-brand font-semibold text-brand-fg'
+                                ? 'bg-linear-to-r from-brand to-brand-2 font-semibold text-brand-fg'
                                 : 'text-fg-muted hover:bg-surface-hover'
                         )}
                     >

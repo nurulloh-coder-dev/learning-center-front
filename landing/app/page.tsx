@@ -5,6 +5,7 @@ import { ComparisonSection } from '@/components/landing/ComparisonSection'
 import { FeatureModulesSection } from '@/components/landing/FeatureModulesSection'
 import { PlatformTourSection } from '@/components/landing/PlatformTourSection'
 import { TeamSection } from '@/components/landing/TeamSection'
+import { PricingSection } from '@/components/landing/PricingSection'
 import { FaqSection } from '@/components/landing/FaqSection'
 import { CtaSection } from '@/components/landing/CtaSection'
 import { Footer } from '@/components/landing/Footer'
@@ -68,6 +69,7 @@ export default function Home() {
           <FeatureModulesSection />
           <PlatformTourSection />
           <TeamSection />
+          <PricingSection />
           <FaqSection />
           <CtaSection />
         </main>

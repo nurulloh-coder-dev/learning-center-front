@@ -24,7 +24,8 @@ CI (`.github/workflows/ci.yml`, `landing` job) `lint` va `build` ni ishga tushir
 ## Qoidalar
 
 - **Faqat ilovada haqiqatan bor imkoniyat yoziladi.** Soxta statistika,
-  mijoz fikri, narx, "jonli" ko'rsatkichlar yo'q. Yangi bo'lim qo'shishdan
+  mijoz fikri, "jonli" ko'rsatkichlar yo'q. Narxlar (`lib/pricing.ts`) —
+  faqat productiondagi tariflar bilan bir xil; tarif o'zgarsa shu fayl ham. Yangi bo'lim qo'shishdan
   oldin ilovada borligini tekshiring.
 - Matnlar — `data/translations.ts` (uz / ru / en).
 - `AGENTS.md` dagi ogohlantirish: Next.js 16 API'lari eski versiyalardan farq

@@ -5,6 +5,7 @@ import { Menu, X, ArrowRight, LogIn } from 'lucide-react'
 import { useDemoModal } from '@/context/DemoModalContext'
 import { useLanguage } from '@/context/LanguageContext'
 import { TRANSLATIONS } from '@/data/translations'
+import { PRICING_TRANSLATIONS } from '@/data/pricing'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { LanguageSelector } from '@/components/ui/LanguageSelector'
 
@@ -13,6 +14,7 @@ export function Navbar() {
   const { openDemoModal } = useDemoModal()
   const { language } = useLanguage()
   const t = TRANSLATIONS[language].nav
+  const pricingLabel = PRICING_TRANSLATIONS[language].nav
 
   return (
     <header className='fixed top-0 left-0 right-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-black/90 backdrop-blur-md transition-colors duration-200'>
@@ -52,6 +54,12 @@ export function Navbar() {
             className='px-3 py-1.5 rounded-md hover:text-blue-600 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all whitespace-nowrap'
           >
             {t.team}
+          </a>
+          <a
+            href='#pricing'
+            className='px-3 py-1.5 rounded-md hover:text-blue-600 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all whitespace-nowrap'
+          >
+            {pricingLabel}
           </a>
           <a
             href='#faq'
@@ -130,6 +138,13 @@ export function Navbar() {
             className='block px-3 py-2 text-base font-semibold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors'
           >
             {t.team}
+          </a>
+          <a
+            href='#pricing'
+            onClick={() => setMobileMenuOpen(false)}
+            className='block px-3 py-2 text-base font-semibold text-neutral-800 dark:text-neutral-200 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors'
+          >
+            {pricingLabel}
           </a>
           <a
             href='#faq'

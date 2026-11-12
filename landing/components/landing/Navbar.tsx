@@ -30,7 +30,7 @@ export function Navbar() {
         </a>
 
         {/* Desktop Nav Links */}
-        <div className='hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-semibold text-neutral-600 dark:text-neutral-400'>
+        <div className='hidden lg:flex flex-1 justify-center items-center gap-1 xl:gap-2 text-xs xl:text-sm font-semibold text-neutral-600 dark:text-neutral-400'>
           <a
             href='#comparison'
             className='px-3 py-1.5 rounded-md hover:text-blue-600 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all whitespace-nowrap'
@@ -79,7 +79,7 @@ export function Navbar() {
           {/* Ilova shu domenda: alia.uz/login (bitta server, Caddy ajratadi) */}
           <a
             href='/login'
-            className='flex items-center gap-1.5 text-xs xl:text-sm font-semibold text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors cursor-pointer px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 whitespace-nowrap'
+            className='flex items-center gap-1.5 text-xs xl:text-sm font-semibold text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors cursor-pointer px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-900 whitespace-nowrap justify-center min-w-20'
           >
             <LogIn className='h-3.5 w-3.5 text-neutral-500 dark:text-neutral-400' />
             <span>{t.login}</span>
@@ -87,7 +87,7 @@ export function Navbar() {
 
           <button
             onClick={openDemoModal}
-            className='inline-flex items-center gap-2 rounded-md bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 px-4 xl:px-5 py-2 xl:py-2.5 text-xs xl:text-sm font-semibold text-white transition-all active:scale-95 cursor-pointer whitespace-nowrap shadow-xs'
+            className='inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 px-4 xl:px-5 py-2 xl:py-2.5 text-xs xl:text-sm font-semibold text-white transition-all active:scale-95 cursor-pointer whitespace-nowrap shadow-xs min-w-40 xl:min-w-48'
           >
             <span>{t.bookDemo}</span>
             <ArrowRight className='h-3.5 w-3.5' />

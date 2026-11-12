@@ -49,7 +49,7 @@ export function HeroSection() {
 
             {/* Title */}
             <AnimateOnScroll variant='fade-up' delay={100}>
-              <h1 className='text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-neutral-900 dark:text-white'>
+              <h1 className='text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] text-neutral-900 dark:text-white lg:min-h-[17.25rem] xl:min-h-[12.9rem]'>
                 {t.titlePart1}{' '}
                 <span className='text-blue-600 dark:text-blue-500 underline decoration-blue-600/30 underline-offset-8'>
                   {t.titleHighlight}
@@ -60,17 +60,17 @@ export function HeroSection() {
 
             {/* Description */}
             <AnimateOnScroll variant='fade-up' delay={200}>
-              <p className='text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal'>
+              <p className='text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal min-h-[6.5rem] sm:min-h-[5.5rem]'>
                 {t.description}
               </p>
             </AnimateOnScroll>
 
             {/* Action Buttons */}
             <AnimateOnScroll variant='fade-up' delay={300}>
-              <div className='flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 max-w-xl mx-auto lg:mx-0'>
                 <button
                   onClick={openDemoModal}
-                  className='inline-flex items-center gap-2.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white px-7 py-3.5 text-base font-semibold shadow-xs transition-all active:scale-95 cursor-pointer group'
+                  className='inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-md bg-blue-600 hover:bg-blue-700 text-white px-4 py-3.5 text-base font-semibold shadow-xs transition-all active:scale-95 cursor-pointer group'
                 >
                   <span>{t.bookDemoBtn}</span>
                   <ArrowRight className='h-4 w-4 group-hover:translate-x-1 transition-transform' />
@@ -78,7 +78,7 @@ export function HeroSection() {
 
                 <a
                   href='#tour'
-                  className='inline-flex items-center gap-2.5 rounded-md border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 px-6 py-3.5 text-base font-semibold text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all active:scale-95'
+                  className='inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-md border border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 px-4 py-3.5 text-base font-semibold text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all active:scale-95'
                 >
                   <Play className='h-3.5 w-3.5 fill-current text-blue-600 dark:text-blue-400 ml-0.5' />
                   <span>{t.watchTourBtn}</span>
@@ -88,7 +88,7 @@ export function HeroSection() {
 
             {/* Minimalist Trust Badges */}
             <AnimateOnScroll variant='fade-up' delay={400}>
-              <div className='flex flex-wrap items-center justify-center lg:justify-start gap-5 sm:gap-7 text-xs font-semibold text-neutral-500 dark:text-neutral-400 pt-4 border-t border-neutral-200 dark:border-neutral-800 max-w-xl mx-auto lg:mx-0'>
+              <div className='grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-2 items-start text-xs font-semibold text-neutral-500 dark:text-neutral-400 pt-4 border-t border-neutral-200 dark:border-neutral-800 max-w-xl mx-auto lg:mx-0 sm:min-h-[3.5rem]'>
                 <span className='flex items-center gap-1.5'>
                   <ShieldCheck className='h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0' />
                   {t.trustTrial}

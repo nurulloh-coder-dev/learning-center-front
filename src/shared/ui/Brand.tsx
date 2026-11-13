@@ -4,9 +4,8 @@ import { cn } from '@/shared/lib'
 export function Brand({ subtitle, className }: { subtitle?: string; className?: string }) {
     return (
         <div className={cn('flex items-center gap-2', className)}>
-            <span className="rounded-sm bg-brand px-1.5 py-0.5 font-mono text-xs tracking-[0.1em] text-brand-fg">
-                ALIA
-            </span>
+            <img src="/app-logo.png" alt="" className="size-7 shrink-0" />
+            <span className="font-display text-sm font-bold tracking-tight text-fg">A.L.I.A</span>
             {subtitle && <span className="font-mono text-[0.78rem] text-fg-muted">{subtitle}</span>}
         </div>
     )

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Image from 'next/image'
 import { Menu, X, ArrowRight, LogIn } from 'lucide-react'
 import { useDemoModal } from '@/context/DemoModalContext'
 import { useLanguage } from '@/context/LanguageContext'
@@ -19,8 +20,8 @@ export function Navbar() {
   return (
     <header className='fixed top-0 left-0 right-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-black/90 backdrop-blur-md transition-colors duration-200'>
       <nav className='mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-3.5'>
-        {/* Brand Logo - NO graphic logo image per prompt instructions */}
-        <a href='#' className='flex items-center gap-3 group shrink-0'>
+        <a href='#' className='flex items-center gap-2.5 group shrink-0'>
+          <Image src='/logo.png' alt='' width={32} height={32} className='h-8 w-8' priority />
           <span className='text-xl font-black tracking-wider text-black dark:text-white uppercase group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors'>
             A.L.I.A
           </span>

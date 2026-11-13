@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { ShieldCheck, MessageSquare } from 'lucide-react'
 import { useDemoModal } from '@/context/DemoModalContext'
 import { useLanguage } from '@/context/LanguageContext'
@@ -17,7 +18,8 @@ export function Footer() {
       <div className='mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-5 gap-10'>
         {/* Brand Col - NO graphic logo image per prompt instructions ("DO NOT PUT LOGO. I'LL PUT IT") */}
         <div className='md:col-span-2 space-y-4'>
-          <div className='flex items-center gap-3'>
+          <div className='flex items-center gap-2.5'>
+            <Image src='/logo.png' alt='' width={28} height={28} className='h-7 w-7' />
             <span className='text-xl font-black text-neutral-900 dark:text-white tracking-wider uppercase'>A.L.I.A</span>
           </div>
 

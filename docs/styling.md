@@ -140,3 +140,7 @@ Shuning uchun:
 - `Modal` to'g'ri kelmasa (masalan rasmni kattalashtirish) —
   `createPortal(..., document.body)` bilan o'zingiz chiqaring;
 - `fixed` elementni to'g'ridan-to'g'ri kartaning ichiga yozmang.
+
+## Logotip
+
+Logotip `public/app-logo.png` (ilova) va `landing/public/logo.png` (landing) — bir xil rasm, shaffof fon, light/dark ikkalasida ko‘rinadi. Ikonkalar: ilova `app-favicon.png`, `app-apple-touch-icon.png`; landing `app/icon.png`, `app/apple-icon.png`, `app/favicon.ico`. Ilova fayllari `Caddyfile` `@app` ro‘yxatida.

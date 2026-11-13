@@ -27,7 +27,7 @@
 	# Ilova yo'llari. `src/app/routes/AppRoutes.tsx` va `roleHome.ts` bilan
 	# BIR XIL bo'lishi shart: bu yerda yo'q yo'l sahifa yangilanganda
 	# landing'ning 404 sahifasiga tushadi.
-	@app path /login /login/* /admin /admin/* /teacher /teacher/* /student /student/* /super-admin /super-admin/* /developer /developer/* /dashboard /dashboard/* /attendance /attendance/* /payments /payments/* /group-levels /group-levels/* /leads /leads/* /settings /settings/* /import /import/* /f/* /assets/* /favicon.svg /icons.svg
+	@app path /login /login/* /admin /admin/* /teacher /teacher/* /student /student/* /super-admin /super-admin/* /developer /developer/* /dashboard /dashboard/* /attendance /attendance/* /payments /payments/* /group-levels /group-levels/* /leads /leads/* /settings /settings/* /import /import/* /f/* /assets/* /icons.svg /app-logo.png /app-favicon.png /app-apple-touch-icon.png
 
 	handle @app {
 		root * /srv/app

@@ -69,11 +69,6 @@ export const metadata: Metadata = {
   publisher: "A.L.I.A",
   category: "Education & Business Management Software",
   applicationName: "A.L.I.A",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
-  },
   manifest: "/manifest.webmanifest",
   alternates: {
     canonical: "/",

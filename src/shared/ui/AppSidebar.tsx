@@ -49,9 +49,7 @@ export function AppSidebar({ sections, onNavigate }: AppSidebarProps) {
     return (
         <div className="flex h-full flex-col">
             <div className="flex items-center gap-2.5 px-5 py-5">
-                <span className="flex size-9 items-center justify-center rounded-lg bg-linear-to-br from-brand to-brand-2 font-display text-xs font-bold text-brand-fg shadow-[0_0_20px_color-mix(in_srgb,var(--brand)_35%,transparent)]">
-                    AL
-                </span>
+                <img src="/app-logo.png" alt="" className="size-9 shrink-0" />
                 <span className="font-display text-base font-bold tracking-tight text-sidebar-fg">A.L.I.A.</span>
             </div>
 

@@ -10,6 +10,8 @@ interface DataTableProps<T> {
     loadingText: string
     emptyText: string
     getRowKey: (row: T) => string
+    /** Birinchi ustunni yon tomonga surilganda ham chapda qotirib qo'yadi (keng jadvallar uchun). */
+    stickyFirstColumn?: boolean
     actionsHeader?: ReactNode
     /** `index` — ro'yxatdagi o'rni; tartib siljitish tugmalarini chetda o'chirish uchun kerak. */
     renderActions?: (row: T, index: number) => ReactNode
@@ -22,6 +24,7 @@ export function DataTable<T>({
     loadingText,
     emptyText,
     getRowKey,
+    stickyFirstColumn = false,
     actionsHeader,
     renderActions,
 }: DataTableProps<T>) {
@@ -34,16 +37,24 @@ export function DataTable<T>({
                 <table className={dataTableClasses.table}>
                     <thead>
                         <tr>
-                            {columns.map((column) => (
+                            {columns.map((column, columnIndex) => (
                                 <th
                                     key={column.key}
-                                    className={cn(dataTableClasses.headerCell, column.align === 'right' && 'text-right')}
+                                    className={cn(
+                                        dataTableClasses.headerCell,
+                                        column.align === 'right' && 'text-right',
+                                        stickyFirstColumn && columnIndex === 0
+                                            ? dataTableClasses.stickyHeader
+                                            : dataTableClasses.headerBg,
+                                    )}
                                 >
                                     {column.header}
                                 </th>
                             ))}
                             {hasActions && (
-                                <th className={cn(dataTableClasses.headerCell, 'text-right')}>{actionsHeader}</th>
+                                <th className={cn(dataTableClasses.headerCell, dataTableClasses.headerBg, 'text-right')}>
+                                    {actionsHeader}
+                                </th>
                             )}
                         </tr>
                     </thead>
@@ -67,12 +78,13 @@ export function DataTable<T>({
                         {!isLoading &&
                             rows.map((row, index) => (
                                 <tr key={getRowKey(row)} className={dataTableClasses.row}>
-                                    {columns.map((column) => (
+                                    {columns.map((column, columnIndex) => (
                                         <td
                                             key={column.key}
                                             className={cn(
                                                 dataTableClasses.cell,
                                                 column.align === 'right' && 'text-right',
+                                                stickyFirstColumn && columnIndex === 0 && dataTableClasses.stickyCell,
                                                 column.className,
                                             )}
                                         >

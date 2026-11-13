@@ -41,6 +41,7 @@ export function OrganizationTable({
             loadingText={t('common.loading')}
             emptyText={t('organization.empty')}
             getRowKey={(row) => row.id}
+            stickyFirstColumn
             actionsHeader={t('admin.actions')}
             // Dasturchi faqat BIRINCHI super adminni ochadi (rahbar qarori);
             // keyingilarini markazning super admini o'z panelidan qo'shadi.

@@ -101,7 +101,13 @@ export interface TourTranslations {
 
 // Tour oynasidagi namuna ekranlar matni — ilovadagi haqiqiy nomlar bilan bir xil
 export interface TourMock {
-  leadColumns: [string, string, string]
+  leadColumns: [string, string, string, string]
+  rejectedReason: string
+  permFullAdmin: string
+  permLimitedAdmin: string
+  permSees: string
+  permNames: [string, string, string, string, string, string]
+  monthLabel: string
   callToday: string
   groupLabel: string
   lessonTitle: string
@@ -413,7 +419,13 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
       liveInterface: "Interfeys",
       synced: "Bitta tizimda",
       mock: {
-        leadColumns: ["Yangi", "Keyinroq qo'ng'iroq", "Qabul qilingan"],
+        leadColumns: ["Yangi", "Keyinroq qo'ng'iroq", "Qabul qilingan", "Rad etilgan"],
+        rejectedReason: "Narx qimmat",
+        permFullAdmin: "To'liq ruxsatli administrator",
+        permLimitedAdmin: "Cheklangan administrator",
+        permSees: "Menyuda ko'radi",
+        permNames: ["Lidlar", "Xodimlar", "O'qituvchilar", "O'quvchilar", "To'lovlar", "Guruhlar va davomat"],
+        monthLabel: "Oktabr",
         callToday: "Qo'ng'iroq: bugun 15:00",
         groupLabel: "Guruh",
         lessonTitle: "IELTS 4 — bugungi dars",
@@ -467,6 +479,17 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
             { label: "Hisob-faktura", val: "Oylik", trend: "Guruh bo'yicha" },
             { label: "Qaytarish", val: "Sabab bilan", trend: "Alohida tugma" },
             { label: "Chek", val: "Chop etish", trend: "Har bir to'lovga" },
+          ],
+        },
+        {
+          id: "permissions",
+          label: "Ruxsatlar",
+          title: "Administratorga faqat kerakli bo'limlar",
+          desc: "Administrator yaratayotganda qaysi bo'limlarga kirishini tanlaysiz. Biriga hamma narsa, boshqasiga faqat o'quvchilar — kirganda har kim faqat o'zining bo'limlarini ko'radi.",
+          metrics: [
+            { label: "Ruxsatlar", val: "6 ta", trend: "Bo'lim bo'yicha" },
+            { label: "Administrator", val: "Cheksiz", trend: "Istagancha" },
+            { label: "Kirish", val: "Rolga qarab", trend: "Menyu o'zgaradi" },
           ],
         },
         {
@@ -781,7 +804,13 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
       liveInterface: "Интерфейс",
       synced: "В одной системе",
       mock: {
-        leadColumns: ["Новый", "Перезвонить", "Зачислен"],
+        leadColumns: ["Новый", "Перезвонить", "Зачислен", "Отклонён"],
+        rejectedReason: "Дорого",
+        permFullAdmin: "Администратор с полным доступом",
+        permLimitedAdmin: "Администратор с ограниченным доступом",
+        permSees: "Видит в меню",
+        permNames: ["Лиды", "Сотрудники", "Преподаватели", "Ученики", "Платежи", "Группы и посещаемость"],
+        monthLabel: "Октябрь",
         callToday: "Звонок: сегодня 15:00",
         groupLabel: "Группа",
         lessonTitle: "IELTS 4 — урок сегодня",
@@ -835,6 +864,17 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
             { label: "Счёт", val: "Ежемесячно", trend: "По группе" },
             { label: "Возврат", val: "С причиной", trend: "Отдельная кнопка" },
             { label: "Чек", val: "Печать", trend: "К каждому платежу" },
+          ],
+        },
+        {
+          id: "permissions",
+          label: "Права доступа",
+          title: "Администратору — только нужные разделы",
+          desc: "При создании администратора вы выбираете, какие разделы ему доступны. Одному — всё, другому — только ученики. После входа каждый видит только свои разделы.",
+          metrics: [
+            { label: "Права", val: "6", trend: "По разделам" },
+            { label: "Администраторы", val: "Без лимита", trend: "Сколько нужно" },
+            { label: "Вход", val: "По роли", trend: "Меню меняется" },
           ],
         },
         {
@@ -1148,7 +1188,13 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
       liveInterface: "Interface",
       synced: "In one system",
       mock: {
-        leadColumns: ["New", "Call later", "Enrolled"],
+        leadColumns: ["New", "Call later", "Enrolled", "Rejected"],
+        rejectedReason: "Price too high",
+        permFullAdmin: "Administrator with full access",
+        permLimitedAdmin: "Administrator with limited access",
+        permSees: "Sees in the menu",
+        permNames: ["Leads", "Employees", "Teachers", "Students", "Payments", "Groups and attendance"],
+        monthLabel: "October",
         callToday: "Call: today 15:00",
         groupLabel: "Group",
         lessonTitle: "IELTS 4 — today's lesson",
@@ -1202,6 +1248,17 @@ export const TRANSLATIONS: Record<Language, LanguageTranslationBundle> = {
             { label: "Invoice", val: "Monthly", trend: "Per group" },
             { label: "Refund", val: "With a reason", trend: "Separate button" },
             { label: "Receipt", val: "Print", trend: "For every payment" },
+          ],
+        },
+        {
+          id: "permissions",
+          label: "Permissions",
+          title: "Each administrator sees only what they need",
+          desc: "When you create an administrator you choose which sections they can open. One gets everything, another only students. After sign-in everyone sees just their own sections.",
+          metrics: [
+            { label: "Permissions", val: "6", trend: "Per section" },
+            { label: "Administrators", val: "No limit", trend: "As many as needed" },
+            { label: "Sign-in", val: "By role", trend: "Menu adapts" },
           ],
         },
         {

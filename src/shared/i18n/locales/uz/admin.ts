@@ -54,6 +54,7 @@ export const admin = {
     'field.room': 'Xona',
     'field.teacher': "O'qituvchi",
     'field.branch': 'Filial',
+    'field.maxStudents': "Eng ko'p o'quvchi",
     'field.days': 'Kunlar',
     'field.startTime': 'Boshlanish vaqti',
     'field.hour': 'soat',

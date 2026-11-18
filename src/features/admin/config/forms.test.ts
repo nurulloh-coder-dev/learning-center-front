@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { FORM_CONFIGS } from './forms'
+import { FORM_CONFIGS, toMaxStudents } from './forms'
 import type { AdminRow } from '../types'
 
 describe('students form config', () => {
@@ -199,6 +199,7 @@ describe('groups form config', () => {
             startDate: '2025-02-01',
             teacherId: 't1',
             timeTable: { dayType: 'ODD', startTime: '09:00', endTime: '10:30' },
+            maxStudents: null,
         })
     })
 
@@ -221,7 +222,35 @@ describe('groups form config', () => {
             teacherId: 't1',
             timeTable: { dayType: 'ODD', startTime: '09:00', endTime: '10:30' },
             status: 'ONGOING',
+            maxStudents: null,
         })
+    })
+
+    // Backend `mapUpdate` maxStudents ni har doim yozadi: yuborilmasa limit o'chib ketardi.
+    it('tahrirlashda maxStudents mavjud qiymat bilan qayta yuboriladi', () => {
+        const values = config.getInitialValues({ id: 'g1', name: 'A', maxStudents: 20 })
+        expect(values.maxStudents).toBe(20)
+        expect(config.buildUpdatePayload(values)).toMatchObject({ maxStudents: 20 })
+    })
+
+    it('maxStudents maydoni yaratishda ham, tahrirlashda ham bor', () => {
+        for (const mode of ['create', 'edit'] as const) {
+            const fields = typeof config.fields === 'function' ? config.fields(mode) : config.fields
+            expect(fields.find((field) => field.key === 'maxStudents')?.type).toBe('number')
+        }
+    })
+})
+
+describe('toMaxStudents', () => {
+    it('musbat butun sonni raqamga aylantiradi', () => {
+        expect(toMaxStudents('25')).toBe(25)
+        expect(toMaxStudents(25)).toBe(25)
+    })
+
+    it('bo’sh, nol, manfiy yoki kasr qiymat — limit yo’q (null)', () => {
+        for (const value of ['', null, undefined, '0', '-3', '2.5', 'abc']) {
+            expect(toMaxStudents(value)).toBeNull()
+        }
     })
 })
 

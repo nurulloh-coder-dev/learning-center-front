@@ -51,6 +51,7 @@ export const admin: Record<AdminKeys, string> = {
     'field.room': 'Room',
     'field.teacher': 'Teacher',
     'field.branch': 'Branch',
+    'field.maxStudents': 'Max students',
     'field.days': 'Days',
     'field.startTime': 'Start time',
     'field.hour': 'hour',

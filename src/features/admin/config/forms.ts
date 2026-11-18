@@ -15,6 +15,15 @@ const DAY_TYPE_OPTIONS = DAY_TYPES.map((dayType) => ({
 }))
 
 /**
+ * Bo'sh maydon — limit yo'q (`null`). Backend `@Positive` qabul qiladi,
+ * shuning uchun 0 va manfiy son ham "limit yo'q" deb yuboriladi.
+ */
+export function toMaxStudents(value: unknown): number | null {
+    const parsed = Number(value)
+    return value === '' || value == null || !Number.isInteger(parsed) || parsed <= 0 ? null : parsed
+}
+
+/**
  * Create/Update DTO'si o'qish DTO'siga MOS KELMAYDIGAN entity'lar uchun
  * forma konfiguratsiyasi. Bu yerda yo'q entity avtomatik ishlaydi —
  * maydonlar mavjud qatorlardan taxmin qilinadi.
@@ -133,6 +142,7 @@ export const FORM_CONFIGS: Partial<Record<EntityKey, EntityFormConfig>> = {
                 { key: 'startTime', labelKey: 'field.startTime', type: 'time' },
                 { key: 'endTime', labelKey: 'field.endTime', type: 'time' },
                 { key: 'teacherId', labelKey: 'field.teacher', type: 'select', optionsSource: 'freeTeachers' },
+                { key: 'maxStudents', labelKey: 'field.maxStudents', type: 'number' },
             ]
             if (mode === 'create') {
                 // Backend (`a81133b`) `GroupCreateDto.branchId` ni majburiy qildi —
@@ -156,6 +166,7 @@ export const FORM_CONFIGS: Partial<Record<EntityKey, EntityFormConfig>> = {
                 startTime: snapTime(formatTime(row?.timeTable?.startTime)),
                 endTime: snapTime(formatTime(row?.timeTable?.endTime)),
                 status: row?.status ?? 'STARTING',
+                maxStudents: row?.maxStudents ?? '',
             }
         },
         buildCreatePayload(values) {
@@ -170,6 +181,7 @@ export const FORM_CONFIGS: Partial<Record<EntityKey, EntityFormConfig>> = {
                     startTime: values.startTime,
                     endTime: values.endTime,
                 },
+                maxStudents: toMaxStudents(values.maxStudents),
             }
         },
         buildUpdatePayload(values) {
@@ -184,6 +196,9 @@ export const FORM_CONFIGS: Partial<Record<EntityKey, EntityFormConfig>> = {
                     endTime: values.endTime,
                 },
                 status: values.status,
+                // Backend `mapUpdate` bu maydonni har doim yozadi — yuborilmasa
+                // guruhning limiti tahrirlashda jimgina o'chib ketardi.
+                maxStudents: toMaxStudents(values.maxStudents),
             }
         },
     },

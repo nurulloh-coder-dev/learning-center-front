@@ -65,7 +65,7 @@ export interface AdminRow {
  */
 export type FormValues = Record<string, unknown>
 
-export type FormFieldType = 'text' | 'tel' | 'date' | 'time' | 'select'
+export type FormFieldType = 'text' | 'tel' | 'date' | 'time' | 'select' | 'number'
 
 export interface FormField {
     key: string

@@ -56,6 +56,8 @@ export interface GroupDto {
     currentMonth?: number
     /** Guruhda o'tilgan darslar soni. */
     lessonsCount?: number
+    /** Guruhga sig'adigan eng ko'p o'quvchi; `null` — limit yo'q. */
+    maxStudents?: number | null
 }
 
 /**

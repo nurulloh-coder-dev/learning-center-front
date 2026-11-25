@@ -32,6 +32,7 @@ interface LeadColumnProps {
     onDragStart: (id: string) => void
     onDragEnd: () => void
     onDrop: (status: LeadStatus) => void
+    highlightedId?: string | null
 }
 
 export function LeadColumn({
@@ -47,6 +48,7 @@ export function LeadColumn({
     onDragStart,
     onDragEnd,
     onDrop,
+    highlightedId = null,
 }: LeadColumnProps) {
     const { t } = useT()
 
@@ -99,6 +101,7 @@ export function LeadColumn({
                             onDelete={onDelete}
                             onDragStart={onDragStart}
                             onDragEnd={onDragEnd}
+                            highlighted={lead.id === highlightedId}
                         />
                     ))
                 )}

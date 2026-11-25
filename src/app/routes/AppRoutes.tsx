@@ -4,6 +4,7 @@ import { LoginPage } from '@/features/auth/pages/LoginPage'
 import { AttendancePage } from '@/features/attendance/pages/AttendancePage'
 import { GroupLevelsPage } from '@/features/group-levels/pages/GroupLevelsPage'
 import { ImportPage } from '@/features/import/pages/ImportPage'
+import { LeadReminder } from '@/features/leads/components/LeadReminder'
 import { LeadsPage } from '@/features/leads/pages/LeadsPage'
 import { PublicLeadFormPage } from '@/features/leads/pages/PublicLeadFormPage'
 import { PaymentsPage } from '@/features/payments/pages/PaymentsPage'
@@ -12,7 +13,7 @@ import { AppNavigation } from './AppNavigation'
 import { NotFoundPage } from './NotFoundPage'
 import { RequirePermission } from './RequirePermission'
 import { RequireRole } from './RequireRole'
-import { PAYMENTS_ROLES } from './routeAccess'
+import { canManageLeads, PAYMENTS_ROLES } from './routeAccess'
 import { RoleDashboard } from './RoleDashboard'
 import { otherRoleHomes, roleHome } from './roleHome'
 
@@ -127,6 +128,7 @@ export function AppRoutes() {
                 ))}
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
+            {canManageLeads(session) && <LeadReminder token={session.token} />}
         </AppNavigation>
     )
 }

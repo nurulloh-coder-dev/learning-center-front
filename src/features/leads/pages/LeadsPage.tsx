@@ -14,6 +14,7 @@ import { LeadFormSettingsModal } from '../components/LeadFormSettingsModal'
 import { LeadsHeader } from '../components/LeadsHeader'
 import { NewLeadModal } from '../components/NewLeadModal'
 import { useLeadGroupOptions, useLeadMutations, useLeads } from '../hooks/useLeads'
+import { useLeadHighlight } from '../hooks/useLeadHighlight'
 import { useLeadStream } from '../hooks/useLeadStream'
 
 const PAGE_SIZE = 50
@@ -83,6 +84,7 @@ export function LeadsPage() {
 
     const visibleStatuses: LeadStatus[] = filter ? [filter] : [...LEAD_STATUSES]
     const leads = visibleStatuses.flatMap((status) => leadsByStatus[status])
+    const highlightedId = useLeadHighlight((id) => leads.some((lead) => lead.id === id))
     const mutations = useLeadMutations(token)
     const groups = useLeadGroupOptions(token)
     const total = leads.length
@@ -190,6 +192,7 @@ export function LeadsPage() {
                                             delete loadMoreRefs.current[status]
                                         }
                                     }}
+                                    highlightedId={highlightedId}
                                     onEdit={openEdit}
                                     onStatusChange={changeStatus}
                                     onDelete={deleteLead}

@@ -13,7 +13,7 @@ ishlaydi va rolga qarab har xil panel ko'rsatadi:
 | Rol             | Nima ko'radi                                                      |
 | --------------- | ----------------------------------------------------------------- |
 | `ADMINISTRATOR` | Students / Teachers / Groups / Lessons CRUD + guruhga o'quvchi biriktirish + **To'lovlar** (o'quvchini qidirib to'lov qabul qilish, alohida pul qaytarish) |
-| lidlar (admin)  | Kanban doskasi: 4 ta holat, qo'ng'iroq vaqti, guruhga yozish, rad etish. Boshqa xodim o'zgartirsa ro'yxat o'zi yangilanadi (SSE); ikki kishi bir lidni bir vaqtda o'zgartirsa, kechikkani `409` va tushunarli xabar oladi |
+| lidlar (admin)  | Kanban doskasi: 4 ta holat, qo'ng'iroq vaqti, guruhga yozish, rad etish. Qo'ng'iroq vaqti kelganda istalgan sahifada eslatma chiqadi va "Lidni ko'rish" kartani yondiradi. Boshqa xodim o'zgartirsa ro'yxat o'zi yangilanadi (SSE); ikki kishi bir lidni bir vaqtda o'zgartirsa, kechikkani `409` va tushunarli xabar oladi |
 | `TEACHER`       | O'z guruhlari, ro'yxat, "Start lesson", davomat                    |
 | `STUDENT`       | O'z profili; davomat va guruh — endpoint kutilmoqda                |
 | `SUPER_ADMIN`   | Dashboard (4 ta karta, oylik tushum grafigi, lidlar holati, so'nggi to'lovlar, tezkor havolalar), tashkilot va filiallar CRUD, odamlar ro'yxati + administrator qo'shish va tahrirlash, parolni yangilash (o'quvchi, o'qituvchi, administrator; o'z akkaunti ro'yxatda ko'rinmaydi) |

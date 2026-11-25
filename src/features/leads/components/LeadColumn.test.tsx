@@ -7,12 +7,14 @@ import { LeadColumn } from './LeadColumn'
 const mockLeads: LeadDto[] = [
     {
         id: 'lead-1',
+        version: 0,
         fullName: 'Ali Valiyev',
         phone: '+998901234567',
         status: 'NEW',
     },
     {
         id: 'lead-2',
+        version: 0,
         fullName: 'Sami Qodirov',
         phone: '+998907654321',
         status: 'NEW',

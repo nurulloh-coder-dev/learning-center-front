@@ -8,6 +8,7 @@ import { LeadCard } from './LeadCard'
 
 const mockLead: LeadDto = {
     id: 'lead-123',
+    version: 4,
     fullName: 'Ali Valiyev',
     phone: '+998901234567',
     source: 'INSTAGRAM',

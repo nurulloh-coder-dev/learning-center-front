@@ -35,6 +35,7 @@ export const leads = {
     'lead.allStatuses': 'Barcha holatlar',
     'lead.empty': 'Lid topilmadi',
     'lead.emptyHint': "Boshqa so'z bilan qidirib ko'ring yoki birinchi lidni qo'shing.",
+    'lead.versionConflict': 'Bu lidni boshqa xodim hozirgina o‘zgartirdi. Ro‘yxat yangilandi — amalni qaytadan bajaring.',
     'lead.loadFailed': 'Lidlarni yuklab bo‘lmadi: {{message}}',
     'lead.deleteConfirm': '{{name}} o‘chirilsinmi? Buni qaytarib bo‘lmaydi.',
     'lead.status.NEW': 'Yangi',

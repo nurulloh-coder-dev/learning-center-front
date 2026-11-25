@@ -98,20 +98,28 @@ describe('mockApi', () => {
         })
         expect(updated?.fullName).toBe('Updated Lead')
 
-        // PATCH /leads/:id/callLater
-        const calledLater = await apiFetch<Record<string, unknown>>(`/leads/${leadId}/callLater`, {
+        // Har o'zgarishda versiya bittaga oshadi; yaratilganda 0, PUT dan keyin 1.
+        expect(updated?.version).toBe(1)
+
+        // PATCH /leads/callLater — id va versiya tanada
+        const calledLater = await apiFetch<Record<string, unknown>>('/leads/callLater', {
             method: 'PATCH',
             token: 'demo',
-            params: { callAt: '2026-09-01T10:00:00' },
+            body: { id: leadId, leadVersion: 1, callAt: '2026-09-01T10:00:00' },
         })
         expect(calledLater?.status).toBe('CALL_LATER')
         expect(calledLater?.callAt).toBe('2026-09-01T10:00:00')
 
-        // POST /leads/:id/enroll
-        const enrolled = await apiFetch<Record<string, unknown>>(`/leads/${leadId}/enroll`, {
+        // Eskirgan versiya bilan amal 409 beradi (boshqa xodim lidni oldin o'zgartirgan)
+        await expect(
+            apiFetch('/leads/enroll', { method: 'POST', token: 'demo', params: { id: leadId, groupId: 'g1', leadVersion: 1 } })
+        ).rejects.toMatchObject({ status: 409 })
+
+        // POST /leads/enroll — so'rov parametrlari
+        const enrolled = await apiFetch<Record<string, unknown>>('/leads/enroll', {
             method: 'POST',
             token: 'demo',
-            params: { groupId: 'g1' },
+            params: { id: leadId, groupId: 'g1', leadVersion: 2 },
         })
         expect(enrolled?.status).toBe('ENROLLED')
 

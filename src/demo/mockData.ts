@@ -142,6 +142,7 @@ export const leads: LeadDto[] = [
         source: 'INSTAGRAM',
         preferredCourse: groupLevels[0],
         createdAt: '2026-08-01T10:00:00',
+        version: 0,
     },
     {
         id: 'ld2',
@@ -151,6 +152,7 @@ export const leads: LeadDto[] = [
         source: 'TELEGRAM',
         preferredCourse: groupLevels[1],
         createdAt: '2026-08-02T11:30:00',
+        version: 0,
     },
     {
         id: 'ld3',
@@ -161,6 +163,7 @@ export const leads: LeadDto[] = [
         preferredCourse: groupLevels[2],
         callAt: '2026-08-15T15:00:00',
         createdAt: '2026-08-03T14:20:00',
+        version: 0,
     },
     {
         id: 'ld4',
@@ -170,6 +173,7 @@ export const leads: LeadDto[] = [
         source: 'INSTAGRAM',
         preferredCourse: groupLevels[1],
         createdAt: '2026-08-04T09:10:00',
+        version: 0,
     },
     {
         id: 'ld5',
@@ -179,6 +183,7 @@ export const leads: LeadDto[] = [
         source: 'TELEGRAM',
         preferredCourse: groupLevels[0],
         createdAt: '2026-08-05T16:45:00',
+        version: 0,
     },
 ]
 

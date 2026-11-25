@@ -43,6 +43,7 @@ export function handleLeadForm(path: string, method: string, body: Record<string
                 status: 'NEW',
                 source: body.source as LeadDto['source'],
                 preferredCourse: level,
+                version: 0,
                 createdAt: new Date().toISOString(),
             }
             db.leads = [lead, ...db.leads]

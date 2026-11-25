@@ -1,6 +1,6 @@
 export { ApiError } from './ApiError'
 export { fetchGroupInfo, fetchMonthlyAttendance } from './attendanceApi'
-export { apiFetch, errorMessage } from './httpClient'
+export { apiFetch, apiStream, errorMessage } from './httpClient'
 export { queryKeys } from './queryKeys'
 export { setTokenRefresher } from './sessionRefresh'
 export { fetchMe } from './userApi'

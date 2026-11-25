@@ -16,7 +16,7 @@ export function EditLeadModal({ token, lead, isPending, onClose, onSubmit }: Edi
             lead={lead}
             isPending={isPending}
             onClose={onClose}
-            onSubmit={(data) => onSubmit(data as LeadUpdateDto)}
+            onSubmit={(data) => onSubmit({ ...(data as Omit<LeadUpdateDto, 'version'>), version: lead.version })}
         />
     )
 }

@@ -9,6 +9,7 @@ export {
     uzLocalPart,
 } from './phone'
 export { cn } from './cn'
+export { createSseParser, type SseMessage } from './sse'
 export { decodeJwt } from './jwt'
 export {
     formatAmount,

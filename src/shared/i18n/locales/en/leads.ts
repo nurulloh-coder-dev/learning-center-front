@@ -32,6 +32,7 @@ export const leads: Record<LeadsKeys, string> = {
     'lead.allStatuses': 'All statuses',
     'lead.empty': 'No leads found',
     'lead.emptyHint': 'Try a different search, or add your first lead.',
+    'lead.versionConflict': 'Another staff member just changed this lead. The list was refreshed — please repeat the action.',
     'lead.loadFailed': 'Could not load leads: {{message}}',
     'lead.deleteConfirm': 'Delete {{name}}? This cannot be undone.',
     'lead.status.NEW': 'New',

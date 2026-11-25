@@ -32,6 +32,7 @@ export const leads: Record<LeadsKeys, string> = {
     'lead.allStatuses': 'Все статусы',
     'lead.empty': 'Лиды не найдены',
     'lead.emptyHint': 'Попробуйте другой запрос или добавьте первого лида.',
+    'lead.versionConflict': 'Этот лид только что изменил другой сотрудник. Список обновлён — повторите действие.',
     'lead.loadFailed': 'Не удалось загрузить лиды: {{message}}',
     'lead.deleteConfirm': 'Удалить {{name}}? Это необратимо.',
     'lead.status.NEW': 'Новый',

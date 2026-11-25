@@ -33,17 +33,21 @@ export function updateLead(token: string, id: string, body: LeadUpdateDto) {
     return apiFetch<LeadDto>(`${ENDPOINT}/${id}`, { method: 'PUT', token, body })
 }
 
-/** Backend requires status in the query string, never in the PATCH body. */
-export function enrollLead(token: string, id: string, groupId: string) {
-    return apiFetch<LeadDto>(`${ENDPOINT}/${id}/enroll`, { method: 'POST', token, params: { groupId } })
+/**
+ * Backend `enroll(EnrolledLeadDto)` da `@RequestBody` yo'q — maydonlar
+ * so'rov parametri bo'lib ketadi, JSON tana o'qilmaydi. Backend tanaga
+ * o'tkazilsa shu yerni o'zgartiramiz.
+ */
+export function enrollLead(token: string, id: string, version: number, groupId: string) {
+    return apiFetch<LeadDto>(`${ENDPOINT}/enroll`, { method: 'POST', token, params: { id, groupId, leadVersion: version } })
 }
 
-export function rejectLead(token: string, id: string, body: LeadRejectDto) {
-    return apiFetch<LeadDto>(`${ENDPOINT}/${id}/reject`, { method: 'POST', token, body })
+export function rejectLead(token: string, id: string, version: number, body: LeadRejectDto) {
+    return apiFetch<LeadDto>(`${ENDPOINT}/reject`, { method: 'POST', token, body: { id, leadVersion: version, ...body } })
 }
 
-export function callLaterLead(token: string, id: string, callAt: string) {
-    return apiFetch<LeadDto>(`${ENDPOINT}/${id}/callLater`, { method: 'PATCH', token, params: { callAt } })
+export function callLaterLead(token: string, id: string, version: number, callAt: string) {
+    return apiFetch<LeadDto>(`${ENDPOINT}/callLater`, { method: 'PATCH', token, body: { id, leadVersion: version, callAt } })
 }
 
 export function deleteLead(token: string, id: string) {

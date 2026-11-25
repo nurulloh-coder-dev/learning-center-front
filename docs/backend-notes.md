@@ -1189,3 +1189,45 @@ o'z matnini ko'rsatadi.
 21-band (`POST /transaction` da `PAID`/`REFUND` uchun hisob o'qilmaydi →
 NPE → 500) hamon ochiq.
 
+## Lidlar v2 va jonli oqim (SSE) — `0367942`, 2026-11-24
+
+Frontend yangilandi (`claude/leads-v2-sse`): lid amallari yangi shaklda,
+`version` yuboriladi, 409 tushunarli xabar bilan ushlanadi, ro'yxat jonli
+yangilanadi. Tekshirishda backendda **hali ochiq** narsalar topildi:
+
+### 29. 🔴 Oqim hodisalari mijozga yetib bormaydi
+
+`LeadStreamEmitterService` emitterni `hub.register(organizationId)` bilan
+**`organizationId`** kaliti ostida saqlaydi, `LeadSseNotifier` esa
+`hub.send(SseChannels.leads(orgId), …)` ya'ni **`"leads:org:<id>"`** kaliti
+bilan yuboradi. Kalitlar mos kelmaydi, shuning uchun `lead-changed` hech
+kimga bormaydi (faqat `connected` va `resync` keladi). `register` ham
+`SseChannels.leads(organizationId)` bilan chaqirilishi kerak.
+
+### 30. 🔴 Oqim manzili proksidan o'tmaydi
+
+Controller `@RequestMapping("stream/leads")` — `/api/v1` prefiksi yo'q.
+Production'da `Caddyfile` faqat `/api/*` ni backendga uzatadi (lokalda ham
+`vite` proksi faqat `/api`). Frontend `/api/v1/stream/leads/stream` ga
+ulanadi — backendda `@RequestMapping("api/v1/stream/leads")` qilinsa
+hech narsa o'zgartirish shart emas.
+
+### 31. 🟠 `POST /leads/enroll` — `@RequestBody` yo'q
+
+`enroll(EnrolledLeadDto dto)` da `@RequestBody` yozilmagan, shuning uchun
+`id`, `groupId`, `leadVersion` JSON tanadan emas, **so'rov parametrlaridan**
+o'qiladi. Front hozir shunday yuboradi (`reject` va `callLater` esa tanada).
+Backend `@RequestBody` qo'shsa, `leadsApi.enrollLead` bitta joyda o'zgaradi.
+
+### 32. 🟡 "Lid o'zgargan" matni
+
+`LEAD_VERSION_MISMATCH` (`lead.version.mismatch`) uchun `messages*.properties`
+da yozuv yo'q. Front 409 ni o'zi ushlab, o'z matnini ko'rsatadi; baribir
+qo'shilsa yaxshi.
+
+### 33. ℹ️ `contacting` uchun endpoint hali yo'q
+
+`LeadService.contacting(leadId)` bor, controllerda yo'li yo'q. `LeadDto`
+dagi `contacting` va `lastContactedBy` frontga tiplangan, lekin ekranda
+hali ko'rsatilmaydi — endpoint chiqqach qo'shiladi.
+

@@ -85,6 +85,46 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
     }
 }
 
+interface StreamOptions {
+    token: string
+    signal?: AbortSignal
+    /** Uzilishdan oldingi oxirgi hodisa id si — backend o'tkazib yuborilganlarni qayta yuboradi. */
+    lastEventId?: string
+}
+
+/**
+ * Server-Sent Events uchun xom `Response` (tanasini chaqiruvchi oqim sifatida
+ * o'qiydi). `apiFetch` tanani to'liq o'qib, JSON qilib beradi — cheksiz oqim
+ * uchun yaramaydi. Autentifikatsiya va token yangilash xuddi shunday.
+ */
+export async function apiStream(path: string, { token, signal, lastEventId }: StreamOptions): Promise<Response> {
+    const url = buildUrl(path)
+
+    function send(bearer: string) {
+        return fetch(url, {
+            signal,
+            credentials: 'include',
+            headers: {
+                Accept: 'text/event-stream',
+                'Accept-Language': getRequestLocale(),
+                Authorization: `Bearer ${bearer}`,
+                ...(lastEventId ? { 'Last-Event-ID': lastEventId } : {}),
+            },
+        })
+    }
+
+    let res = await send(token)
+    if (shouldRetryWithFreshToken(res.status, path, token)) {
+        const fresh = await refreshAccessToken()
+        if (fresh) res = await send(fresh)
+    }
+    if (!res.ok || !res.body) {
+        const { message, code } = await readError(res)
+        throw new ApiError(message, res.status, code)
+    }
+    return res
+}
+
 /**
  * Token yangilanib, so'rov qaytadan yuborilsinmi?
  *

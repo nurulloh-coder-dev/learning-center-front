@@ -14,6 +14,7 @@ import { LeadFormSettingsModal } from '../components/LeadFormSettingsModal'
 import { LeadsHeader } from '../components/LeadsHeader'
 import { NewLeadModal } from '../components/NewLeadModal'
 import { useLeadGroupOptions, useLeadMutations, useLeads } from '../hooks/useLeads'
+import { useLeadStream } from '../hooks/useLeadStream'
 
 const PAGE_SIZE = 50
 const EMPTY_LEADS: LeadDto[] = []
@@ -36,10 +37,12 @@ export function LeadsPage() {
     const [draggedId, setDraggedId] = useState<string | null>(null)
     const [action, setAction] = useState<{ lead: LeadDto; status: LeadStatus } | null>(null)
 
-    const newLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'NEW' })
-    const enrolledLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'ENROLLED' })
-    const callLaterLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'CALL_LATER' })
-    const rejectedLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'REJECTED' })
+    // Jonli oqim ulansa davriy so'rov to'xtaydi; ulanmasa u zaxira bo'lib qoladi.
+    const live = useLeadStream(token)
+    const newLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'NEW' }, live)
+    const enrolledLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'ENROLLED' }, live)
+    const callLaterLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'CALL_LATER' }, live)
+    const rejectedLeads = useLeads(token, { size: PAGE_SIZE, search: search || undefined, status: 'REJECTED' }, live)
 
     const lists = useMemo(
         () => ({ NEW: newLeads, ENROLLED: enrolledLeads, CALL_LATER: callLaterLeads, REJECTED: rejectedLeads }),
@@ -231,19 +234,19 @@ export function LeadsPage() {
                     onClose={() => setAction(null)}
                     onEnroll={(groupId) =>
                         mutations.enroll.mutate(
-                            { id: action.lead.id, groupId },
+                            { id: action.lead.id, version: action.lead.version, groupId },
                             { onSuccess: () => setAction(null) }
                         )
                     }
                     onReject={(body) =>
                         mutations.reject.mutate(
-                            { id: action.lead.id, body },
+                            { id: action.lead.id, version: action.lead.version, body },
                             { onSuccess: () => setAction(null) }
                         )
                     }
                     onCallLater={(callAt) =>
                         mutations.callLater.mutate(
-                            { id: action.lead.id, callAt },
+                            { id: action.lead.id, version: action.lead.version, callAt },
                             { onSuccess: () => setAction(null) }
                         )
                     }

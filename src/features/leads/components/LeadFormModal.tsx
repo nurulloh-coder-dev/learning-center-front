@@ -12,7 +12,7 @@ export interface LeadFormModalProps {
     lead?: LeadDto | null
     isPending?: boolean
     onClose: () => void
-    onSubmit: (data: LeadCreateDto | LeadUpdateDto) => void
+    onSubmit: (data: LeadCreateDto | Omit<LeadUpdateDto, 'version'>) => void
 }
 
 export function LeadFormModal({ token, lead, isPending, onClose, onSubmit }: LeadFormModalProps) {
@@ -49,7 +49,7 @@ export function LeadFormModal({ token, lead, isPending, onClose, onSubmit }: Lea
         const trimmedCourse = preferredCourse.trim() || undefined
 
         if (isEdit && lead) {
-            const body: LeadUpdateDto = {
+            const body: Omit<LeadUpdateDto, 'version'> = {
                 fullName: trimmedName,
                 phone: trimmedPhone,
                 source: source || undefined,

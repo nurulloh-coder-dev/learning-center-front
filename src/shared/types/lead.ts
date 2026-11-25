@@ -39,6 +39,17 @@ export interface LeadDto {
     preferredCourse?: LeadCourse
     createdAt?: string
     updatedAt?: string
+    note?: string
+    /** Lidga oxirgi marta aloqa qilgan xodim ismi. */
+    lastContactedBy?: string | null
+    /** Hozir kimdir lid bilan gaplashyapti. */
+    contacting?: boolean
+    /**
+     * Optimistik qulf versiyasi. O'zgartiruvchi har bir so'rov (tahrirlash,
+     * holat o'zgartirish) shuni qaytarib yuboradi; boshqa xodim lidni oldin
+     * o'zgartirgan bo'lsa backend `409` qaytaradi.
+     */
+    version: number
 }
 
 /** `POST /leads` va tasdiqlangan `PUT /leads/{id}` maydonlari. */
@@ -57,6 +68,9 @@ export interface LeadUpdateDto {
     source?: LeadSource
     preferredCourseId?: string
     callAt?: string
+    note?: string
+    /** Tahrirlash boshlangandagi `LeadDto.version`. */
+    version: number
 }
 
 export interface LeadRejectDto {

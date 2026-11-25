@@ -24,6 +24,7 @@ export function handleLeads(
             source: body.source as LeadDto['source'],
             preferredCourse: level,
             createdAt: new Date().toISOString(),
+            version: 0,
         }
         db.leads = [newLead, ...db.leads]
         return json(newLead)
@@ -44,31 +45,30 @@ export function handleLeads(
                 preferredCourse: level ?? lead.preferredCourse,
                 callAt: body.callAt !== undefined ? String(body.callAt) : lead.callAt,
                 updatedAt: new Date().toISOString(),
+                version: lead.version + 1,
             }
         })
         const updated = db.leads.find((lead) => lead.id === id)
         return updated ? json(updated) : json({ message: 'Lead not found' }, 404)
     }
-    if (path.startsWith('/leads/') && path.endsWith('/enroll') && method === 'POST') {
-        const id = path.slice('/leads/'.length, -'/enroll'.length)
-        db.leads = db.leads.map((lead) => (lead.id === id ? { ...lead, status: 'ENROLLED' } : lead))
-        const updated = db.leads.find((lead) => lead.id === id)
-        return updated ? json(updated) : json({ message: 'Lead not found' }, 404)
-    }
-    if (path.startsWith('/leads/') && path.endsWith('/reject') && method === 'POST') {
-        const id = path.slice('/leads/'.length, -'/reject'.length)
-        db.leads = db.leads.map((lead) => (lead.id === id ? { ...lead, status: 'REJECTED' } : lead))
-        const updated = db.leads.find((lead) => lead.id === id)
-        return updated ? json(updated) : json({ message: 'Lead not found' }, 404)
-    }
-    if (path.startsWith('/leads/') && path.endsWith('/callLater') && method === 'PATCH') {
-        const id = path.slice('/leads/'.length, -'/callLater'.length)
-        const callAtParam = url.searchParams.get('callAt') ?? undefined
-        db.leads = db.leads.map((lead) =>
-            lead.id === id ? { ...lead, status: 'CALL_LATER', callAt: callAtParam } : lead
-        )
-        const updated = db.leads.find((lead) => lead.id === id)
-        return updated ? json(updated) : json({ message: 'Lead not found' }, 404)
+    // Backend endi id va `leadVersion` ni so'rovning o'zida oladi (yo'lda emas).
+    // `enroll` — so'rov parametrlari, `reject`/`callLater` — JSON tana.
+    const action = path === '/leads/enroll' ? 'enroll' : path === '/leads/reject' ? 'reject' : path === '/leads/callLater' ? 'callLater' : null
+    if (action) {
+        const id = action === 'enroll' ? url.searchParams.get('id') : String(body.id ?? '')
+        const sentVersion = Number(action === 'enroll' ? url.searchParams.get('leadVersion') : body.leadVersion)
+        const lead = db.leads.find((item) => item.id === id)
+        if (!lead) return json({ message: 'Lead not found' }, 404)
+        if (lead.version !== sentVersion) return json({ message: 'Lead was changed by someone else' }, 409)
+        const next: Partial<LeadDto> =
+            action === 'enroll'
+                ? { status: 'ENROLLED' }
+                : action === 'reject'
+                  ? { status: 'REJECTED' }
+                  : { status: 'CALL_LATER', callAt: body.callAt === undefined ? undefined : String(body.callAt) }
+        const updated: LeadDto = { ...lead, ...next, version: lead.version + 1, updatedAt: new Date().toISOString() }
+        db.leads = db.leads.map((item) => (item.id === id ? updated : item))
+        return json(updated)
     }
     if (path.startsWith('/leads/') && method === 'DELETE') {
         const id = path.slice('/leads/'.length)

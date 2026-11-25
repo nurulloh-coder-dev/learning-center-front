@@ -8,6 +8,7 @@ import { NewLeadModal } from './NewLeadModal'
 
 const mockLead: LeadDto = {
     id: 'lead-123',
+    version: 4,
     fullName: 'Ali Valiyev',
     phone: '+998901234567',
     source: 'INSTAGRAM',
@@ -77,6 +78,8 @@ describe('EditLeadModal', () => {
             source: 'INSTAGRAM',
             preferredCourseId: 'lvl-1',
             status: 'CALL_LATER',
+            // Optimistik qulf: tahrirlash boshlangandagi versiya qaytib ketadi.
+            version: 4,
         })
     })
 

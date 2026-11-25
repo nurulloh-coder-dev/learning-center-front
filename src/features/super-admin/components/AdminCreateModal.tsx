@@ -3,8 +3,9 @@ import { errorMessage } from '@/shared/api'
 import { useT } from '@/shared/i18n'
 import { isCompleteUzPhone, normalizePhone, UZ_PHONE_PREFIX } from '@/shared/lib'
 import { Button, ErrorBox, Field, Input, Modal, PhoneInput, Select, type SelectOption } from '@/shared/ui'
-import { ADMIN_PERMISSIONS, type AdminPermission, type UserCreatePayload } from '@/shared/types'
+import type { AdminPermission, UserCreatePayload } from '@/shared/types'
 import { buildAdminCreatePayload } from '../lib/adminPayload'
+import { PermissionCheckboxes } from './PermissionCheckboxes'
 
 interface AdminCreateModalProps {
     branchOptions: SelectOption[]
@@ -75,21 +76,7 @@ export function AdminCreateModal({ branchOptions, isSaving, error, onSubmit, onC
                     </Field>
                 )}
 
-                <Field label={t('superAdmin.admin.permissions')}>
-                    <div className="flex flex-col gap-2">
-                        {ADMIN_PERMISSIONS.map((permission) => (
-                            <label key={permission} className="flex items-center gap-2 text-sm text-fg">
-                                <input
-                                    type="checkbox"
-                                    className="size-4 cursor-pointer"
-                                    checked={permissions.includes(permission)}
-                                    onChange={() => togglePermission(permission)}
-                                />
-                                {t(`superAdmin.permission.${permission}`)}
-                            </label>
-                        ))}
-                    </div>
-                </Field>
+                <PermissionCheckboxes value={permissions} onToggle={togglePermission} />
 
                 {error != null && <ErrorBox>{errorMessage(error)}</ErrorBox>}
 

@@ -2,6 +2,7 @@
 import type { LeadDto, LeadStatus } from '@/shared/types'
 import { LEAD_STATUSES } from '@/shared/types'
 import { useT } from '@/shared/i18n'
+import { cn } from '@/shared/lib'
 import { formatCallAt } from '../lib/schedule'
 import { Badge, EditIcon, IconButton, Select, TrashIcon } from '@/shared/ui'
 
@@ -13,6 +14,8 @@ export interface LeadCardProps {
     onDelete: (lead: LeadDto) => void
     onDragStart: (id: string) => void
     onDragEnd: () => void
+    /** Eslatmadan "Lidni ko'rish" bosilganda karta bir necha soniya yonib turadi. */
+    highlighted?: boolean
 }
 
 // Lid kartochkasining alohida komponent shaklida chiqarilishi — kodni o'qilishi va qo'llab-quvvatlanishini osonlashtiradi
@@ -24,6 +27,7 @@ export function LeadCard({
     onDelete,
     onDragStart,
     onDragEnd,
+    highlighted = false,
 }: LeadCardProps) {
     const { t, locale } = useT()
 
@@ -32,7 +36,11 @@ export function LeadCard({
             draggable
             onDragStart={() => onDragStart(lead.id)}
             onDragEnd={onDragEnd}
-            className="cursor-grab rounded-xl border border-border-base bg-surface-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md active:cursor-grabbing"
+            id={`lead-${lead.id}`}
+            className={cn(
+                'cursor-grab scroll-mt-24 rounded-xl border bg-surface-card p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md active:cursor-grabbing',
+                highlighted ? 'border-accent ring-4 ring-accent/40' : 'border-border-base'
+            )}
         >
             <div className="flex items-start justify-between gap-2">
                 <h3 className="min-w-0 font-semibold break-words text-fg">

@@ -5,6 +5,7 @@ export interface PricingTranslations {
   badge: string
   heading: string
   subheading: string
+  freeMonth: string
   monthsLabel: string
   monthsValue: (months: number) => string
   discount: (percent: string) => string
@@ -23,6 +24,7 @@ export const PRICING_TRANSLATIONS: Record<Language, PricingTranslations> = {
     nav: 'Narxlar',
     badge: 'Narxlar',
     heading: "Markazingiz hajmiga mos tarif",
+    freeMonth: 'Birinchi oy — bepul',
     subheading: "Hamma tarifda barcha modullar bor. Farq — o'quvchi soni va filiallarda. Uzoqroq muddatga olsangiz, arzonroq.",
     monthsLabel: "To'lov muddati",
     monthsValue: (months) => `${months} oy`,
@@ -40,6 +42,7 @@ export const PRICING_TRANSLATIONS: Record<Language, PricingTranslations> = {
     nav: 'Цены',
     badge: 'Цены',
     heading: 'Тариф под размер вашего центра',
+    freeMonth: 'Первый месяц — бесплатно',
     subheading: 'Во всех тарифах есть все модули. Разница — в количестве учеников и филиалов. Чем дольше срок, тем дешевле.',
     monthsLabel: 'Срок оплаты',
     monthsValue: (months) => `${months} мес.`,
@@ -57,6 +60,7 @@ export const PRICING_TRANSLATIONS: Record<Language, PricingTranslations> = {
     nav: 'Pricing',
     badge: 'Pricing',
     heading: 'A plan that fits your center',
+    freeMonth: 'First month free',
     subheading: 'Every plan includes all modules. Plans differ by students and branches. Pay for longer, pay less.',
     monthsLabel: 'Billing period',
     monthsValue: (months) => (months === 1 ? '1 month' : `${months} months`),

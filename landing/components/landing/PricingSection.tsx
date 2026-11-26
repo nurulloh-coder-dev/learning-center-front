@@ -37,6 +37,8 @@ export function PricingSection() {
               {t.heading}
             </h2>
             <p className='text-neutral-600 dark:text-neutral-400 text-base sm:text-lg leading-relaxed'>{t.subheading}</p>
+            {/* Jamoa qarori (2026-11-26): yangi markazga birinchi oy bepul, to'lov keyingi oydan — oferta 4.1. */}
+            <span className='inline-flex rounded-full bg-blue-600 px-4 py-1.5 text-sm font-semibold text-white'>{t.freeMonth}</span>
           </div>
         </AnimateOnScroll>
 

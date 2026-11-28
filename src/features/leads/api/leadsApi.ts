@@ -34,12 +34,12 @@ export function updateLead(token: string, id: string, body: LeadUpdateDto) {
 }
 
 /**
- * Backend `enroll(EnrolledLeadDto)` da `@RequestBody` yo'q — maydonlar
- * so'rov parametri bo'lib ketadi, JSON tana o'qilmaydi. Backend tanaga
- * o'tkazilsa shu yerni o'zgartiramiz.
+ * Backend (`453aa43`) `enroll` ga `@RequestBody` qo'shdi — maydonlar endi
+ * `reject`/`callLater` dagi kabi JSON tanada. So'rov parametri sifatida
+ * yuborilsa backend 400 qaytaradi.
  */
 export function enrollLead(token: string, id: string, version: number, groupId: string) {
-    return apiFetch<LeadDto>(`${ENDPOINT}/enroll`, { method: 'POST', token, params: { id, groupId, leadVersion: version } })
+    return apiFetch<LeadDto>(`${ENDPOINT}/enroll`, { method: 'POST', token, body: { id, groupId, leadVersion: version } })
 }
 
 export function rejectLead(token: string, id: string, version: number, body: LeadRejectDto) {

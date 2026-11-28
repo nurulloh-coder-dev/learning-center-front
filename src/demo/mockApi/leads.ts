@@ -52,11 +52,11 @@ export function handleLeads(
         return updated ? json(updated) : json({ message: 'Lead not found' }, 404)
     }
     // Backend endi id va `leadVersion` ni so'rovning o'zida oladi (yo'lda emas).
-    // `enroll` — so'rov parametrlari, `reject`/`callLater` — JSON tana.
+    // Uchala amal ham (`enroll`, `reject`, `callLater`) JSON tanada keladi.
     const action = path === '/leads/enroll' ? 'enroll' : path === '/leads/reject' ? 'reject' : path === '/leads/callLater' ? 'callLater' : null
     if (action) {
-        const id = action === 'enroll' ? url.searchParams.get('id') : String(body.id ?? '')
-        const sentVersion = Number(action === 'enroll' ? url.searchParams.get('leadVersion') : body.leadVersion)
+        const id = String(body.id ?? '')
+        const sentVersion = Number(body.leadVersion)
         const lead = db.leads.find((item) => item.id === id)
         if (!lead) return json({ message: 'Lead not found' }, 404)
         if (lead.version !== sentVersion) return json({ message: 'Lead was changed by someone else' }, 409)

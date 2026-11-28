@@ -22,15 +22,15 @@ afterEach(() => {
  * yo'lda emas, so'rovning o'zida. Versiya mos kelmasa backend 409 qaytaradi.
  */
 describe('leadsApi', () => {
-    it('qabul qilishda id, guruh va versiya so’rov parametri bo’lib ketadi', async () => {
+    it('qabul qilishda id, guruh va versiya tanada ketadi', async () => {
         const fetchMock = mockFetch()
 
         await enrollLead(TOKEN, 'l-1', 7, 'g-1')
 
         const [url, init] = fetchMock.mock.calls[0]
-        expect(url).toBe('/api/v1/leads/enroll?id=l-1&groupId=g-1&leadVersion=7')
+        expect(url).toBe('/api/v1/leads/enroll')
         expect(init.method).toBe('POST')
-        expect(init.body).toBeUndefined()
+        expect(JSON.parse(init.body)).toEqual({ id: 'l-1', groupId: 'g-1', leadVersion: 7 })
     })
 
     it('rad etishda id va versiya tanada ketadi', async () => {

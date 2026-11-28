@@ -1195,7 +1195,7 @@ Frontend yangilandi (`claude/leads-v2-sse`): lid amallari yangi shaklda,
 `version` yuboriladi, 409 tushunarli xabar bilan ushlanadi, ro'yxat jonli
 yangilanadi. Tekshirishda backendda **hali ochiq** narsalar topildi:
 
-### 29. 🔴 Oqim hodisalari mijozga yetib bormaydi
+### 29. ✅ Oqim hodisalari mijozga yetib bormaydi (tuzatildi: `453aa43` + replay kanali)
 
 `LeadStreamEmitterService` emitterni `hub.register(organizationId)` bilan
 **`organizationId`** kaliti ostida saqlaydi, `LeadSseNotifier` esa
@@ -1204,7 +1204,7 @@ bilan yuboradi. Kalitlar mos kelmaydi, shuning uchun `lead-changed` hech
 kimga bormaydi (faqat `connected` va `resync` keladi). `register` ham
 `SseChannels.leads(organizationId)` bilan chaqirilishi kerak.
 
-### 30. 🔴 Oqim manzili proksidan o'tmaydi
+### 30. ✅ Oqim manzili proksidan o'tmaydi (tuzatildi: `api/v1/stream/leads`)
 
 Controller `@RequestMapping("stream/leads")` — `/api/v1` prefiksi yo'q.
 Production'da `Caddyfile` faqat `/api/*` ni backendga uzatadi (lokalda ham
@@ -1212,14 +1212,14 @@ Production'da `Caddyfile` faqat `/api/*` ni backendga uzatadi (lokalda ham
 ulanadi — backendda `@RequestMapping("api/v1/stream/leads")` qilinsa
 hech narsa o'zgartirish shart emas.
 
-### 31. 🟠 `POST /leads/enroll` — `@RequestBody` yo'q
+### 31. ✅ `POST /leads/enroll` — `@RequestBody` yo'q (tuzatildi: backend `453aa43`, front tanada yuboradi)
 
 `enroll(EnrolledLeadDto dto)` da `@RequestBody` yozilmagan, shuning uchun
 `id`, `groupId`, `leadVersion` JSON tanadan emas, **so'rov parametrlaridan**
 o'qiladi. Front hozir shunday yuboradi (`reject` va `callLater` esa tanada).
 Backend `@RequestBody` qo'shsa, `leadsApi.enrollLead` bitta joyda o'zgaradi.
 
-### 32. 🟡 "Lid o'zgargan" matni
+### 32. ✅ "Lid o'zgargan" matni (qo'shildi)
 
 `LEAD_VERSION_MISMATCH` (`lead.version.mismatch`) uchun `messages*.properties`
 da yozuv yo'q. Front 409 ni o'zi ushlab, o'z matnini ko'rsatadi; baribir

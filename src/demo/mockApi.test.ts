@@ -112,14 +112,14 @@ describe('mockApi', () => {
 
         // Eskirgan versiya bilan amal 409 beradi (boshqa xodim lidni oldin o'zgartirgan)
         await expect(
-            apiFetch('/leads/enroll', { method: 'POST', token: 'demo', params: { id: leadId, groupId: 'g1', leadVersion: 1 } })
+            apiFetch('/leads/enroll', { method: 'POST', token: 'demo', body: { id: leadId, groupId: 'g1', leadVersion: 1 } })
         ).rejects.toMatchObject({ status: 409 })
 
-        // POST /leads/enroll — so'rov parametrlari
+        // POST /leads/enroll — JSON tana
         const enrolled = await apiFetch<Record<string, unknown>>('/leads/enroll', {
             method: 'POST',
             token: 'demo',
-            params: { id: leadId, groupId: 'g1', leadVersion: 2 },
+            body: { id: leadId, groupId: 'g1', leadVersion: 2 },
         })
         expect(enrolled?.status).toBe('ENROLLED')
 
